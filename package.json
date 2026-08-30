@@ -1,0 +1,18 @@
+{
+  "name": "omarchy-plugin-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --directory site",
+    "build": "node scripts/build-catalog.mjs && node scripts/build-explorer-data.mjs",
+    "build:explorer": "node scripts/build-explorer-data.mjs",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "sharp": "0.35.3"
+  }
+}
