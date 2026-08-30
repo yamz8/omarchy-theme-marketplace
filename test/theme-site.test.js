@@ -12,6 +12,8 @@ test("active marketplace pages use theme language and routes", async () => {
     assert.doesNotMatch(page, /plugin\.html|PLUGIN MARKETPLACE|Browse plugins|Publish a plugin/);
   }
   assert.match(pages[0], /id="theme-grid"/);
+  assert.match(pages[0], /id="community-feature"/);
+  assert.match(pages[0], /data-wallpapers="deep"/);
   assert.match(pages[1], /id="theme-detail"/);
 });
 
@@ -26,11 +28,14 @@ test("browser code renders catalog values through escaping helpers", async () =>
   assert.ok((app.match(/escapeHtml\(/g) || []).length >= 12);
   assert.ok((detail.match(/escapeHtml\(/g) || []).length >= 12);
   assert.match(app, /encodeURIComponent\(theme\.id\)/);
+  assert.match(app, /function wallpaperGroup/);
+  assert.match(app, /renderCommunitySpotlight/);
 });
 
 test("every active page uses the same final asset versions", async () => {
   const pages = await Promise.all(["index", "theme", "explore", "develop", "publish"].map((name) => read(`site/${name}.html`)));
-  for (const page of pages) assert.match(page, /style\.css\?v=20260831-02/);
-  assert.match(pages[0], /app\.js\?v=20260831-02/);
-  assert.match(pages[1], /theme\.js\?v=20260831-01/);
+  for (const page of pages) assert.match(page, /style\.css\?v=20260831-03/);
+  assert.match(pages[0], /app\.js\?v=20260831-03/);
+  assert.match(pages[1], /theme\.js\?v=20260831-02/);
+  for (const page of pages.slice(2)) assert.match(page, /static-page\.js\?v=20260831-02/);
 });

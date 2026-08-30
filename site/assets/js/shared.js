@@ -69,7 +69,7 @@ export async function copyCommand(command, button, toast = document.querySelecto
     window.setTimeout(() => toast.classList.remove("show"), 1_700);
   }
   window.setTimeout(() => {
-    if (label) label.textContent = themeCopyLabel(button?.dataset.sourceType);
+    if (label) label.textContent = button?.dataset.copyLabelDefault || themeCopyLabel(button?.dataset.sourceType);
     if (icon) icon.classList.remove("is-copied");
   }, 1_800);
   return true;

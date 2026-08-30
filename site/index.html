@@ -11,7 +11,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <title>Browse Themes | Omarchy Themes</title>
     <link rel="icon" href="favicon.svg?v=20260728-9" type="image/svg+xml">
-    <link rel="stylesheet" href="assets/css/style.css?v=20260831-02">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260831-03">
     <script>document.documentElement.dataset.theme = localStorage.getItem("omarchy-marketplace-color") || "dark";</script>
   </head>
   <body class="marketplace-page">
@@ -63,6 +63,26 @@
         </div>
       </section>
 
+      <section class="theme-market-stats" aria-label="Theme catalog summary">
+        <div><span>Catalog</span><strong id="stat-total">—</strong><small>themes</small></div>
+        <div><span>Omarchy</span><strong id="stat-builtin">—</strong><small>built in</small></div>
+        <div><span>Community</span><strong id="stat-community">—</strong><small>repositories</small></div>
+        <div><span>Color mode</span><strong id="stat-modes">—</strong><small>dark / light</small></div>
+      </section>
+
+      <section class="recent-section theme-community-section" id="community-section" aria-labelledby="community-title" hidden>
+        <div class="market-section-head"><h2 id="community-title">COMMUNITY SPOTLIGHT</h2><a href="publish.html">publish your theme →</a></div>
+        <div class="community-spotlight">
+          <div class="community-spotlight-copy">
+            <span class="page-eyebrow">Independent themes</span>
+            <h2>built outside the defaults</h2>
+            <p>Community themes use the same Omarchy palette and asset conventions while living in their own public GitHub repositories.</p>
+            <a class="button" href="#catalog" data-community-filter>Browse community themes <span aria-hidden="true">→</span></a>
+          </div>
+          <div id="community-feature" class="community-feature recent-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
       <section class="market-catalog" id="catalog" aria-labelledby="catalog-title" tabindex="-1">
         <div class="catalog-heading">
           <div>
@@ -86,6 +106,7 @@
               <option value="source">Built in first</option>
               <option value="updated">Recent activity</option>
               <option value="stars">Most starred</option>
+              <option value="backgrounds">Most wallpapers</option>
             </select>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
           </label>
@@ -94,18 +115,28 @@
         <div class="source-bar">
           <span>Source</span>
           <div class="source-list" role="group" aria-label="Filter by source">
-            <button class="source-button active" type="button" data-source="all" aria-pressed="true">All</button>
-            <button class="source-button" type="button" data-source="builtin" aria-pressed="false">Built in</button>
-            <button class="source-button" type="button" data-source="community" aria-pressed="false">Community</button>
+            <button class="source-button active" type="button" data-source="all" aria-pressed="true">All <span data-source-count="all">0</span></button>
+            <button class="source-button" type="button" data-source="builtin" aria-pressed="false">Built in <span data-source-count="builtin">0</span></button>
+            <button class="source-button" type="button" data-source="community" aria-pressed="false">Community <span data-source-count="community">0</span></button>
           </div>
         </div>
 
         <div class="category-bar">
           <span>Mode</span>
           <div class="category-list" role="group" aria-label="Filter by color mode">
-            <button class="category-button active" type="button" data-mode="all" aria-pressed="true">All</button>
-            <button class="category-button" type="button" data-mode="dark" aria-pressed="false">Dark</button>
-            <button class="category-button" type="button" data-mode="light" aria-pressed="false">Light</button>
+            <button class="category-button active" type="button" data-mode="all" aria-pressed="true">All <span data-mode-count="all">0</span></button>
+            <button class="category-button" type="button" data-mode="dark" aria-pressed="false">Dark <span data-mode-count="dark">0</span></button>
+            <button class="category-button" type="button" data-mode="light" aria-pressed="false">Light <span data-mode-count="light">0</span></button>
+          </div>
+        </div>
+
+        <div class="category-bar wallpaper-bar">
+          <span>Wallpapers</span>
+          <div class="category-list" role="group" aria-label="Filter by wallpaper count">
+            <button class="category-button active" type="button" data-wallpapers="all" aria-pressed="true">All <span data-wallpaper-count="all">0</span></button>
+            <button class="category-button" type="button" data-wallpapers="compact" aria-pressed="false">2–3 <span data-wallpaper-count="compact">0</span></button>
+            <button class="category-button" type="button" data-wallpapers="varied" aria-pressed="false">4–5 <span data-wallpaper-count="varied">0</span></button>
+            <button class="category-button" type="button" data-wallpapers="deep" aria-pressed="false">6+ <span data-wallpaper-count="deep">0</span></button>
           </div>
         </div>
 
@@ -137,6 +168,6 @@
       <a href="publish.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>Publish</a>
     </nav>
     <div class="toast" id="toast" role="status" aria-live="polite">Command copied</div>
-    <script type="module" src="assets/js/app.js?v=20260831-02"></script>
+    <script type="module" src="assets/js/app.js?v=20260831-03"></script>
   </body>
 </html>

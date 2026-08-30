@@ -7,7 +7,7 @@ import {
   setupThemeToggle,
   themeCommand,
   themeCopyLabel,
-} from "./shared.js?v=20260831-01";
+} from "./shared.js?v=20260831-02";
 
 const grid = document.querySelector("#theme-grid");
 const emptyState = document.querySelector("#empty-state");
@@ -18,7 +18,8 @@ const sort = document.querySelector("#sort-select");
 const status = document.querySelector("#catalog-result-status");
 const sourceButtons = [...document.querySelectorAll("[data-source]")];
 const modeButtons = [...document.querySelectorAll("[data-mode]")];
-const state = { themes: [], query: "", source: "all", mode: "all", sort: "name" };
+const wallpaperButtons = [...document.querySelectorAll("[data-wallpapers]")];
+const state = { themes: [], query: "", source: "all", mode: "all", wallpapers: "all", sort: "name" };
 
 function previewPath(theme, variant = "card") {
   const path = String(theme?.preview?.[variant] || "");
@@ -37,7 +38,8 @@ function themeCard(theme) {
   const detailUrl = `theme.html?id=${encodeURIComponent(theme.id)}`;
   const preview = previewPath(theme);
   const command = themeCommand(theme);
-  const copyLabel = themeCopyLabel(theme.sourceType);
+  const copyLabel = theme.builtIn ? "Set" : "Install";
+  const copyAccessibleLabel = themeCopyLabel(theme.sourceType);
   const sourceLabel = theme.builtIn ? "Built in" : "Community";
   const tags = [...new Set([theme.mode, ...(theme.tags || [])])].slice(0, 4);
   const previewMarkup = preview
@@ -55,12 +57,13 @@ function themeCard(theme) {
         <div class="theme-author">by ${escapeHtml(theme.author)}</div>
         <p class="theme-description">${escapeHtml(theme.description)}</p>
       </div>
+      <div class="theme-card-facts"><span><i aria-hidden="true"></i>${escapeHtml(theme.mode)} mode</span><span>${escapeHtml(theme.backgroundCount)} ${theme.backgroundCount === 1 ? "wallpaper" : "wallpapers"}</span></div>
       ${paletteStrip(theme)}
       <div class="theme-card-bottom">
         <div class="theme-tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
         <div class="theme-card-actions">
           ${theme.builtIn ? "" : `<span class="card-stars" title="GitHub stars"><svg class="social-glyph star-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg>${formatCount(theme.stars)}</span>`}
-          <button class="card-install" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" aria-label="${escapeHtml(copyLabel)} for ${escapeHtml(theme.name)}">
+          <button class="card-install" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="${copyLabel}" aria-label="${escapeHtml(copyAccessibleLabel)} for ${escapeHtml(theme.name)}">
             <span class="command-glyph" aria-hidden="true"></span><span data-copy-label>${escapeHtml(copyLabel)}</span><span class="copy-icon" aria-hidden="true"></span>
           </button>
         </div>
@@ -73,11 +76,19 @@ function themeCard(theme) {
 function matches(theme) {
   if (state.source !== "all" && theme.sourceType !== state.source) return false;
   if (state.mode !== "all" && theme.mode !== state.mode) return false;
+  if (state.wallpapers !== "all" && wallpaperGroup(theme.backgroundCount) !== state.wallpapers) return false;
   if (!state.query) return true;
   const haystack = [theme.name, theme.description, theme.author, theme.id, ...(theme.tags || [])]
     .join(" ")
     .toLowerCase();
   return state.query.split(/\s+/).every((term) => haystack.includes(term));
+}
+
+function wallpaperGroup(value) {
+  const count = Number(value || 0);
+  if (count >= 6) return "deep";
+  if (count >= 4) return "varied";
+  return "compact";
 }
 
 function compareThemes(first, second) {
@@ -91,7 +102,22 @@ function compareThemes(first, second) {
   if (state.sort === "stars") {
     return Number(second.stars || 0) - Number(first.stars || 0) || first.name.localeCompare(second.name);
   }
+  if (state.sort === "backgrounds") {
+    return Number(second.backgroundCount || 0) - Number(first.backgroundCount || 0) || first.name.localeCompare(second.name);
+  }
   return first.name.localeCompare(second.name);
+}
+
+function wireCopyButtons(root) {
+  root.querySelectorAll("[data-copy-command]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      try {
+        await copyCommand(button.dataset.copyCommand, button);
+      } catch {
+        status.textContent = "Could not copy the command. Select it from the theme detail page.";
+      }
+    });
+  });
 }
 
 function render() {
@@ -104,15 +130,43 @@ function render() {
   countLabel.textContent = themes.length === 1 ? "theme" : "themes";
   status.textContent = `${themes.length} ${themes.length === 1 ? "theme" : "themes"} shown`;
 
-  grid.querySelectorAll("[data-copy-command]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      try {
-        await copyCommand(button.dataset.copyCommand, button);
-      } catch {
-        status.textContent = "Could not copy the command. Select it from the theme detail page.";
-      }
-    });
+  wireCopyButtons(grid);
+}
+
+function renderCatalogSummary() {
+  const builtIn = state.themes.filter((theme) => theme.builtIn).length;
+  const community = state.themes.length - builtIn;
+  const dark = state.themes.filter((theme) => theme.mode === "dark").length;
+  const light = state.themes.length - dark;
+  document.querySelector("#stat-total").textContent = String(state.themes.length);
+  document.querySelector("#stat-builtin").textContent = String(builtIn);
+  document.querySelector("#stat-community").textContent = String(community);
+  document.querySelector("#stat-modes").textContent = `${dark} / ${light}`;
+
+  document.querySelectorAll("[data-source-count]").forEach((element) => {
+    const source = element.dataset.sourceCount;
+    element.textContent = String(source === "all" ? state.themes.length : state.themes.filter((theme) => theme.sourceType === source).length);
   });
+  document.querySelectorAll("[data-mode-count]").forEach((element) => {
+    const mode = element.dataset.modeCount;
+    element.textContent = String(mode === "all" ? state.themes.length : state.themes.filter((theme) => theme.mode === mode).length);
+  });
+  document.querySelectorAll("[data-wallpaper-count]").forEach((element) => {
+    const group = element.dataset.wallpaperCount;
+    element.textContent = String(group === "all" ? state.themes.length : state.themes.filter((theme) => wallpaperGroup(theme.backgroundCount) === group).length);
+  });
+}
+
+function renderCommunitySpotlight() {
+  const section = document.querySelector("#community-section");
+  const feature = document.querySelector("#community-feature");
+  const communityThemes = state.themes
+    .filter((theme) => !theme.builtIn)
+    .sort((first, second) => Date.parse(second.addedAt || 0) - Date.parse(first.addedAt || 0));
+  if (!communityThemes.length) return;
+  feature.innerHTML = themeCard(communityThemes[0]);
+  wireCopyButtons(feature);
+  section.hidden = false;
 }
 
 function selectFilter(buttons, active, key) {
@@ -127,6 +181,7 @@ function selectFilter(buttons, active, key) {
 
 sourceButtons.forEach((button) => button.addEventListener("click", () => selectFilter(sourceButtons, button, "source")));
 modeButtons.forEach((button) => button.addEventListener("click", () => selectFilter(modeButtons, button, "mode")));
+wallpaperButtons.forEach((button) => button.addEventListener("click", () => selectFilter(wallpaperButtons, button, "wallpapers")));
 search.addEventListener("input", () => {
   state.query = search.value.trim().toLowerCase();
   render();
@@ -140,6 +195,12 @@ document.querySelector("#empty-reset").addEventListener("click", () => {
   state.query = "";
   selectFilter(sourceButtons, sourceButtons[0], "source");
   selectFilter(modeButtons, modeButtons[0], "mode");
+  selectFilter(wallpaperButtons, wallpaperButtons[0], "wallpapers");
+});
+document.querySelector("[data-community-filter]").addEventListener("click", (event) => {
+  event.preventDefault();
+  selectFilter(sourceButtons, sourceButtons.find((button) => button.dataset.source === "community"), "source");
+  document.querySelector("#catalog").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 document.addEventListener("keydown", (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
@@ -153,6 +214,8 @@ setupThemeToggle();
 try {
   const catalog = await loadCatalog();
   state.themes = catalog.themes;
+  renderCatalogSummary();
+  renderCommunitySpotlight();
   render();
 } catch (error) {
   grid.hidden = true;

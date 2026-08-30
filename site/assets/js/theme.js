@@ -6,7 +6,7 @@ import {
   safeUrl,
   setupThemeToggle,
   themeCommand,
-} from "./shared.js?v=20260831-01";
+} from "./shared.js?v=20260831-02";
 
 const content = document.querySelector("#detail-content");
 const errorState = document.querySelector("#detail-error");
@@ -41,7 +41,7 @@ function commandPanel(theme) {
   const command = themeCommand(theme);
   const label = theme.builtIn ? "Set built-in theme" : "Install community theme";
   return `<div class="command-panel">
-    <div class="command-panel-head"><span>${label}</span><button class="copy-button" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}"><span class="copy-icon" aria-hidden="true"></span><span data-copy-label>Copy</span></button></div>
+    <div class="command-panel-head"><span>${label}</span><button class="copy-button" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="Copy"><span class="copy-icon" aria-hidden="true"></span><span data-copy-label>Copy</span></button></div>
     <pre><span class="prompt">$</span> <code>${escapeHtml(command)}</code></pre>
   </div>`;
 }
