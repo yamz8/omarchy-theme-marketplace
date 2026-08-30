@@ -1,5 +1,5 @@
 {
-  "name": "omarchy-plugin-marketplace",
+  "name": "omarchy-theme-marketplace",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,7 @@
   },
   "scripts": {
     "dev": "python3 -m http.server 4173 --directory site",
-    "build": "node scripts/build-catalog.mjs && node scripts/build-explorer-data.mjs",
-    "build:explorer": "node scripts/build-explorer-data.mjs",
+    "build": "node scripts/build-catalog.mjs",
     "test": "node --test"
   },
   "devDependencies": {
