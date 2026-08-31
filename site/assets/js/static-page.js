@@ -1,3 +1,3 @@
-import { setupThemeToggle } from "./shared.js?v=20260831-02";
+import { setupThemeToggle } from "./shared.js?v=20260831-03";
 
 setupThemeToggle();

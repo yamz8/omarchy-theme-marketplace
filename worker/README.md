@@ -3,8 +3,8 @@
 This Cloudflare Worker stores anonymous aggregate marketplace engagement in D1.
 It records three actions:
 
-- `view`: a successfully rendered plugin detail page with a best-effort repeat guard
-- `copy`: a successful plugin command copy action with a best-effort repeat guard
+- `view`: a successfully rendered theme detail page with a best-effort repeat guard
+- `copy`: a successful theme command copy action with a best-effort repeat guard
 - `heart`: an anonymous positive reaction with a best-effort repeat guard
 
 These values describe marketplace activity. They are not downloads, installations,
@@ -13,9 +13,9 @@ unique people, verified votes, quality signals, or security signals.
 ## Privacy and trust boundary
 
 The application does not persist accounts, cookies, browser identifiers, IP addresses,
-user-agent strings, command text, repository URLs, or plugin metadata in D1 or application
-tables. Event bodies contain only a catalog plugin ID and the fixed action type. D1 stores
-anonymous plugin-level aggregates only. Cloudflare processes normal request metadata and
+user-agent strings, command text, repository URLs, or theme metadata in D1 or application
+tables. Event bodies contain only a catalog theme ID and the fixed action type. D1 stores
+anonymous theme-level aggregates only. Cloudflare processes normal request metadata and
 uses the request IP only for ephemeral abuse controls under the account's configuration.
 
 The public API contains no credentials. D1 is available only through the Worker binding.
@@ -31,17 +31,23 @@ positive JSON integer. Apply all migrations before starting the Worker on
 `127.0.0.1:8787`.
 
 The production custom-domain route is intentionally commented out in the template.
-Verify a workers.dev deployment before adding `api.omarchyplugins.com` to the local
-configuration.
+Verify a workers.dev deployment before configuring a custom domain. No production API
+hostname is assumed by this repository.
+
+Set `CATALOG_URL` to the published theme catalog and `ALLOWED_ORIGINS` to a comma-separated
+list of exact production origins. Local marketplace origins on ports `4173` are allowed by
+default. The checked-in site does not configure a production endpoint; after deployment,
+set the `omarchy-theme-engagement-api` meta value on `site/index.html` and `site/theme.html`
+to the reviewed HTTPS API URL ending in `/v1`.
 
 ## API
 
-- `GET /v1/stats` returns aggregate counts keyed by plugin ID.
-- `POST /v1/events` accepts `{ "pluginId": "...", "type": "view" }`,
-  `{ "pluginId": "...", "type": "copy" }`, or
-  `{ "pluginId": "...", "type": "heart" }` from an allowed marketplace origin.
+- `GET /v1/stats` returns aggregate counts keyed by theme ID.
+- `POST /v1/events` accepts `{ "themeId": "...", "type": "view" }`,
+  `{ "themeId": "...", "type": "copy" }`, or
+  `{ "themeId": "...", "type": "heart" }` from an allowed marketplace origin.
 
-The Worker validates plugin IDs against the published marketplace catalog and applies
+The Worker validates theme IDs against the published marketplace catalog and applies
 best-effort abuse controls before accepting an event. It never writes request-derived
 limit keys to D1. Public stats are cached at the edge for up to five minutes, while browser
 storage is disabled and successful event responses return authoritative fresh counts for

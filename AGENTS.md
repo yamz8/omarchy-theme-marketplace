@@ -16,7 +16,7 @@ Preserve these product qualities:
 - curated, while stating clearly that listing is not a security review;
 - based on real Omarchy theme repositories, paths, slugs, and commands.
 
-Do not introduce accounts, a database, a backend, a frontend framework, or a new dependency unless the maintainer explicitly approves that architectural change. The optional credential-free engagement service under `worker/` is not active until it has been migrated and reviewed for theme IDs. Do not deploy the copied worker contract.
+Do not introduce accounts, a database, a backend, a frontend framework, or a new dependency unless the maintainer explicitly approves that architectural change. The approved exception is the optional credential-free service under `worker/`, which may store anonymous aggregate theme detail views, successful command-copy actions, and hearts by catalog theme ID. Hearts are anonymous reactions, not unique or verified votes. Do not expand it into identity, profiling, comments, ratings, installation telemetry, or general analytics. Production engagement remains disabled until a reviewed endpoint and exact allowed origins are explicitly configured; deployment requires separate approval.
 
 ## Sources of truth
 
@@ -28,6 +28,7 @@ Do not introduce accounts, a database, a backend, a frontend framework, or a new
 - `site/assets/css/style.css` is the shared visual system.
 - `site/assets/css/explore.css` contains Explore-specific styles.
 - `site/assets/js/shared.js` contains shared browser behavior.
+- `site/assets/js/engagement.js` contains the optional credential-free theme engagement client.
 - `site/assets/js/app.js`, `theme.js`, `explore.js`, and `static-page.js` contain page behavior.
 - `site/assets/js/theme-color.js` contains shared palette math for Explore.
 - `registry.json` is the curated source registry.
@@ -39,6 +40,7 @@ Do not introduce accounts, a database, a backend, a frontend framework, or a new
 - `test/theme-*.test.js` covers the current theme domain, catalog, site, and Explore contracts.
 - `SECURITY.md`, `VERIFICATION.md`, and `SUBMISSION.md` define the public trust and publication contract.
 - `PLAN.md` is the living implementation roadmap.
+- `worker/src/index.js`, `worker/migrations/`, and `worker/wrangler.example.jsonc` define the optional theme engagement service and deployment template.
 
 Do not manually edit generated catalog data or preview assets. Change the registry, upstream source, or build logic, then regenerate. Do not include unrelated upstream catalog drift in a focused UI change.
 

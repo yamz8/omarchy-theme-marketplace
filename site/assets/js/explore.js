@@ -1,4 +1,4 @@
-import { formatDate, setupThemeToggle } from "./shared.js?v=20260831-02";
+import { formatDate, setupThemeToggle } from "./shared.js?v=20260831-03";
 import { colorHue, isHexColor, relativeLuminance } from "./theme-color.js?v=20260831-01";
 
 const svgNamespace = "http://www.w3.org/2000/svg";

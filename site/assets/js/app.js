@@ -1,13 +1,25 @@
 import {
   copyCommand,
+  engagementSummary,
   escapeHtml,
   formatCount,
+  hidePendingEngagement,
   loadCatalog,
   paletteStyle,
   setupThemeToggle,
   themeCommand,
   themeCopyLabel,
-} from "./shared.js?v=20260831-02";
+  themeHeartButton,
+  updateEngagementSummary,
+  updateThemeHeart,
+} from "./shared.js?v=20260831-03";
+import {
+  engagementApiBaseUrl,
+  hasThemeHeart,
+  loadEngagementStats,
+  recordThemeCopy,
+  recordThemeHeart,
+} from "./engagement.js?v=20260831-01";
 
 const grid = document.querySelector("#theme-grid");
 const emptyState = document.querySelector("#empty-state");
@@ -19,7 +31,17 @@ const status = document.querySelector("#catalog-result-status");
 const sourceButtons = [...document.querySelectorAll("[data-source]")];
 const modeButtons = [...document.querySelectorAll("[data-mode]")];
 const wallpaperButtons = [...document.querySelectorAll("[data-wallpapers]")];
-const state = { themes: [], query: "", source: "all", mode: "all", wallpapers: "all", sort: "name" };
+const state = {
+  themes: [],
+  query: "",
+  source: "all",
+  mode: "all",
+  wallpapers: "all",
+  sort: "name",
+  engagement: {},
+  engagementEnabled: false,
+  engagementLoaded: false,
+};
 
 function previewPath(theme, variant = "card") {
   const path = String(theme?.preview?.[variant] || "");
@@ -42,6 +64,15 @@ function themeCard(theme) {
   const copyAccessibleLabel = themeCopyLabel(theme.sourceType);
   const sourceLabel = theme.builtIn ? "Built in" : "Community";
   const tags = [...new Set([theme.mode, ...(theme.tags || [])])].slice(0, 4);
+  const themeStats = state.engagement[theme.id] || {};
+  const stars = theme.builtIn ? "" : `<span class="card-stars" title="GitHub stars"><svg class="social-glyph star-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg>${formatCount(theme.stars)}</span>`;
+  const heart = state.engagementEnabled
+    ? themeHeartButton(theme, themeStats, {
+        hearted: hasThemeHeart(theme.id),
+        pending: !state.engagementLoaded,
+      })
+    : "";
+  const social = stars || heart ? `<div class="card-social">${stars}${heart}</div>` : "";
   const previewMarkup = preview
     ? `<div class="theme-preview image-preview"><img src="${escapeHtml(preview)}" alt="${escapeHtml(theme.name)} theme preview" width="720" height="405" loading="lazy"></div>`
     : `<div class="theme-preview"><span class="theme-preview-mark" aria-hidden="true">${escapeHtml(theme.name.slice(0, 2).toUpperCase())}</span></div>`;
@@ -49,6 +80,7 @@ function themeCard(theme) {
   return `<article class="theme-card${theme.builtIn ? " built-in-card" : ""}" style="${paletteStyle(theme)}">
     ${previewMarkup}
     <div class="theme-card-body">
+      ${social}
       <div class="theme-card-content">
         <div class="theme-title-line">
           <h3>${escapeHtml(theme.name)}</h3>
@@ -62,7 +94,7 @@ function themeCard(theme) {
       <div class="theme-card-bottom">
         <div class="theme-tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
         <div class="theme-card-actions">
-          ${theme.builtIn ? "" : `<span class="card-stars" title="GitHub stars"><svg class="social-glyph star-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg>${formatCount(theme.stars)}</span>`}
+          ${state.engagementEnabled ? engagementSummary(theme, themeStats, { pending: !state.engagementLoaded }) : ""}
           <button class="card-install" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="${copyLabel}" aria-label="${escapeHtml(copyAccessibleLabel)} for ${escapeHtml(theme.name)}">
             <span class="command-glyph" aria-hidden="true"></span><span data-copy-label>${escapeHtml(copyLabel)}</span><span class="copy-icon" aria-hidden="true"></span>
           </button>
@@ -108,11 +140,54 @@ function compareThemes(first, second) {
   return first.name.localeCompare(second.name);
 }
 
-function wireCopyButtons(root) {
+function showToast(message) {
+  const toast = document.querySelector("#toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.setTimeout(() => toast.classList.remove("show"), 1_700);
+}
+
+function applyEngagement(themeId, result, { animateHeart = false } = {}) {
+  if (!result?.recorded || !result.stats) return;
+  const current = state.engagement[themeId] || { views: 0, copies: 0, hearts: 0 };
+  const next = {
+    views: Math.max(current.views || 0, result.stats.views),
+    copies: Math.max(current.copies || 0, result.stats.copies),
+    hearts: Math.max(current.hearts || 0, result.stats.hearts),
+  };
+  state.engagement[themeId] = next;
+  updateEngagementSummary(document, themeId, next);
+  updateThemeHeart(document, themeId, next, {
+    animate: animateHeart,
+    hearted: hasThemeHeart(themeId),
+  });
+}
+
+function wireCardActions(root) {
+  root.querySelectorAll("[data-theme-heart]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      if (button.getAttribute("aria-disabled") === "true" || button.dataset.heartSubmitting === "true") return;
+      button.dataset.heartSubmitting = "true";
+      button.setAttribute("aria-busy", "true");
+      const result = await recordThemeHeart(button.dataset.themeHeart);
+      delete button.dataset.heartSubmitting;
+      button.removeAttribute("aria-busy");
+      if (!result?.recorded) {
+        showToast("Heart could not be sent. Try again.");
+        return;
+      }
+      applyEngagement(button.dataset.themeHeart, result, { animateHeart: true });
+      showToast("Heart sent");
+    });
+  });
   root.querySelectorAll("[data-copy-command]").forEach((button) => {
     button.addEventListener("click", async () => {
       try {
-        await copyCommand(button.dataset.copyCommand, button);
+        if (await copyCommand(button.dataset.copyCommand, button)) {
+          const themeId = button.closest(".theme-card")?.querySelector("[data-theme-heart]")?.dataset.themeHeart
+            || button.closest(".theme-card")?.querySelector("[data-theme-engagement]")?.dataset.themeEngagement;
+          if (themeId) applyEngagement(themeId, await recordThemeCopy(themeId));
+        }
       } catch {
         status.textContent = "Could not copy the command. Select it from the theme detail page.";
       }
@@ -130,7 +205,7 @@ function render() {
   countLabel.textContent = themes.length === 1 ? "theme" : "themes";
   status.textContent = `${themes.length} ${themes.length === 1 ? "theme" : "themes"} shown`;
 
-  wireCopyButtons(grid);
+  wireCardActions(grid);
 }
 
 function renderCatalogSummary() {
@@ -165,7 +240,7 @@ function renderCommunitySpotlight() {
     .sort((first, second) => Date.parse(second.addedAt || 0) - Date.parse(first.addedAt || 0));
   if (!communityThemes.length) return;
   feature.innerHTML = themeCard(communityThemes[0]);
-  wireCopyButtons(feature);
+  wireCardActions(feature);
   section.hidden = false;
 }
 
@@ -214,9 +289,24 @@ setupThemeToggle();
 try {
   const catalog = await loadCatalog();
   state.themes = catalog.themes;
+  state.engagementEnabled = Boolean(engagementApiBaseUrl());
   renderCatalogSummary();
   renderCommunitySpotlight();
   render();
+  if (state.engagementEnabled) {
+    loadEngagementStats().then((stats) => {
+      state.engagement = { ...stats, ...state.engagement };
+      state.engagementLoaded = true;
+      state.themes.forEach((theme) => {
+        const themeStats = state.engagement[theme.id] || { views: 0, copies: 0, hearts: 0 };
+        updateEngagementSummary(document, theme.id, themeStats);
+        updateThemeHeart(document, theme.id, themeStats, { hearted: hasThemeHeart(theme.id) });
+      });
+    }).catch(() => {
+      state.engagementEnabled = false;
+      hidePendingEngagement(document);
+    });
+  }
 } catch (error) {
   grid.hidden = true;
   grid.setAttribute("aria-busy", "false");

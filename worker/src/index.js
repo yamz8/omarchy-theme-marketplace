@@ -1,24 +1,38 @@
-const allowedOrigins = new Set([
-  "https://plugins.omarchy.org",
-  "https://omarchyplugins.com",
-  "https://www.omarchyplugins.com",
+const localAllowedOrigins = new Set([
   "http://127.0.0.1:4173",
   "http://localhost:4173",
 ]);
-const pluginIdPattern = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
+const themeIdPattern = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/;
 const unsafeObjectKeys = new Set(["__proto__", "constructor", "prototype"]);
 const eventTypes = new Set(["view", "copy", "heart"]);
-const defaultCatalogUrl = "https://omarchyplugins.com/catalog.json";
 const defaultDailyEventLimit = 10_000;
 const catalogCacheLifetime = 5 * 60 * 1000;
-let catalogCache = { url: "", expiresAt: 0, pluginIds: new Set() };
+let catalogCache = { url: "", expiresAt: 0, themeIds: new Set() };
 
-function validPluginId(value) {
-  return pluginIdPattern.test(value) && !unsafeObjectKeys.has(value.toLowerCase());
+function validThemeId(value) {
+  return themeIdPattern.test(value) && !unsafeObjectKeys.has(value.toLowerCase());
 }
 
-function corsHeaders(origin) {
-  if (!allowedOrigins.has(origin)) return { Vary: "Origin" };
+function configuredAllowedOrigins(env) {
+  const origins = new Set(localAllowedOrigins);
+  for (const value of String(env?.ALLOWED_ORIGINS || "").split(",")) {
+    const candidate = value.trim();
+    if (!candidate) continue;
+    try {
+      const url = new URL(candidate);
+      const local = ["127.0.0.1", "localhost"].includes(url.hostname);
+      if (url.username || url.password || url.pathname !== "/" || url.search || url.hash) continue;
+      if (url.protocol !== "https:" && !(local && url.protocol === "http:")) continue;
+      origins.add(url.origin);
+    } catch {
+      // Invalid configured origins are ignored and therefore fail closed.
+    }
+  }
+  return origins;
+}
+
+function corsHeaders(origin, env) {
+  if (!configuredAllowedOrigins(env).has(origin)) return { Vary: "Origin" };
   return {
     "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -66,8 +80,9 @@ function minuteEventLimits(env) {
 
 function validCatalogUrl(value) {
   try {
-    const url = new URL(value || defaultCatalogUrl);
+    const url = new URL(value);
     const local = ["127.0.0.1", "localhost"].includes(url.hostname);
+    if (url.username || url.password || url.hash) return "";
     if (url.protocol !== "https:" && !(local && url.protocol === "http:")) return "";
     return url.href;
   } catch {
@@ -77,35 +92,35 @@ function validCatalogUrl(value) {
 
 export function parseEngagementEvent(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
-  const pluginId = String(value.pluginId || "");
+  const themeId = String(value.themeId || "");
   const type = String(value.type || "");
   if (
-    !validPluginId(pluginId)
+    !validThemeId(themeId)
     || !eventTypes.has(type)
-    || Object.keys(value).some((key) => !["pluginId", "type"].includes(key))
+    || Object.keys(value).some((key) => !["themeId", "type"].includes(key))
   ) return null;
-  return { pluginId, type };
+  return { themeId, type };
 }
 
-async function catalogPluginIds(env, fetchImpl, now = Date.now()) {
+async function catalogThemeIds(env, fetchImpl, now = Date.now()) {
   const url = validCatalogUrl(env.CATALOG_URL);
   if (!url) throw new Error("CATALOG_URL is invalid");
   if (catalogCache.url === url && catalogCache.expiresAt > now) {
-    return catalogCache.pluginIds;
+    return catalogCache.themeIds;
   }
   const response = await fetchImpl(url, {
     headers: { Accept: "application/json" },
   });
   if (!response.ok) throw new Error(`Catalog returned ${response.status}`);
   const catalog = await response.json();
-  if (!catalog || !Array.isArray(catalog.plugins)) throw new Error("Catalog response is invalid");
-  const pluginIds = new Set(
-    catalog.plugins
-      .map((plugin) => plugin?.id)
-      .filter((pluginId) => validPluginId(String(pluginId || ""))),
+  if (!catalog || !Array.isArray(catalog.themes)) throw new Error("Catalog response is invalid");
+  const themeIds = new Set(
+    catalog.themes
+      .map((theme) => theme?.id)
+      .filter((themeId) => validThemeId(String(themeId || ""))),
   );
-  catalogCache = { url, expiresAt: now + catalogCacheLifetime, pluginIds };
-  return pluginIds;
+  catalogCache = { url, expiresAt: now + catalogCacheLifetime, themeIds };
+  return themeIds;
 }
 
 function safeCount(value) {
@@ -114,23 +129,23 @@ function safeCount(value) {
 }
 
 function normalizedRows(results) {
-  const plugins = {};
+  const themes = {};
   for (const row of results || []) {
-    const pluginId = String(row.plugin_id || "");
-    if (!validPluginId(pluginId)) continue;
-    plugins[pluginId] = {
+    const themeId = String(row.theme_id || "");
+    if (!validThemeId(themeId)) continue;
+    themes[themeId] = {
       views: safeCount(row.views),
       copies: safeCount(row.copies),
       hearts: safeCount(row.hearts),
     };
   }
-  return plugins;
+  return themes;
 }
 
 const engagementTotalsSql = `
   SELECT SUM(views) AS views, SUM(copies) AS copies, SUM(hearts) AS hearts
-  FROM plugin_engagement_daily
-  WHERE plugin_id = ?1
+  FROM theme_engagement_daily
+  WHERE theme_id = ?1
 `;
 
 function normalizedTotals(row) {
@@ -143,13 +158,13 @@ function normalizedTotals(row) {
 
 async function statsResponse(env) {
   const result = await env.ENGAGEMENT_DB.prepare(`
-    SELECT plugin_id, SUM(views) AS views, SUM(copies) AS copies, SUM(hearts) AS hearts
-    FROM plugin_engagement_daily
-    GROUP BY plugin_id
-    ORDER BY plugin_id
+    SELECT theme_id, SUM(views) AS views, SUM(copies) AS copies, SUM(hearts) AS hearts
+    FROM theme_engagement_daily
+    GROUP BY theme_id
+    ORDER BY theme_id
   `).all();
   return json(
-    { schemaVersion: 1, plugins: normalizedRows(result.results) },
+    { schemaVersion: 1, themes: normalizedRows(result.results) },
     200,
     {
       "Access-Control-Allow-Origin": "*",
@@ -205,8 +220,8 @@ async function readLimitedBody(request, limit) {
 }
 
 const engagementUpsertSql = `
-  INSERT INTO plugin_engagement_daily (
-    plugin_id, day, views, copies, hearts,
+  INSERT INTO theme_engagement_daily (
+    theme_id, day, views, copies, hearts,
     views_minute, views_minute_count,
     copies_minute, copies_minute_count,
     hearts_minute, hearts_minute_count
@@ -217,57 +232,57 @@ const engagementUpsertSql = `
     CASE WHEN ?5 > 0 THEN ?3 ELSE NULL END, ?5,
     CASE WHEN ?6 > 0 THEN ?3 ELSE NULL END, ?6
   )
-  ON CONFLICT(plugin_id, day) DO UPDATE SET
+  ON CONFLICT(theme_id, day) DO UPDATE SET
     views = CASE WHEN excluded.views > 0
-      THEN MIN(plugin_engagement_daily.views + excluded.views, ?7)
-      ELSE plugin_engagement_daily.views END,
+      THEN MIN(theme_engagement_daily.views + excluded.views, ?7)
+      ELSE theme_engagement_daily.views END,
     copies = CASE WHEN excluded.copies > 0
-      THEN MIN(plugin_engagement_daily.copies + excluded.copies, ?7)
-      ELSE plugin_engagement_daily.copies END,
+      THEN MIN(theme_engagement_daily.copies + excluded.copies, ?7)
+      ELSE theme_engagement_daily.copies END,
     hearts = CASE WHEN excluded.hearts > 0
-      THEN MIN(plugin_engagement_daily.hearts + excluded.hearts, ?7)
-      ELSE plugin_engagement_daily.hearts END,
+      THEN MIN(theme_engagement_daily.hearts + excluded.hearts, ?7)
+      ELSE theme_engagement_daily.hearts END,
     views_minute = CASE WHEN excluded.views > 0
-      THEN ?3 ELSE plugin_engagement_daily.views_minute END,
+      THEN ?3 ELSE theme_engagement_daily.views_minute END,
     views_minute_count = CASE WHEN excluded.views > 0
-      THEN CASE WHEN plugin_engagement_daily.views_minute = ?3
-        THEN plugin_engagement_daily.views_minute_count + excluded.views
+      THEN CASE WHEN theme_engagement_daily.views_minute = ?3
+        THEN theme_engagement_daily.views_minute_count + excluded.views
         ELSE excluded.views END
-      ELSE plugin_engagement_daily.views_minute_count END,
+      ELSE theme_engagement_daily.views_minute_count END,
     copies_minute = CASE WHEN excluded.copies > 0
-      THEN ?3 ELSE plugin_engagement_daily.copies_minute END,
+      THEN ?3 ELSE theme_engagement_daily.copies_minute END,
     copies_minute_count = CASE WHEN excluded.copies > 0
-      THEN CASE WHEN plugin_engagement_daily.copies_minute = ?3
-        THEN plugin_engagement_daily.copies_minute_count + excluded.copies
+      THEN CASE WHEN theme_engagement_daily.copies_minute = ?3
+        THEN theme_engagement_daily.copies_minute_count + excluded.copies
         ELSE excluded.copies END
-      ELSE plugin_engagement_daily.copies_minute_count END,
+      ELSE theme_engagement_daily.copies_minute_count END,
     hearts_minute = CASE WHEN excluded.hearts > 0
-      THEN ?3 ELSE plugin_engagement_daily.hearts_minute END,
+      THEN ?3 ELSE theme_engagement_daily.hearts_minute END,
     hearts_minute_count = CASE WHEN excluded.hearts > 0
-      THEN CASE WHEN plugin_engagement_daily.hearts_minute = ?3
-        THEN plugin_engagement_daily.hearts_minute_count + excluded.hearts
+      THEN CASE WHEN theme_engagement_daily.hearts_minute = ?3
+        THEN theme_engagement_daily.hearts_minute_count + excluded.hearts
         ELSE excluded.hearts END
-      ELSE plugin_engagement_daily.hearts_minute_count END
+      ELSE theme_engagement_daily.hearts_minute_count END
   WHERE
     (excluded.views > 0
-      AND plugin_engagement_daily.views < ?7
-      AND (plugin_engagement_daily.views_minute IS NULL
-        OR plugin_engagement_daily.views_minute < ?3
-        OR (plugin_engagement_daily.views_minute = ?3
-          AND plugin_engagement_daily.views_minute_count < ?8)))
+      AND theme_engagement_daily.views < ?7
+      AND (theme_engagement_daily.views_minute IS NULL
+        OR theme_engagement_daily.views_minute < ?3
+        OR (theme_engagement_daily.views_minute = ?3
+          AND theme_engagement_daily.views_minute_count < ?8)))
     OR (excluded.copies > 0
-      AND plugin_engagement_daily.copies < ?7
-      AND (plugin_engagement_daily.copies_minute IS NULL
-        OR plugin_engagement_daily.copies_minute < ?3
-        OR (plugin_engagement_daily.copies_minute = ?3
-          AND plugin_engagement_daily.copies_minute_count < ?9)))
+      AND theme_engagement_daily.copies < ?7
+      AND (theme_engagement_daily.copies_minute IS NULL
+        OR theme_engagement_daily.copies_minute < ?3
+        OR (theme_engagement_daily.copies_minute = ?3
+          AND theme_engagement_daily.copies_minute_count < ?9)))
     OR (excluded.hearts > 0
-      AND plugin_engagement_daily.hearts < ?7
-      AND (plugin_engagement_daily.hearts_minute IS NULL
-        OR plugin_engagement_daily.hearts_minute < ?3
-        OR (plugin_engagement_daily.hearts_minute = ?3
-          AND plugin_engagement_daily.hearts_minute_count < ?10)))
-  RETURNING plugin_id
+      AND theme_engagement_daily.hearts < ?7
+      AND (theme_engagement_daily.hearts_minute IS NULL
+        OR theme_engagement_daily.hearts_minute < ?3
+        OR (theme_engagement_daily.hearts_minute = ?3
+          AND theme_engagement_daily.hearts_minute_count < ?10)))
+  RETURNING theme_id
 `;
 
 export function engagementUpsertStatement() {
@@ -275,18 +290,18 @@ export function engagementUpsertStatement() {
 }
 
 async function eventResponse(request, env, origin, fetchImpl) {
-  if (!allowedOrigins.has(origin)) return json({ error: "Origin not allowed" }, 403);
+  if (!configuredAllowedOrigins(env).has(origin)) return json({ error: "Origin not allowed" }, 403);
   const contentType = request.headers.get("Content-Type") || "";
   const contentLength = Number(request.headers.get("Content-Length") || 0);
   if (!contentType.toLowerCase().startsWith("application/json")) {
-    return json({ error: "Expected a JSON request" }, 415, corsHeaders(origin));
+    return json({ error: "Expected a JSON request" }, 415, corsHeaders(origin, env));
   }
   if (Number.isFinite(contentLength) && contentLength > 1024) {
-    return json({ error: "Request body too large" }, 413, corsHeaders(origin));
+    return json({ error: "Request body too large" }, 413, corsHeaders(origin, env));
   }
 
   if (!env.ENGAGEMENT_RATE_LIMITER?.limit) {
-    return json({ error: "Rate limiter unavailable" }, 503, corsHeaders(origin));
+    return json({ error: "Rate limiter unavailable" }, 503, corsHeaders(origin, env));
   }
   const requestIp = request.headers.get("CF-Connecting-IP") || "unknown";
   const rateLimit = await env.ENGAGEMENT_RATE_LIMITER.limit({ key: `events:${requestIp}` });
@@ -294,7 +309,7 @@ async function eventResponse(request, env, origin, fetchImpl) {
     return json(
       { error: "Rate limit exceeded" },
       429,
-      { ...corsHeaders(origin), "Retry-After": "60" },
+      { ...corsHeaders(origin, env), "Retry-After": "60" },
     );
   }
 
@@ -302,35 +317,35 @@ async function eventResponse(request, env, origin, fetchImpl) {
   try {
     const body = await readLimitedBody(request, 1024);
     if (body === null) {
-      return json({ error: "Request body too large" }, 413, corsHeaders(origin));
+      return json({ error: "Request body too large" }, 413, corsHeaders(origin, env));
     }
     event = parseEngagementEvent(JSON.parse(body));
   } catch {
     event = null;
   }
-  if (!event) return json({ error: "Invalid engagement event" }, 400, corsHeaders(origin));
+  if (!event) return json({ error: "Invalid engagement event" }, 400, corsHeaders(origin, env));
 
-  let pluginIds;
+  let themeIds;
   try {
-    pluginIds = await catalogPluginIds(env, fetchImpl);
+    themeIds = await catalogThemeIds(env, fetchImpl);
   } catch {
-    return json({ error: "Plugin catalog unavailable" }, 503, corsHeaders(origin));
+    return json({ error: "Theme catalog unavailable" }, 503, corsHeaders(origin, env));
   }
-  if (!pluginIds.has(event.pluginId)) {
-    return json({ error: "Unknown plugin" }, 404, corsHeaders(origin));
+  if (!themeIds.has(event.themeId)) {
+    return json({ error: "Unknown theme" }, 404, corsHeaders(origin, env));
   }
 
   if (!env.ENGAGEMENT_TARGET_RATE_LIMITER?.limit) {
-    return json({ error: "Event service unavailable" }, 503, corsHeaders(origin));
+    return json({ error: "Event service unavailable" }, 503, corsHeaders(origin, env));
   }
   const targetRateLimit = await env.ENGAGEMENT_TARGET_RATE_LIMITER.limit({
-    key: `target:${requestIp}:${event.pluginId}:${event.type}`,
+    key: `target:${requestIp}:${event.themeId}:${event.type}`,
   });
   if (!targetRateLimit.success) {
     return json(
       { error: "Rate limit exceeded" },
       429,
-      { ...corsHeaders(origin), "Retry-After": "60" },
+      { ...corsHeaders(origin, env), "Retry-After": "60" },
     );
   }
 
@@ -343,11 +358,11 @@ async function eventResponse(request, env, origin, fetchImpl) {
   const limit = eventLimit(env.DAILY_EVENT_LIMIT);
   const minuteLimits = minuteEventLimits(env);
   if (!minuteLimits) {
-    return json({ error: "Event service unavailable" }, 503, corsHeaders(origin));
+    return json({ error: "Event service unavailable" }, 503, corsHeaders(origin, env));
   }
   const [writeResult, totalsResult] = await env.ENGAGEMENT_DB.batch([
     env.ENGAGEMENT_DB.prepare(engagementUpsertSql).bind(
-      event.pluginId,
+      event.themeId,
       day,
       minute,
       views,
@@ -358,16 +373,16 @@ async function eventResponse(request, env, origin, fetchImpl) {
       minuteLimits.copies,
       minuteLimits.hearts,
     ),
-    env.ENGAGEMENT_DB.prepare(engagementTotalsSql).bind(event.pluginId),
+    env.ENGAGEMENT_DB.prepare(engagementTotalsSql).bind(event.themeId),
   ]);
 
   if (!writeResult?.results?.length) {
-    return json({ recorded: false, reason: "limit" }, 202, corsHeaders(origin));
+    return json({ recorded: false, reason: "limit" }, 202, corsHeaders(origin, env));
   }
   return json({
     recorded: true,
-    plugin: normalizedTotals(totalsResult?.results?.[0]),
-  }, 202, corsHeaders(origin));
+    theme: normalizedTotals(totalsResult?.results?.[0]),
+  }, 202, corsHeaders(origin, env));
 }
 
 export async function handleRequest(request, env, {
@@ -380,30 +395,30 @@ export async function handleRequest(request, env, {
   const origin = request.headers.get("Origin") || "";
 
   if (request.method === "OPTIONS") {
-    if (!allowedOrigins.has(origin)) return new Response(null, { status: 403 });
-    return new Response(null, { status: 204, headers: corsHeaders(origin) });
+    if (!configuredAllowedOrigins(env).has(origin)) return new Response(null, { status: 403 });
+    return new Response(null, { status: 204, headers: corsHeaders(origin, env) });
   }
   if (url.pathname === "/v1/stats") {
     if (request.method !== "GET") {
-      return json({ error: "Method not allowed" }, 405, { Allow: "GET", ...corsHeaders(origin) });
+      return json({ error: "Method not allowed" }, 405, { Allow: "GET", ...corsHeaders(origin, env) });
     }
     try {
       return await cachedStatsResponse(request, env, cache, waitUntil);
     } catch {
-      return json({ error: "Stats unavailable" }, 503, corsHeaders(origin));
+      return json({ error: "Stats unavailable" }, 503, corsHeaders(origin, env));
     }
   }
   if (url.pathname === "/v1/events") {
     if (request.method !== "POST") {
-      return json({ error: "Method not allowed" }, 405, { Allow: "POST", ...corsHeaders(origin) });
+      return json({ error: "Method not allowed" }, 405, { Allow: "POST", ...corsHeaders(origin, env) });
     }
     try {
       return await eventResponse(request, env, origin, fetchImpl);
     } catch {
-      return json({ error: "Event service unavailable" }, 503, corsHeaders(origin));
+      return json({ error: "Event service unavailable" }, 503, corsHeaders(origin, env));
     }
   }
-  return json({ error: "Not found" }, 404, corsHeaders(origin));
+  return json({ error: "Not found" }, 404, corsHeaders(origin, env));
 }
 
 export default {

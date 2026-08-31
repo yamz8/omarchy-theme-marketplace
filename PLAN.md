@@ -53,6 +53,13 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Publication rejects duplicate and retired IDs, records approval evidence, builds the approved commit, tests it, and refuses stale pushes.
 - Scheduled refresh and Pages deployment are theme-specific, serialized, and deploy committed tested output without rebuilding.
 
+### Optional anonymous engagement
+
+- The browser and Worker contracts use catalog theme IDs and the fixed `view`, `copy`, and `heart` event types.
+- Counts are anonymous aggregate marketplace activity, never installs, downloads, unique people, ratings, trust, or security signals.
+- Local and Worker-side rate limits are best-effort abuse controls; no identity or general analytics are introduced.
+- Production engagement stays disabled until a reviewed HTTPS endpoint and exact allowed origins are configured. No production hostname is assumed.
+
 ## Next implementation goals
 
 ### Goal 1 — Safe updates and delisting
@@ -63,11 +70,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Validate repository rename or transfer identity before changing an active source URL.
 - Keep updates, publication, and deployment serialized around the canonical registry.
 
-### Goal 2 — Engagement migration
-
-Decide whether the optional anonymous views, command-copy totals, and hearts help theme discovery. If retained, rename the Worker and schema contract to theme IDs, keep the feature credential-free, and avoid accounts, tracking, ratings, or installation telemetry.
-
-### Goal 3 — Production review and maintainer proposal
+### Goal 2 — Production review and maintainer proposal
 
 Before approaching the Omarchy maintainers:
 
@@ -99,6 +102,7 @@ The first release is ready when:
 - built-in and community commands work as documented;
 - source inspection and publication are deterministic and tested;
 - copied automation cannot publish plugin-shaped data;
+- optional engagement contains no copied plugin IDs, schema, origins, or endpoint assumptions;
 - generated files contain only intentional theme catalog changes;
 - accessibility, responsive, light, and dark checks pass;
 - no credentials, temporary audit data, or local screenshots are committed;

@@ -1,12 +1,25 @@
 import {
   copyCommand,
+  engagementSummary,
   escapeHtml,
   formatDate,
+  hidePendingEngagement,
   loadCatalog,
   safeUrl,
   setupThemeToggle,
   themeCommand,
-} from "./shared.js?v=20260831-02";
+  themeHeartButton,
+  updateEngagementSummary,
+  updateThemeHeart,
+} from "./shared.js?v=20260831-03";
+import {
+  engagementApiBaseUrl,
+  hasThemeHeart,
+  loadEngagementStats,
+  recordThemeCopy,
+  recordThemeHeart,
+  recordThemeView,
+} from "./engagement.js?v=20260831-01";
 
 const content = document.querySelector("#detail-content");
 const errorState = document.querySelector("#detail-error");
@@ -133,7 +146,20 @@ function sourceTrace(theme) {
   </dl>`;
 }
 
-function render(theme, themes) {
+function showToast(message) {
+  const toast = document.querySelector("#toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.setTimeout(() => toast.classList.remove("show"), 1_700);
+}
+
+function render(theme, themes, {
+  engagementEnabled = false,
+  engagement = {},
+  pendingEngagement = false,
+  onCopy = async () => {},
+  onHeart = async () => {},
+} = {}) {
   const preview = previewPath(theme);
   const sourceLabel = theme.builtIn ? "Built in" : "Community";
   const installedPath = theme.builtIn
@@ -163,6 +189,7 @@ function render(theme, themes) {
       <div class="page-eyebrow">${sourceLabel} · ${escapeHtml(theme.kind)}</div>
       <div class="detail-title"><span class="detail-icon" aria-hidden="true">${escapeHtml(theme.name.slice(0, 2).toUpperCase())}</span><h1>${escapeHtml(theme.name)}</h1></div>
       <div class="page-meta"><span>by ${escapeHtml(theme.author)}</span><span>${escapeHtml(theme.backgroundCount)} ${theme.backgroundCount === 1 ? "wallpaper" : "wallpapers"}</span><span>${escapeHtml(theme.mode)} mode</span><span><code>${escapeHtml(theme.slug)}</code></span></div>
+      ${engagementEnabled ? `<div class="detail-engagement-cluster">${engagementSummary(theme, engagement, { detail: true, pending: pendingEngagement })}${themeHeartButton(theme, engagement, { detail: true, hearted: hasThemeHeart(theme.id), pending: pendingEngagement })}</div>` : ""}
     </header>
     <p class="detail-description">${escapeHtml(theme.description)}</p>
     ${preview ? `<button class="detail-preview" type="button" data-open-preview aria-label="Open ${escapeHtml(theme.name)} preview"><img src="${escapeHtml(preview)}" alt="${escapeHtml(theme.name)} theme preview" width="1600" height="900"></button>` : ""}
@@ -177,13 +204,16 @@ function render(theme, themes) {
 
   content.querySelector("[data-copy-command]")?.addEventListener("click", async (event) => {
     try {
-      await copyCommand(event.currentTarget.dataset.copyCommand, event.currentTarget);
+      if (await copyCommand(event.currentTarget.dataset.copyCommand, event.currentTarget)) await onCopy();
     } catch {
       const toast = document.querySelector("#toast");
       toast.textContent = "Copy failed — select the command manually";
       toast.classList.add("show");
     }
   });
+
+  const heartButton = content.querySelector("[data-theme-heart]");
+  heartButton?.addEventListener("click", () => onHeart(heartButton));
 
   const previewButton = content.querySelector("[data-open-preview]");
   if (previewButton) {
@@ -205,7 +235,68 @@ try {
   const catalog = await loadCatalog();
   const theme = catalog.themes.find((candidate) => candidate.id === themeId);
   if (!theme) throw new Error("Theme not found");
-  render(theme, catalog.themes);
+  const engagementEnabled = Boolean(engagementApiBaseUrl());
+  let engagement = { views: 0, copies: 0, hearts: 0 };
+  let engagementLoaded = false;
+
+  const applyEngagement = (result, { animateHeart = false } = {}) => {
+    if (!result?.recorded || !result.stats) return;
+    engagement = {
+      views: Math.max(engagement.views, result.stats.views),
+      copies: Math.max(engagement.copies, result.stats.copies),
+      hearts: Math.max(engagement.hearts, result.stats.hearts),
+    };
+    engagementLoaded = true;
+    const cluster = content.querySelector(".detail-engagement-cluster");
+    if (cluster) cluster.hidden = false;
+    updateEngagementSummary(document, theme.id, engagement);
+    updateThemeHeart(document, theme.id, engagement, {
+      animate: animateHeart,
+      hearted: hasThemeHeart(theme.id),
+    });
+  };
+
+  render(theme, catalog.themes, {
+    engagementEnabled,
+    engagement,
+    pendingEngagement: engagementEnabled,
+    onCopy: async () => applyEngagement(await recordThemeCopy(theme.id)),
+    onHeart: async (button) => {
+      if (button.getAttribute("aria-disabled") === "true" || button.dataset.heartSubmitting === "true") return;
+      button.dataset.heartSubmitting = "true";
+      button.setAttribute("aria-busy", "true");
+      const result = await recordThemeHeart(theme.id);
+      delete button.dataset.heartSubmitting;
+      button.removeAttribute("aria-busy");
+      if (!result?.recorded) {
+        showToast("Heart could not be sent. Try again.");
+        return;
+      }
+      applyEngagement(result, { animateHeart: true });
+      showToast("Heart sent");
+    },
+  });
+
+  if (engagementEnabled) {
+    loadEngagementStats().then((stats) => {
+      const loaded = stats[theme.id] || { views: 0, copies: 0, hearts: 0 };
+      engagement = {
+        views: Math.max(engagement.views, loaded.views),
+        copies: Math.max(engagement.copies, loaded.copies),
+        hearts: Math.max(engagement.hearts, loaded.hearts),
+      };
+      engagementLoaded = true;
+      updateEngagementSummary(document, theme.id, engagement);
+      updateThemeHeart(document, theme.id, engagement, { hearted: hasThemeHeart(theme.id) });
+    }).catch(() => {
+      if (!engagementLoaded) {
+        hidePendingEngagement(document);
+        const cluster = content.querySelector(".detail-engagement-cluster");
+        if (cluster) cluster.hidden = true;
+      }
+    });
+    recordThemeView(theme.id).then(applyEngagement);
+  }
 } catch {
   content.hidden = true;
   errorState.hidden = false;

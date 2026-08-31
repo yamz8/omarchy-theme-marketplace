@@ -39,6 +39,12 @@ Catalog inspection is a compatibility check, not a security review. The normal c
 
 The site has no application server, accounts, or frontend framework. The generated `site/` directory can be served as static files.
 
+### Optional anonymous engagement
+
+The credential-free service under `worker/` can aggregate theme detail views, successful command-copy actions, and anonymous hearts by catalog theme ID. These counts are marketplace activity, not downloads, installations, unique people, verified votes, ratings, trust, or security signals. Browser storage provides only best-effort repeat guards.
+
+The feature is disabled on production hosts until the reviewed Worker URL is explicitly configured in the `omarchy-theme-engagement-api` meta value on the browse and detail pages. The repository does not assume a production API hostname and does not deploy the Worker automatically. See [worker/README.md](worker/README.md) for the privacy and deployment boundary.
+
 ## Local development
 
 Requirements: Node.js 24 or newer and npm.
@@ -71,7 +77,7 @@ Use the [structured theme form](https://github.com/yamz8/omarchy-theme-marketpla
 
 Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded publication job then performs a fresh inspection, builds the exact approved commit, runs tests, commits the registry and generated outputs together, and lets the normal Pages workflow deploy the committed static site.
 
-The theme catalog, browse page, detail page, palette explorer, initial-submission workflow, guarded publication, scheduled refresh, and static Pages deployment are implemented. Theme update, repository migration, and delisting workflows remain manual until their separate identity rules are built.
+The theme catalog, browse page, detail page, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, scheduled refresh, and static Pages deployment are implemented. Theme update, repository migration, and delisting workflows remain manual until their separate identity rules are built.
 
 See [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection.
 

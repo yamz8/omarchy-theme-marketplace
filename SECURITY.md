@@ -42,6 +42,12 @@ That command obtains current mutable upstream and does not accept the marketplac
 
 Built-in commands select the theme shipped by the user's locally installed Omarchy package. That local package can also differ from the upstream commit used to generate the marketplace entry.
 
+## Optional engagement privacy
+
+The optional credential-free Worker accepts only a catalog `themeId` and one fixed event type: `view`, `copy`, or `heart`. D1 stores daily theme-level aggregates. The application does not store accounts, cookies, browser identifiers, IP addresses, user-agent strings, command text, repository URLs, or theme metadata in D1. Cloudflare may process ordinary request metadata, and the Worker uses the request IP only for ephemeral rate-limit keys.
+
+Browser storage guards repeat views and copies within a session and repeat hearts in one browser, but these controls can be cleared or bypassed. Counts must never be described as unique users, verified votes, downloads, installations, ratings, trust, or security evidence. Production engagement remains disabled until an exact API endpoint and allowed marketplace origins are configured and reviewed.
+
 ## Publication safeguards
 
 New submissions use a structured issue and deterministic static inspection. Validation alone cannot publish. The `approved-theme` label is accepted only from an actor with repository write permission, and the publication job:
