@@ -1436,6 +1436,11 @@ svg.social-glyph { display: block; width: 14px; height: 14px; flex: none; fill: 
   .install-location code { text-align: left; }
   .source-trace > div { grid-template-columns: minmax(100px, .8fr) minmax(0, 1.2fr); gap: 10px; }
 }
+@media (max-width: 340px) {
+  .theme-card-bottom { justify-content: flex-end; }
+  .theme-card-bottom .theme-tags { display: none; }
+  .theme-card-bottom .card-install [data-copy-label] { display: none; }
+}
 @keyframes heart-confirm {
   0% { transform: translateY(-1px) scale(.82); }
   55% { transform: translateY(-1px) scale(1.12); }

@@ -6,6 +6,7 @@ import {
   hidePendingEngagement,
   loadCatalog,
   paletteStyle,
+  safeUrl,
   setupThemeToggle,
   themeCommand,
   themeCopyLabel,
@@ -62,6 +63,10 @@ function themeCard(theme) {
   const command = themeCommand(theme);
   const copyLabel = theme.builtIn ? "Set" : "Install";
   const copyAccessibleLabel = themeCopyLabel(theme.sourceType);
+  const sourceUrl = safeUrl(theme.sourceUrl);
+  const sourceAction = sourceUrl
+    ? `<a class="card-install builtin-source-action" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer" aria-label="View source for ${escapeHtml(theme.name)}">View source ↗</a>`
+    : "";
   const sourceLabel = theme.builtIn ? "Built in" : "Community";
   const tags = [...new Set([theme.mode, ...(theme.tags || [])])].slice(0, 4);
   const themeStats = state.engagement[theme.id] || {};
@@ -95,6 +100,7 @@ function themeCard(theme) {
         <div class="theme-tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
         <div class="theme-card-actions">
           ${state.engagementEnabled ? engagementSummary(theme, themeStats, { pending: !state.engagementLoaded }) : ""}
+          ${sourceAction}
           <button class="card-install" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="${copyLabel}" aria-label="${escapeHtml(copyAccessibleLabel)} for ${escapeHtml(theme.name)}">
             <span class="command-glyph" aria-hidden="true"></span><span data-copy-label>${escapeHtml(copyLabel)}</span><span class="copy-icon" aria-hidden="true"></span>
           </button>

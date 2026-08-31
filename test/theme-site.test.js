@@ -30,6 +30,10 @@ test("browser code renders catalog values through escaping helpers", async () =>
   assert.ok((app.match(/escapeHtml\(/g) || []).length >= 12);
   assert.ok((detail.match(/escapeHtml\(/g) || []).length >= 12);
   assert.match(app, /encodeURIComponent\(theme\.id\)/);
+  assert.match(app, /safeUrl\(theme\.sourceUrl\)/);
+  assert.match(app, /class="card-install builtin-source-action"/);
+  assert.match(app, /target="_blank" rel="noreferrer"/);
+  assert.match(app, /View source for \$\{escapeHtml\(theme\.name\)\}/);
   assert.match(app, /function wallpaperGroup/);
   assert.match(app, /renderCommunitySpotlight/);
   assert.match(detail, /function paletteDistance/);
@@ -39,8 +43,8 @@ test("browser code renders catalog values through escaping helpers", async () =>
 
 test("every active page uses the same final asset versions", async () => {
   const pages = await Promise.all(["index", "theme", "explore", "develop", "publish"].map((name) => read(`site/${name}.html`)));
-  for (const page of pages) assert.match(page, /style\.css\?v=20260831-04/);
-  assert.match(pages[0], /app\.js\?v=20260831-04/);
+  for (const page of pages) assert.match(page, /style\.css\?v=20260831-05/);
+  assert.match(pages[0], /app\.js\?v=20260831-05/);
   assert.match(pages[1], /theme\.js\?v=20260831-04/);
   assert.match(pages[2], /explore\.css\?v=20260831-01/);
   assert.match(pages[2], /explore\.js\?v=20260831-02/);
