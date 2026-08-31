@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdtemp, readFile, rename, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, readdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import sharp from "sharp";
@@ -102,11 +102,7 @@ async function buildBuiltInThemes(source, outputDirectory) {
   return themes;
 }
 
-async function buildCommunityTheme(source, outputDirectory) {
-  const expectedRepository = process.env.EXPECTED_THEME_REPOSITORY || "";
-  const expectedCommit = expectedRepository && githubRepositoryKey(source.repo) === githubRepositoryKey(expectedRepository)
-    ? process.env.EXPECTED_THEME_COMMIT || ""
-    : "";
+async function buildCommunityTheme(source, outputDirectory, { expectedCommit = "" } = {}) {
   const snapshot = await resolveRepositorySnapshot(source.repo, source.branch, { expectedCommit });
   const tree = inspectThemeTree(snapshot.entries);
   const colorsToml = await fetchSnapshotText(snapshot, "colors.toml");
@@ -147,12 +143,148 @@ function validateRegistry(registry) {
   }
 }
 
+function sourceKeys(sources, label) {
+  const keys = sources.map((source) => githubRepositoryKey(source.repo));
+  if (new Set(keys).size !== keys.length) {
+    throw new Error(`registry.json contains duplicate ${label} repositories`);
+  }
+  return new Set(keys);
+}
+
+export function selectiveThemeBuildPlan(registry, previousCatalog, expectedRepository) {
+  if (previousCatalog?.schemaVersion !== 1 || !Array.isArray(previousCatalog.themes)) {
+    throw new Error("Selective theme builds require an existing schemaVersion 1 catalog");
+  }
+
+  const targetKey = githubRepositoryKey(expectedRepository);
+  const builtInKeys = sourceKeys(registry.builtInSources, "built-in theme");
+  const communityKeys = sourceKeys(registry.sources, "community theme");
+  if (builtInKeys.has(targetKey)) {
+    throw new Error("Selective theme builds can only target a community theme repository");
+  }
+  const targetSources = registry.sources.filter((source) => githubRepositoryKey(source.repo) === targetKey);
+  if (targetSources.length !== 1) {
+    throw new Error(`Selective theme repository must appear exactly once in registry.json: ${expectedRepository}`);
+  }
+
+  assertUniqueThemeIds(previousCatalog.themes);
+  const previousByRepository = new Map();
+  for (const theme of previousCatalog.themes) {
+    const repositoryKey = githubRepositoryKey(theme.repo);
+    const expectedKeys = theme.sourceType === "builtin"
+      ? builtInKeys
+      : theme.sourceType === "community"
+        ? communityKeys
+        : null;
+    if (!expectedKeys?.has(repositoryKey)) {
+      throw new Error(`Existing catalog contains a stale or mismatched theme source: ${theme.repo}`);
+    }
+    const repositoryThemes = previousByRepository.get(repositoryKey) || [];
+    repositoryThemes.push(theme);
+    previousByRepository.set(repositoryKey, repositoryThemes);
+  }
+
+  for (const repositoryKey of builtInKeys) {
+    const themes = previousByRepository.get(repositoryKey) || [];
+    if (!themes.length || themes.some((theme) => theme.sourceType !== "builtin")) {
+      throw new Error(`Existing catalog is missing its built-in theme snapshot: ${repositoryKey}`);
+    }
+  }
+  for (const repositoryKey of communityKeys) {
+    const themes = previousByRepository.get(repositoryKey) || [];
+    const expectedCount = repositoryKey === targetKey ? [0, 1] : [1];
+    if (!expectedCount.includes(themes.length) || themes.some((theme) => theme.sourceType !== "community")) {
+      throw new Error(`Existing catalog does not exactly cover community theme source: ${repositoryKey}`);
+    }
+  }
+
+  const previousTargetThemes = previousByRepository.get(targetKey) || [];
+  return Object.freeze({
+    targetKey,
+    targetSource: targetSources[0],
+    previousTargetTheme: previousTargetThemes[0] || null,
+    preservedThemes: Object.freeze(previousCatalog.themes.filter(
+      (theme) => githubRepositoryKey(theme.repo) !== targetKey,
+    )),
+  });
+}
+
+export function mergeSelectiveThemeCatalog(registry, previousCatalog, expectedRepository, refreshedTheme, generatedAt = new Date().toISOString()) {
+  const plan = selectiveThemeBuildPlan(registry, previousCatalog, expectedRepository);
+  if (refreshedTheme.sourceType !== "community" || githubRepositoryKey(refreshedTheme.repo) !== plan.targetKey) {
+    throw new Error("Refreshed theme does not match the selective build target");
+  }
+  if (plan.previousTargetTheme && plan.previousTargetTheme.id !== refreshedTheme.id) {
+    throw new Error(`Theme repository changed its installed slug from ${plan.previousTargetTheme.id} to ${refreshedTheme.id}`);
+  }
+  if ((registry.retiredThemeIds || []).includes(refreshedTheme.id)) {
+    throw new Error(`Theme ID is retired and cannot be republished: ${refreshedTheme.id}`);
+  }
+
+  const themes = assertUniqueThemeIds([...plan.preservedThemes, refreshedTheme])
+    .sort((first, second) => first.name.localeCompare(second.name));
+  const warnings = themes
+    .filter((theme) => theme.license === "Not declared")
+    .map((theme) => `${theme.name}: upstream repository does not declare a license.`);
+  return {
+    generatedAt,
+    schemaVersion: 1,
+    mode: "live",
+    themes,
+    warnings,
+  };
+}
+
+async function seedPreviewDirectory(outputDirectory) {
+  for (const entry of await readdir(imageDirectory, { withFileTypes: true })) {
+    if (!entry.isFile()) throw new Error(`Unexpected generated preview entry: ${entry.name}`);
+    await copyFile(resolve(imageDirectory, entry.name), resolve(outputDirectory, entry.name));
+  }
+}
+
+async function retainReferencedPreviews(themes, outputDirectory) {
+  const referenced = new Set();
+  for (const theme of themes) {
+    for (const variant of ["card", "detail"]) {
+      const path = theme.preview?.[variant];
+      if (!/^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/.test(path || "")) {
+        throw new Error(`Theme has an invalid generated preview path: ${theme.id}`);
+      }
+      referenced.add(path.split("/").at(-1));
+    }
+  }
+
+  const entries = await readdir(outputDirectory, { withFileTypes: true });
+  const available = new Set(entries.filter((entry) => entry.isFile()).map((entry) => entry.name));
+  const missing = [...referenced].filter((name) => !available.has(name));
+  if (missing.length) throw new Error(`Generated theme previews are missing: ${missing.join(", ")}`);
+  await Promise.all(entries
+    .filter((entry) => !entry.isFile() || !referenced.has(entry.name))
+    .map((entry) => rm(resolve(outputDirectory, entry.name), { recursive: true, force: true })));
+}
+
 export async function buildCatalog() {
   const registry = JSON.parse(await readFile(registryPath, "utf8"));
   validateRegistry(registry);
   const temporaryImageDirectory = await mkdtemp(resolve(dirname(imageDirectory), ".themes-"));
+  const expectedRepository = process.env.EXPECTED_THEME_REPOSITORY || "";
 
   try {
+    if (expectedRepository) {
+      const previousCatalog = JSON.parse(await readFile(catalogPath, "utf8"));
+      const plan = selectiveThemeBuildPlan(registry, previousCatalog, expectedRepository);
+      await seedPreviewDirectory(temporaryImageDirectory);
+      const refreshedTheme = await buildCommunityTheme(plan.targetSource, temporaryImageDirectory, {
+        expectedCommit: process.env.EXPECTED_THEME_COMMIT,
+      });
+      const catalog = mergeSelectiveThemeCatalog(registry, previousCatalog, expectedRepository, refreshedTheme);
+      await retainReferencedPreviews(catalog.themes, temporaryImageDirectory);
+      await rm(imageDirectory, { recursive: true, force: true });
+      await rename(temporaryImageDirectory, imageDirectory);
+      await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
+      return catalog;
+    }
+
     const builtInGroups = await Promise.all(
       registry.builtInSources.map((source) => buildBuiltInThemes(source, temporaryImageDirectory)),
     );
