@@ -21,7 +21,7 @@ registry.json + exact upstream theme snapshots
 
 The source of theme behavior is the native Omarchy repository shape, especially root `colors.toml` and images directly under `backgrounds/`. The marketplace adds curated listing copy in `registry.json`; it does not add a theme manifest or execute repository content.
 
-The optional Worker is independent of catalog generation and Pages. It can store only anonymous daily aggregate `view`, successful `copy`, and `heart` counts by current catalog theme ID. The checked-in site has no production endpoint configured.
+The optional Worker is independent of catalog generation and Pages. It can store only anonymous daily aggregate `view`, successful `copy`, and `heart` counts by current catalog theme ID. The current personal deployment explicitly connects the checked-in site to its reviewed `workers.dev` endpoint and exact GitHub Pages origin.
 
 ## Local commands
 
@@ -87,8 +87,8 @@ If maintainers accept an organization transfer or different canonical repository
 
 ## Operational limitations
 
-- The repository has not been pushed or deployed by this implementation session.
-- No production marketplace hostname or engagement endpoint is configured.
+- The personal repository is published at `https://yamz8.github.io/omarchy-theme-marketplace/` from the exact tested `site/` artifact.
+- Engagement uses `https://omarchy-theme-engagement.yam-68e.workers.dev/v1`; no custom marketplace or API hostname is configured.
 - Anonymous hearts are unverified reactions, not votes or ratings.
 - Omarchy currently has no supported exact-SHA theme install command, so the catalog cannot make normal installation verification-bound.
-- A public maintainer proposal, repository transfer, DNS change, Worker deployment, or production Pages push requires separate authorization.
+- A public maintainer proposal, repository transfer, DNS change, or later production deployment change requires separate authorization.

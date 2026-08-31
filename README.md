@@ -43,7 +43,7 @@ The site has no application server, accounts, or frontend framework. The generat
 
 The credential-free service under `worker/` can aggregate theme detail views, successful command-copy actions, and anonymous hearts by catalog theme ID. These counts are marketplace activity, not downloads, installations, unique people, verified votes, ratings, trust, or security signals. Browser storage provides only best-effort repeat guards.
 
-The feature is disabled on production hosts until the reviewed Worker URL is explicitly configured in the `omarchy-theme-engagement-api` meta value on the browse and detail pages. The repository does not assume a production API hostname and does not deploy the Worker automatically. See [worker/README.md](worker/README.md) for the privacy and deployment boundary.
+The current personal deployment explicitly configures `https://omarchy-theme-engagement.yam-68e.workers.dev/v1` on the browse and detail pages and accepts writes only from the reviewed GitHub Pages origin. The repository does not deploy the Worker automatically. Disable and re-review the endpoint and exact allowed origins before any hostname or ownership change. See [worker/README.md](worker/README.md) for the privacy and deployment boundary.
 
 ## Local development
 

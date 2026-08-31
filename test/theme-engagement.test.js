@@ -347,4 +347,6 @@ test("active engagement assets contain no copied plugin endpoint or schema", asy
   assert.doesNotMatch(combined, /omarchyplugins\.com|api\.omarchyplugins/);
   assert.match(combined, /themeId/);
   assert.match(combined, /theme_engagement_daily/);
+  assert.match(files[3], /"observability"\s*:\s*\{/);
+  assert.match(files[3], /"head_sampling_rate"\s*:\s*1/);
 });

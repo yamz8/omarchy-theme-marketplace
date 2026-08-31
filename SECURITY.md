@@ -46,7 +46,7 @@ Built-in commands select the theme shipped by the user's locally installed Omarc
 
 The optional credential-free Worker accepts only a catalog `themeId` and one fixed event type: `view`, `copy`, or `heart`. D1 stores daily theme-level aggregates. The application does not store accounts, cookies, browser identifiers, IP addresses, user-agent strings, command text, repository URLs, or theme metadata in D1. Cloudflare may process ordinary request metadata, and the Worker uses the request IP only for ephemeral rate-limit keys.
 
-Browser storage guards repeat views and copies within a session and repeat hearts in one browser, but these controls can be cleared or bypassed. Counts must never be described as unique users, verified votes, downloads, installations, ratings, trust, or security evidence. Production engagement remains disabled until an exact API endpoint and allowed marketplace origins are configured and reviewed.
+Browser storage guards repeat views and copies within a session and repeat hearts in one browser, but these controls can be cleared or bypassed. Counts must never be described as unique users, verified votes, downloads, installations, ratings, trust, or security evidence. The current personal production endpoint is enabled only for its reviewed GitHub Pages origin. Disable and re-review engagement before any hostname, endpoint, or ownership change.
 
 ## Publication safeguards
 

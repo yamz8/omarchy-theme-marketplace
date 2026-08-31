@@ -58,7 +58,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - The browser and Worker contracts use catalog theme IDs and the fixed `view`, `copy`, and `heart` event types.
 - Counts are anonymous aggregate marketplace activity, never installs, downloads, unique people, ratings, trust, or security signals.
 - Local and Worker-side rate limits are best-effort abuse controls; no identity or general analytics are introduced.
-- Production engagement stays disabled until a reviewed HTTPS endpoint and exact allowed origins are configured. No production hostname is assumed.
+- Personal production engagement uses a reviewed HTTPS `workers.dev` endpoint with the exact GitHub Pages origin; any hostname or ownership change must disable and re-review it first.
 
 ### Release hygiene
 
@@ -86,8 +86,8 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 
 ### External release decisions
 
-- Push the reviewed commits and verify the first real GitHub Actions and Pages deployment.
-- Decide whether anonymous engagement remains disabled or receives a separately reviewed Worker deployment and exact production origins.
+- The reviewed commits are pushed and the first real GitHub Actions and Pages deployment is verified.
+- Anonymous engagement is deployed separately with a reviewed personal `workers.dev` endpoint and exact GitHub Pages origin.
 - Review and, only when authorized, submit the maintainer proposal for possible placement alongside `plugins.omarchy.org`.
 
 Opening the proposal, transferring the repository, changing DNS, or pushing a production deployment requires separate maintainer approval.

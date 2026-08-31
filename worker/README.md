@@ -31,14 +31,15 @@ positive JSON integer. Apply all migrations before starting the Worker on
 `127.0.0.1:8787`.
 
 The production custom-domain route is intentionally commented out in the template.
-Verify a workers.dev deployment before configuring a custom domain. No production API
-hostname is assumed by this repository.
+Verify a workers.dev deployment before configuring a custom domain. The current personal
+deployment uses `https://omarchy-theme-engagement.yam-68e.workers.dev` and does not assume
+an Omarchy-controlled API hostname.
 
 Set `CATALOG_URL` to the published theme catalog and `ALLOWED_ORIGINS` to a comma-separated
 list of exact production origins. Local marketplace origins on ports `4173` are allowed by
-default. The checked-in site does not configure a production endpoint; after deployment,
-set the `omarchy-theme-engagement-api` meta value on `site/index.html` and `site/theme.html`
-to the reviewed HTTPS API URL ending in `/v1`.
+default. The checked-in site configures the reviewed personal endpoint on `site/index.html`
+and `site/theme.html`. Disable and re-review that endpoint and the exact allowed origins
+before changing the site hostname, Worker hostname, or repository owner.
 
 ## API
 

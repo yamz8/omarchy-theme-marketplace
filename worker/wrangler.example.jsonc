@@ -33,6 +33,10 @@
       "simple": { "limit": "REPLACE_WITH_TARGET_RATE_LIMIT", "period": 60 }
     }
   ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
 
   // Add a reviewed production custom domain only after the workers.dev deployment is verified:
   // "routes": [
