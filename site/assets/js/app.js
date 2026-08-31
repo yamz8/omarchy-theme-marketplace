@@ -63,13 +63,20 @@ function themeCard(theme) {
   const command = themeCommand(theme);
   const copyLabel = theme.builtIn ? "Set" : "Install";
   const copyAccessibleLabel = themeCopyLabel(theme.sourceType);
+  const themeStats = state.engagement[theme.id] || {};
   const sourceUrl = safeUrl(theme.sourceUrl);
   const sourceAction = sourceUrl
     ? `<a class="card-install builtin-source-action" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer" aria-label="View source for ${escapeHtml(theme.name)}">View source ↗</a>`
     : "";
+  const commandAction = `<button class="card-install has-control-tooltip" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="${copyLabel}" aria-label="${escapeHtml(copyAccessibleLabel)} for ${escapeHtml(theme.name)}">
+    <span class="command-glyph" aria-hidden="true"></span><span data-copy-label>${escapeHtml(copyLabel)}</span><span class="copy-icon" aria-hidden="true"></span>
+    <span class="control-tooltip" role="tooltip" aria-hidden="true">${escapeHtml(copyAccessibleLabel)}</span>
+  </button>`;
+  const engagementAction = state.engagementEnabled
+    ? engagementSummary(theme, themeStats, { pending: !state.engagementLoaded })
+    : "";
   const sourceLabel = theme.builtIn ? "Built in" : "Community";
   const tags = [...new Set([theme.mode, ...(theme.tags || [])])].slice(0, 4);
-  const themeStats = state.engagement[theme.id] || {};
   const stars = theme.builtIn ? "" : `<span class="card-stars" title="GitHub stars"><svg class="social-glyph star-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></svg>${formatCount(theme.stars)}</span>`;
   const heart = state.engagementEnabled
     ? themeHeartButton(theme, themeStats, {
@@ -97,14 +104,11 @@ function themeCard(theme) {
       <div class="theme-card-facts"><span><i aria-hidden="true"></i>${escapeHtml(theme.mode)} mode</span><span>${escapeHtml(theme.backgroundCount)} ${theme.backgroundCount === 1 ? "wallpaper" : "wallpapers"}</span></div>
       ${paletteStrip(theme)}
       <div class="theme-card-bottom">
-        <div class="theme-tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
-        <div class="theme-card-actions">
-          ${state.engagementEnabled ? engagementSummary(theme, themeStats, { pending: !state.engagementLoaded }) : ""}
-          ${sourceAction}
-          <button class="card-install" type="button" data-copy-command="${escapeHtml(command)}" data-source-type="${escapeHtml(theme.sourceType)}" data-copy-label-default="${copyLabel}" aria-label="${escapeHtml(copyAccessibleLabel)} for ${escapeHtml(theme.name)}">
-            <span class="command-glyph" aria-hidden="true"></span><span data-copy-label>${escapeHtml(copyLabel)}</span><span class="copy-icon" aria-hidden="true"></span>
-          </button>
+        <div class="theme-card-meta">
+          <div class="theme-tags">${tags.map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
+          <div class="theme-card-meta-actions">${sourceAction}${state.engagementEnabled ? "" : commandAction}</div>
         </div>
+        ${state.engagementEnabled ? `<div class="theme-card-actions">${engagementAction}${commandAction}</div>` : ""}
       </div>
     </div>
     <a class="theme-card-link" href="${detailUrl}" aria-label="View ${escapeHtml(theme.name)} theme details"></a>
@@ -311,6 +315,8 @@ try {
     }).catch(() => {
       state.engagementEnabled = false;
       hidePendingEngagement(document);
+      renderCommunitySpotlight();
+      render();
     });
   }
 } catch (error) {
