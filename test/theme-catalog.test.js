@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 import {
+  communitySnapshotPins,
   mergeSelectiveThemeCatalog,
   selectiveThemeBuildPlan,
 } from "../scripts/build-catalog.mjs";
@@ -240,5 +241,38 @@ test("selective catalog builds replace one historical migration path without unr
       themes: previousCatalog.themes.slice(0, 2),
     }, nextRepo, { previousRepository: previousRepo }),
     /does not exactly cover historical migration source/,
+  );
+});
+
+test("scheduled refresh pins every active community source to its published catalog commit", () => {
+  const firstRepo = "https://github.com/example/omarchy-canyon-theme";
+  const secondRepo = "https://github.com/example/omarchy-forest-theme";
+  const registry = { sources: [{ repo: firstRepo }, { repo: secondRepo }] };
+  const catalog = {
+    schemaVersion: 1,
+    themes: [
+      catalogTheme({ id: "tokyo-night", repo: "https://github.com/omacom/omarchy", sourceType: "builtin" }),
+      { ...catalogTheme({ id: "canyon", repo: firstRepo }), checkedCommit: "a".repeat(40) },
+      { ...catalogTheme({ id: "forest", repo: secondRepo }), checkedCommit: "b".repeat(40) },
+    ],
+  };
+  const pins = communitySnapshotPins(registry, catalog);
+  assert.equal(pins.get("example/omarchy-canyon-theme"), "a".repeat(40));
+  assert.equal(pins.get("example/omarchy-forest-theme"), "b".repeat(40));
+
+  assert.throws(
+    () => communitySnapshotPins(registry, { ...catalog, themes: catalog.themes.slice(0, 2) }),
+    /missing an active source/,
+  );
+  assert.throws(
+    () => communitySnapshotPins({ sources: registry.sources.slice(0, 1) }, catalog),
+    /stale or ambiguous source/,
+  );
+  assert.throws(
+    () => communitySnapshotPins(registry, {
+      ...catalog,
+      themes: catalog.themes.map((theme) => theme.id === "canyon" ? { ...theme, checkedCommit: "short" } : theme),
+    }),
+    /commit is invalid/,
   );
 });

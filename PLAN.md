@@ -74,6 +74,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Delisting is a static, replayable registry/catalog projection with a checksummed machine-readable report; the report remains an immutable workflow artifact rather than a tracked site file.
 - Read-only jobs create, test, and independently replay the delisting transaction before a narrowly scoped write-token job can publish it from an unchanged `main` base.
 - Repository migrations require old and new paths to resolve simultaneously to one immutable GitHub node/database identity, preserve the installed theme ID and historical evidence, validate canonical HEAD, and rebuild only the migrated source.
+- Scheduled refreshes update built-in themes while pinning every community source to its already-published exact commit, so mutable upstream cannot bypass guarded updates.
 
 ## Next implementation goals
 

@@ -179,6 +179,8 @@ New community submissions use `submit-theme.yml`, exact-snapshot validation, and
 
 Existing-theme updates use `update-theme.yml`, exact maintainer-supplied commits, the shared native source validator, and selective catalog builds. `update-theme-source.mjs` owns update provenance and history, while `verify-theme-update.mjs` owns the immutable publication projection check. Complete-source delisting uses `delist-themes.yml` and `delist-themes.mjs`; it permanently retires theme IDs and publishes its report only as a workflow artifact. Repository rename or transfer uses `migrate-theme-repository.yml`; it must bind old and new GitHub paths simultaneously to one GraphQL node ID and numeric database ID, preserve the installed theme ID, retain historical evidence under its original repository name, validate exact canonical HEAD, and refresh only the migrated source. `theme-repository-identity.mjs` owns identity and chain validation, while `migrate-theme-repository.mjs` and `verify-theme-migration.mjs` own projection and publication checks. Keep all three operations manual, personal-maintainer-only, and serialized with other catalog writes. Do not stretch the new-listing workflow to perform updates, migrations, or delisting.
 
+Scheduled catalog refreshes must set `PIN_COMMUNITY_CATALOG_SNAPSHOTS=1`. They may refresh built-in Omarchy themes and recheck the exact already-published community commits, but must not advance community repositories to mutable HEAD. Only new-theme approval, guarded update, or guarded migration may publish a different community snapshot.
+
 Opening issues, changing labels, pushing, transferring the repository, changing DNS, or deploying production requires explicit maintainer authority.
 
 ## Verification commands

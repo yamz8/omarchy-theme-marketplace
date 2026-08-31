@@ -142,6 +142,13 @@ function validateRegistry(registry) {
   const expectedRepository = process.env.EXPECTED_THEME_REPOSITORY || "";
   const expectedCommit = process.env.EXPECTED_THEME_COMMIT || "";
   const previousRepository = process.env.PREVIOUS_THEME_REPOSITORY || "";
+  const pinCommunitySnapshots = process.env.PIN_COMMUNITY_CATALOG_SNAPSHOTS || "";
+  if (pinCommunitySnapshots && pinCommunitySnapshots !== "1") {
+    throw new Error("PIN_COMMUNITY_CATALOG_SNAPSHOTS must be exactly 1 when set");
+  }
+  if (pinCommunitySnapshots && expectedRepository) {
+    throw new Error("Pinned community refresh and selective theme builds are mutually exclusive");
+  }
   if (expectedRepository && !/^[0-9a-f]{40}$/i.test(expectedCommit)) {
     throw new Error("EXPECTED_THEME_COMMIT must be a full commit SHA when EXPECTED_THEME_REPOSITORY is set");
   }
@@ -167,6 +174,34 @@ function sourceKeys(sources, label) {
     throw new Error(`registry.json contains duplicate ${label} repositories`);
   }
   return new Set(keys);
+}
+
+export function communitySnapshotPins(registry, previousCatalog) {
+  if (previousCatalog?.schemaVersion !== 1 || !Array.isArray(previousCatalog.themes)) {
+    throw new Error("Pinned community refresh requires an existing schemaVersion 1 catalog");
+  }
+  assertUniqueThemeIds(previousCatalog.themes);
+  const sourceByRepository = new Map(registry.sources.map((source) => [githubRepositoryKey(source.repo), source]));
+  if (sourceByRepository.size !== registry.sources.length) {
+    throw new Error("registry.json contains duplicate community theme repositories");
+  }
+  const pins = new Map();
+  for (const theme of previousCatalog.themes.filter((entry) => entry.sourceType === "community")) {
+    const repositoryKey = githubRepositoryKey(theme.repo);
+    if (!sourceByRepository.has(repositoryKey) || pins.has(repositoryKey)) {
+      throw new Error(`Pinned community catalog contains a stale or ambiguous source: ${theme.repo}`);
+    }
+    if (!/^[0-9a-f]{40}$/i.test(theme.checkedCommit || "")) {
+      throw new Error(`Pinned community catalog commit is invalid: ${theme.repo}`);
+    }
+    pins.set(repositoryKey, theme.checkedCommit.toLowerCase());
+  }
+  for (const repositoryKey of sourceByRepository.keys()) {
+    if (!pins.has(repositoryKey)) {
+      throw new Error(`Pinned community catalog is missing an active source: ${repositoryKey}`);
+    }
+  }
+  return pins;
 }
 
 export function selectiveThemeBuildPlan(registry, previousCatalog, expectedRepository, { previousRepository = "" } = {}) {
@@ -313,6 +348,7 @@ export async function buildCatalog() {
   const temporaryImageDirectory = await mkdtemp(resolve(dirname(imageDirectory), ".themes-"));
   const expectedRepository = process.env.EXPECTED_THEME_REPOSITORY || "";
   const previousRepository = process.env.PREVIOUS_THEME_REPOSITORY || "";
+  const pinCommunitySnapshots = process.env.PIN_COMMUNITY_CATALOG_SNAPSHOTS === "1";
 
   try {
     if (expectedRepository) {
@@ -337,11 +373,16 @@ export async function buildCatalog() {
       return catalog;
     }
 
+    const communityPins = pinCommunitySnapshots
+      ? communitySnapshotPins(registry, JSON.parse(await readFile(catalogPath, "utf8")))
+      : new Map();
     const builtInGroups = await Promise.all(
       registry.builtInSources.map((source) => buildBuiltInThemes(source, temporaryImageDirectory)),
     );
     const communityThemes = await Promise.all(
-      registry.sources.map((source) => buildCommunityTheme(source, temporaryImageDirectory)),
+      registry.sources.map((source) => buildCommunityTheme(source, temporaryImageDirectory, {
+        expectedCommit: communityPins.get(githubRepositoryKey(source.repo)) || "",
+      })),
     );
     const themes = assertUniqueThemeIds([...builtInGroups.flat(), ...communityThemes])
       .sort((first, second) => first.name.localeCompare(second.name));
