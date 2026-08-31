@@ -1,6 +1,6 @@
 # Omarchy Theme Marketplace
 
-An independent, static marketplace for discovering themes made for the native [Omarchy](https://github.com/basecamp/omarchy) theme system.
+An independent, static marketplace for discovering themes made for the native [Omarchy](https://github.com/omacom/omarchy) theme system.
 
 The project uses the Omarchy Plugin Marketplace as an implementation and visual reference, but the product, catalog, validation rules, and commands are theme-specific. It does not list plugins or website skins.
 
@@ -65,9 +65,13 @@ npm run build
 
 The full build performs live GitHub requests and may update generated catalog and preview files when upstream repositories change.
 
-## Project status
+## Submit a theme
 
-The theme catalog, browse page, detail page, and palette explorer are working. Theme-specific submission automation, publishing safeguards, and deployment workflows are the next implementation phase. Until those are complete, proposals should be opened as ordinary issues and must be reviewed manually.
+Use the [structured theme form](https://github.com/yamz8/omarchy-theme-marketplace/issues/new?template=submit-theme.yml) after testing the public repository on current Omarchy. Validation reads the exact current commit without executing repository contents and posts the theme ID, mode, preview, wallpaper count, license, and commit trace.
+
+Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded publication job then performs a fresh inspection, builds the exact approved commit, runs tests, commits the registry and generated outputs together, and lets the normal Pages workflow deploy the committed static site.
+
+The theme catalog, browse page, detail page, palette explorer, initial-submission workflow, guarded publication, scheduled refresh, and static Pages deployment are implemented. Theme update, repository migration, and delisting workflows remain manual until their separate identity rules are built.
 
 See [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection.
 

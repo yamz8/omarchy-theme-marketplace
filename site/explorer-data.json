@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T21:30:04.553Z",
+  "generatedAt": "2026-08-31T00:54:20.086Z",
   "schemaVersion": 1,
   "summary": {
     "total": 23,
@@ -30,8 +30,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/catppuccin-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/catppuccin-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "catppuccin-latte",
@@ -52,8 +52,8 @@
       },
       "backgroundCount": 2,
       "addedAt": "",
-      "preview": "assets/img/themes/catppuccin-latte-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/catppuccin-latte-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "ethereal",
@@ -74,8 +74,8 @@
       },
       "backgroundCount": 3,
       "addedAt": "",
-      "preview": "assets/img/themes/ethereal-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/ethereal-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "everforest",
@@ -96,8 +96,8 @@
       },
       "backgroundCount": 2,
       "addedAt": "",
-      "preview": "assets/img/themes/everforest-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/everforest-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "flexoki-light",
@@ -118,8 +118,8 @@
       },
       "backgroundCount": 2,
       "addedAt": "",
-      "preview": "assets/img/themes/flexoki-light-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/flexoki-light-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "giants",
@@ -162,8 +162,8 @@
       },
       "backgroundCount": 6,
       "addedAt": "",
-      "preview": "assets/img/themes/gruvbox-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/gruvbox-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "hackerman",
@@ -184,8 +184,8 @@
       },
       "backgroundCount": 3,
       "addedAt": "",
-      "preview": "assets/img/themes/hackerman-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/hackerman-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "kanagawa",
@@ -206,8 +206,8 @@
       },
       "backgroundCount": 2,
       "addedAt": "",
-      "preview": "assets/img/themes/kanagawa-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/kanagawa-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "last-horizon",
@@ -228,8 +228,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/last-horizon-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/last-horizon-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "lumon",
@@ -250,8 +250,8 @@
       },
       "backgroundCount": 3,
       "addedAt": "",
-      "preview": "assets/img/themes/lumon-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/lumon-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "lupine",
@@ -272,8 +272,8 @@
       },
       "backgroundCount": 6,
       "addedAt": "",
-      "preview": "assets/img/themes/lupine-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/lupine-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "matte-black",
@@ -294,8 +294,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/matte-black-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/matte-black-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "miasma",
@@ -316,8 +316,8 @@
       },
       "backgroundCount": 3,
       "addedAt": "",
-      "preview": "assets/img/themes/miasma-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/miasma-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "nord",
@@ -338,8 +338,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/nord-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/nord-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "osaka-jade",
@@ -360,8 +360,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/osaka-jade-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/osaka-jade-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "retro-82",
@@ -382,8 +382,8 @@
       },
       "backgroundCount": 9,
       "addedAt": "",
-      "preview": "assets/img/themes/retro-82-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/retro-82-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "ristretto",
@@ -404,8 +404,8 @@
       },
       "backgroundCount": 5,
       "addedAt": "",
-      "preview": "assets/img/themes/ristretto-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/ristretto-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "rose-pine",
@@ -426,8 +426,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/rose-pine-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/rose-pine-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "solitude",
@@ -448,8 +448,8 @@
       },
       "backgroundCount": 5,
       "addedAt": "",
-      "preview": "assets/img/themes/solitude-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/solitude-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "tokyo-night",
@@ -470,8 +470,8 @@
       },
       "backgroundCount": 8,
       "addedAt": "",
-      "preview": "assets/img/themes/tokyo-night-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/tokyo-night-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "vantablack",
@@ -492,8 +492,8 @@
       },
       "backgroundCount": 5,
       "addedAt": "",
-      "preview": "assets/img/themes/vantablack-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/vantablack-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     },
     {
       "id": "white",
@@ -514,8 +514,8 @@
       },
       "backgroundCount": 4,
       "addedAt": "",
-      "preview": "assets/img/themes/white-468e2043b2-card.webp",
-      "repo": "https://github.com/basecamp/omarchy"
+      "preview": "assets/img/themes/white-6eb9ed429d-card.webp",
+      "repo": "https://github.com/omacom/omarchy"
     }
   ],
   "growth": [

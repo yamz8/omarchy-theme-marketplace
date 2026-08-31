@@ -1,0 +1,78 @@
+name: Submit an Omarchy theme
+description: Propose one public GitHub theme repository for the curated marketplace.
+title: "[Theme]: "
+labels: ["theme-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit one repository for one native Omarchy theme. Validation reads the exact current commit without executing repository contents. Passing compatibility validation is not a security review, rights review, or endorsement.
+
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      description: Public HTTPS GitHub repository root. Do not include a branch, path, query, or fragment.
+      placeholder: https://github.com/your-name/omarchy-example-theme
+    validations:
+      required: true
+
+  - type: input
+    id: theme_name
+    attributes:
+      label: Theme name
+      description: This must match the name after the `[Theme]:` issue-title prefix.
+      placeholder: Example
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      placeholder: Your display name
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One short functional description between 20 and 240 characters.
+      placeholder: A cool dark theme built around deep blue surfaces and clear violet accents.
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: One to three lowercase tags separated by commas. Use letters, numbers, and hyphens.
+      placeholder: dark, cool, high-contrast
+    validations:
+      required: true
+
+  - type: input
+    id: tested_version
+    attributes:
+      label: Tested Omarchy version
+      description: The Omarchy version used for a clean installation test.
+      placeholder: 4.0.1
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission checklist
+      options:
+        - label: The repository is public and installs with `omarchy theme install`.
+          required: true
+        - label: I tested the published repository on current Omarchy.
+          required: true
+        - label: The repository includes a README and license.
+          required: true
+        - label: I own or have permission to submit the theme and its assets.
+          required: true
+        - label: I understand that catalog listing is not a security review or endorsement.
+          required: true

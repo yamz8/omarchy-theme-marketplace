@@ -158,20 +158,24 @@ Catalog inspection is a compatibility check, not a security review. Do not use `
 
 The full catalog build performs live GitHub requests and may update generated files. Run `npm run build` for registry, catalog, source-validation, or generation changes. Do not run it for unrelated UI-only work.
 
-## Automation transition
+## Theme publication automation
 
-The copied plugin issue forms and workflows are legacy inputs and must not be enabled or represented as theme automation. Replace them with narrow theme-specific files before production automation is used.
+New community submissions use `submit-theme.yml`, exact-snapshot validation, and explicit `approved-theme` publication. Preserve these properties:
 
-Future publication automation must:
-
-- validate one public repository for one theme;
-- bind review and publication to the exact inspected repository and commit;
+- validate one public repository for one theme and require every rights checklist item;
+- bind review and initial publication to the freshly inspected repository and exact commit;
 - require explicit authorized-maintainer approval;
+- reject duplicate active IDs, duplicate repositories, and retired IDs;
+- store the approval actor, time, issue, tested Omarchy version, and exact initial commit;
 - serialize writes to the canonical registry;
 - build and test once;
 - deploy the exact tested `site/` artifact without rebuilding;
 - fail closed on stale evidence, source changes, identity ambiguity, or validation errors;
 - avoid executing submitted theme content.
+
+`theme-submission.mjs` owns the structured issue contract. `theme-github-source.mjs` owns bounded GitHub transport and exact snapshots. `theme-source-validation.mjs` owns static theme compatibility. `approve-theme-submission.mjs` owns the registry projection for approved new sources. Do not duplicate these rules in workflows.
+
+Theme update, repository migration, and delisting remain manual until their own guarded workflows are implemented. Do not stretch the new-listing workflow to perform those actions.
 
 Opening issues, changing labels, pushing, transferring the repository, changing DNS, or deploying production requires explicit maintainer authority.
 

@@ -44,16 +44,20 @@ Built-in commands select the theme shipped by the user's locally installed Omarc
 
 ## Publication safeguards
 
-Theme-specific automated submission and publication are not implemented yet. Until they are:
+New submissions use a structured issue and deterministic static inspection. Validation alone cannot publish. The `approved-theme` label is accepted only from an actor with repository write permission, and the publication job:
 
-- do not enable the copied plugin submission, verification, approval, delisting, or update workflows;
-- do not represent a manually added source as security-verified;
-- review repository ownership, structure, palette, preview, README, license, and current install behavior before editing `registry.json`;
-- run the catalog build and tests before publication;
-- review all generated catalog and preview changes;
-- never execute a submitted theme repository in CI.
+1. parses the current structured submission contract;
+2. resolves and inspects the current exact theme commit again;
+3. rejects active, duplicate, or retired theme IDs and repositories;
+4. records the approval actor, time, issue, tested Omarchy version, and exact approved commit in `registry.json`;
+5. forces the catalog build to use that exact approved commit for the new source;
+6. runs tests and whitespace checks;
+7. refuses to publish if `main` changed after the tested build;
+8. commits only the registry, generated catalog, Explore data, and normalized theme previews.
 
-The future automated workflow must bind approval to one exact repository and commit, treat repository values as untrusted input, build a single immutable static artifact, and fail closed when source identity or validation is ambiguous.
+The Pages workflow tests and uploads the committed `site/` tree without rebuilding it. Scheduled refreshes are separately serialized and refuse to publish stale output.
+
+Theme update, repository migration, and delisting automation are not implemented yet. Those actions remain manual and require explicit review. Never represent compatibility validation or maintainer approval as security verification, and never execute submitted theme repository contents in CI.
 
 ## Supported versions
 

@@ -50,7 +50,13 @@ That selects the version shipped by the locally installed Omarchy package, which
 
 `npm run build` resolves every configured source again. If upstream has changed, the generated catalog and preview assets can change with it. Review the exact diff before publication.
 
-The marketplace does not yet have a separate theme-update approval workflow or durable historical verification record. Adding those controls is planned before automated community publication is enabled.
+The marketplace does not yet have a separate theme-update approval workflow or durable historical verification record. Those controls are required before automated update or delisting publication is enabled.
+
+## New listing approval
+
+Structured theme proposals receive exact-snapshot compatibility feedback. Passing validation does not publish the source. An authorized maintainer must apply `approved-theme`; publication performs a fresh inspection, records the approval and exact commit, and forces the catalog build to use that commit for the newly approved source.
+
+This approval is a curation and publication decision, not a `Verified` status. Later scheduled refreshes can observe newer mutable upstream, while `listingApprovedCommit` remains an audit record of the initial publication decision.
 
 ## Display contract
 

@@ -1,0 +1,112 @@
+name: Approve theme submission
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: theme-catalog-writes
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.label.name == 'approved-theme' && github.event.issue.state == 'open' && startsWith(github.event.issue.title, '[Theme]:') && contains(github.event.issue.labels.*.name, 'theme-validated')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - name: Require an authorized maintainer decision
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPROVER: ${{ github.actor }}
+        run: |
+          set -euo pipefail
+          permission="$(gh api "repos/${GITHUB_REPOSITORY}/collaborators/${APPROVER}/permission" --jq .permission)"
+          case "$permission" in
+            admin|maintain|write) ;;
+            *) echo "${APPROVER} does not have write permission." >&2; exit 1 ;;
+          esac
+
+      - name: Check out current main without persisted credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Record publication base
+        id: base
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install build dependencies
+        run: npm ci
+
+      - name: Revalidate and register the approved source
+        id: approval
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          APPROVED_AT: ${{ github.event.issue.updated_at }}
+          APPROVED_BY: ${{ github.actor }}
+          SUBMISSION_ISSUE: ${{ github.event.issue.html_url }}
+        run: node scripts/approve-theme-submission.mjs
+
+      - name: Build the exact approved theme snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXPECTED_THEME_REPOSITORY: ${{ steps.approval.outputs.repository }}
+          EXPECTED_THEME_COMMIT: ${{ steps.approval.outputs.commit }}
+        run: npm run build
+
+      - name: Test the publication
+        run: npm test
+
+      - name: Check publication whitespace
+        run: git diff --check
+
+      - name: Commit and push the tested publication
+        env:
+          BASE_COMMIT: ${{ steps.base.outputs.commit }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          THEME_ID: ${{ steps.approval.outputs.theme_id }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registry.json site/catalog.json site/explorer-data.json site/assets/img/themes/
+          git diff --cached --check
+          git commit -m "Add ${THEME_ID} theme"
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$BASE_COMMIT" ]; then
+            echo "main changed during publication; refusing to publish stale generated files." >&2
+            exit 1
+          fi
+          authorization="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic ${authorization}" push origin HEAD:main
+
+      - name: Close the published proposal
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          THEME_ID: ${{ steps.approval.outputs.theme_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "Published theme ${THEME_ID} from the exact approved snapshot. The normal install command still obtains current mutable upstream."
+          gh issue close "$ISSUE_NUMBER" --reason completed
+
+      - name: Make a failed decision retryable
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$ISSUE_NUMBER" --remove-label approved-theme || true
+          gh issue comment "$ISSUE_NUMBER" --body "Theme publication failed without changing the marketplace. Review the workflow, correct the current issue or repository, then apply approved-theme again." || true

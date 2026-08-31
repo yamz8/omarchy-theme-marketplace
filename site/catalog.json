@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T21:30:04.553Z",
+  "generatedAt": "2026-08-31T00:54:20.086Z",
   "schemaVersion": 1,
   "mode": "live",
   "themes": [
@@ -9,8 +9,8 @@
       "name": "Catppuccin",
       "description": "A built-in Omarchy catppuccin theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/catppuccin",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/catppuccin",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -60,16 +60,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/catppuccin-468e2043b2-card.webp",
-        "detail": "assets/img/themes/catppuccin-468e2043b2-detail.webp"
+        "card": "assets/img/themes/catppuccin-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/catppuccin-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -78,8 +78,8 @@
       "name": "Catppuccin Latte",
       "description": "A built-in Omarchy catppuccin latte theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/catppuccin-latte",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/catppuccin-latte",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -129,16 +129,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/catppuccin-latte-468e2043b2-card.webp",
-        "detail": "assets/img/themes/catppuccin-latte-468e2043b2-detail.webp"
+        "card": "assets/img/themes/catppuccin-latte-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/catppuccin-latte-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -147,8 +147,8 @@
       "name": "Ethereal",
       "description": "A built-in Omarchy ethereal theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/ethereal",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/ethereal",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -195,16 +195,16 @@
       "backgroundCount": 3,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/ethereal-468e2043b2-card.webp",
-        "detail": "assets/img/themes/ethereal-468e2043b2-detail.webp"
+        "card": "assets/img/themes/ethereal-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/ethereal-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -213,8 +213,8 @@
       "name": "Everforest",
       "description": "A built-in Omarchy everforest theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/everforest",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/everforest",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -264,16 +264,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/everforest-468e2043b2-card.webp",
-        "detail": "assets/img/themes/everforest-468e2043b2-detail.webp"
+        "card": "assets/img/themes/everforest-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/everforest-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -282,8 +282,8 @@
       "name": "Flexoki Light",
       "description": "A built-in Omarchy flexoki light theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/flexoki-light",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/flexoki-light",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -333,16 +333,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/flexoki-light-468e2043b2-card.webp",
-        "detail": "assets/img/themes/flexoki-light-468e2043b2-detail.webp"
+        "card": "assets/img/themes/flexoki-light-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/flexoki-light-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -405,7 +405,7 @@
       "addedAt": "2026-08-31",
       "checkedCommit": "0fe2e231e55895dd300937f510194d702b02af26",
       "checkedBranch": "main",
-      "checkedAt": "2026-08-30T21:30:02.896Z",
+      "checkedAt": "2026-08-31T00:54:19.287Z",
       "compatibilityStatus": "passed",
       "preview": {
         "card": "assets/img/themes/giants-a90f2b00a8-card.webp",
@@ -418,8 +418,8 @@
       "name": "Gruvbox",
       "description": "A built-in Omarchy gruvbox theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/gruvbox",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/gruvbox",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -469,16 +469,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/gruvbox-468e2043b2-card.webp",
-        "detail": "assets/img/themes/gruvbox-468e2043b2-detail.webp"
+        "card": "assets/img/themes/gruvbox-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/gruvbox-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -487,8 +487,8 @@
       "name": "Hackerman",
       "description": "A built-in Omarchy hackerman theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/hackerman",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/hackerman",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -538,16 +538,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/hackerman-468e2043b2-card.webp",
-        "detail": "assets/img/themes/hackerman-468e2043b2-detail.webp"
+        "card": "assets/img/themes/hackerman-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/hackerman-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -556,8 +556,8 @@
       "name": "Kanagawa",
       "description": "A built-in Omarchy kanagawa theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/kanagawa",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/kanagawa",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -608,16 +608,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/kanagawa-468e2043b2-card.webp",
-        "detail": "assets/img/themes/kanagawa-468e2043b2-detail.webp"
+        "card": "assets/img/themes/kanagawa-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/kanagawa-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -626,8 +626,8 @@
       "name": "Last Horizon",
       "description": "A built-in Omarchy last horizon theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/last-horizon",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/last-horizon",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -677,16 +677,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/last-horizon-468e2043b2-card.webp",
-        "detail": "assets/img/themes/last-horizon-468e2043b2-detail.webp"
+        "card": "assets/img/themes/last-horizon-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/last-horizon-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -695,8 +695,8 @@
       "name": "Lumon",
       "description": "A built-in Omarchy lumon theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/lumon",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/lumon",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -747,16 +747,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/lumon-468e2043b2-card.webp",
-        "detail": "assets/img/themes/lumon-468e2043b2-detail.webp"
+        "card": "assets/img/themes/lumon-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/lumon-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -765,8 +765,8 @@
       "name": "Lupine",
       "description": "A built-in Omarchy lupine theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/lupine",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/lupine",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -813,16 +813,16 @@
       "backgroundCount": 6,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/lupine-468e2043b2-card.webp",
-        "detail": "assets/img/themes/lupine-468e2043b2-detail.webp"
+        "card": "assets/img/themes/lupine-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/lupine-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -831,8 +831,8 @@
       "name": "Matte Black",
       "description": "A built-in Omarchy matte black theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/matte-black",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/matte-black",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -882,16 +882,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/matte-black-468e2043b2-card.webp",
-        "detail": "assets/img/themes/matte-black-468e2043b2-detail.webp"
+        "card": "assets/img/themes/matte-black-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/matte-black-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -900,8 +900,8 @@
       "name": "Miasma",
       "description": "A built-in Omarchy miasma theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/miasma",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/miasma",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -948,16 +948,16 @@
       "backgroundCount": 3,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/miasma-468e2043b2-card.webp",
-        "detail": "assets/img/themes/miasma-468e2043b2-detail.webp"
+        "card": "assets/img/themes/miasma-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/miasma-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -966,8 +966,8 @@
       "name": "Nord",
       "description": "A built-in Omarchy nord theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/nord",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/nord",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1017,16 +1017,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/nord-468e2043b2-card.webp",
-        "detail": "assets/img/themes/nord-468e2043b2-detail.webp"
+        "card": "assets/img/themes/nord-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/nord-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1035,8 +1035,8 @@
       "name": "Osaka Jade",
       "description": "A built-in Omarchy osaka jade theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/osaka-jade",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/osaka-jade",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1086,16 +1086,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/osaka-jade-468e2043b2-card.webp",
-        "detail": "assets/img/themes/osaka-jade-468e2043b2-detail.webp"
+        "card": "assets/img/themes/osaka-jade-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/osaka-jade-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1104,8 +1104,8 @@
       "name": "Retro 82",
       "description": "A built-in Omarchy retro 82 theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/retro-82",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/retro-82",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1156,16 +1156,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/retro-82-468e2043b2-card.webp",
-        "detail": "assets/img/themes/retro-82-468e2043b2-detail.webp"
+        "card": "assets/img/themes/retro-82-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/retro-82-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1174,8 +1174,8 @@
       "name": "Ristretto",
       "description": "A built-in Omarchy ristretto theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/ristretto",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/ristretto",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1222,16 +1222,16 @@
       "backgroundCount": 5,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/ristretto-468e2043b2-card.webp",
-        "detail": "assets/img/themes/ristretto-468e2043b2-detail.webp"
+        "card": "assets/img/themes/ristretto-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/ristretto-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1240,8 +1240,8 @@
       "name": "Rose Pine",
       "description": "A built-in Omarchy rose pine theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/rose-pine",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/rose-pine",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -1291,16 +1291,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/rose-pine-468e2043b2-card.webp",
-        "detail": "assets/img/themes/rose-pine-468e2043b2-detail.webp"
+        "card": "assets/img/themes/rose-pine-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/rose-pine-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1309,8 +1309,8 @@
       "name": "Solitude",
       "description": "A built-in Omarchy solitude theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/solitude",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/solitude",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1361,16 +1361,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/solitude-468e2043b2-card.webp",
-        "detail": "assets/img/themes/solitude-468e2043b2-detail.webp"
+        "card": "assets/img/themes/solitude-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/solitude-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1379,8 +1379,8 @@
       "name": "Tokyo Night",
       "description": "A built-in Omarchy tokyo night theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/tokyo-night",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/tokyo-night",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1430,16 +1430,16 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/tokyo-night-468e2043b2-card.webp",
-        "detail": "assets/img/themes/tokyo-night-468e2043b2-detail.webp"
+        "card": "assets/img/themes/tokyo-night-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/tokyo-night-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1448,8 +1448,8 @@
       "name": "Vantablack",
       "description": "A built-in Omarchy vantablack theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/vantablack",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/vantablack",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1496,16 +1496,16 @@
       "backgroundCount": 5,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/vantablack-468e2043b2-card.webp",
-        "detail": "assets/img/themes/vantablack-468e2043b2-detail.webp"
+        "card": "assets/img/themes/vantablack-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/vantablack-6eb9ed429d-detail.webp"
       }
     },
     {
@@ -1514,8 +1514,8 @@
       "name": "White",
       "description": "A built-in Omarchy white theme.",
       "author": "Omarchy",
-      "repo": "https://github.com/basecamp/omarchy",
-      "sourceUrl": "https://github.com/basecamp/omarchy/tree/981274b20af8e85c09845071ac33c6230909f119/themes/white",
+      "repo": "https://github.com/omacom/omarchy",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/b686ed892d9c3020c3336203f6d34cc75b544e2b/themes/white",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -1562,16 +1562,16 @@
       "backgroundCount": 4,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 35445,
-      "repositoryUpdatedAt": "2026-08-30T21:21:54Z",
+      "stars": 35543,
+      "repositoryUpdatedAt": "2026-08-30T22:47:47Z",
       "addedAt": "",
-      "checkedCommit": "981274b20af8e85c09845071ac33c6230909f119",
+      "checkedCommit": "b686ed892d9c3020c3336203f6d34cc75b544e2b",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-08-30T21:29:37.990Z",
+      "checkedAt": "2026-08-31T00:53:57.553Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/white-468e2043b2-card.webp",
-        "detail": "assets/img/themes/white-468e2043b2-detail.webp"
+        "card": "assets/img/themes/white-6eb9ed429d-card.webp",
+        "detail": "assets/img/themes/white-6eb9ed429d-detail.webp"
       }
     }
   ],

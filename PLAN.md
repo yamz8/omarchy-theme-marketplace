@@ -23,7 +23,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 ### Theme catalog
 
 - The registry has a theme-only schema with built-in and community sources.
-- Built-in themes are discovered from `basecamp/omarchy` under the configured `themes/` root.
+- Built-in themes are discovered from `omacom/omarchy` under the configured `themes/` root.
 - Community themes resolve from public GitHub repositories.
 - The builder records an exact commit, branch, fetch time, palette, mode, source, wallpaper count, preview source, license, and filtered root files.
 - Preview images are bounded, metadata-stripped, and normalized into card and detail WebP assets.
@@ -44,24 +44,18 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Community install is described as mutable current upstream, not the exact checked snapshot.
 - Built-in selection is described as the version in the locally installed Omarchy package.
 
+### Initial submission and deployment automation
+
+- A structured issue form accepts one public GitHub repository for one theme.
+- Validation parses fixed fields and rights confirmations, resolves one exact commit, and checks the native theme structure without executing repository contents.
+- Sticky issue feedback exposes the derived theme ID, commit, palette mode, preview dimensions, wallpaper count, license, and install boundary.
+- `approved-theme` requires a write-authorized maintainer and triggers a fresh exact-snapshot inspection.
+- Publication rejects duplicate and retired IDs, records approval evidence, builds the approved commit, tests it, and refuses stale pushes.
+- Scheduled refresh and Pages deployment are theme-specific, serialized, and deploy committed tested output without rebuilding.
+
 ## Next implementation goals
 
-### Goal 1 — Theme submission automation
-
-Replace copied issue forms and workflows with a narrow theme pipeline:
-
-1. accept one public GitHub repository root URL;
-2. normalize and validate its theme slug;
-3. resolve repository identity and exact current commit;
-4. statically validate `colors.toml`, backgrounds, preview, README, and license;
-5. publish deterministic issue feedback without executing repository content;
-6. require explicit authorized-maintainer approval;
-7. add only the approved source to the theme registry;
-8. build and test once, then deploy that exact static artifact.
-
-The copied plugin automation must remain disabled or be removed before this is enabled.
-
-### Goal 2 — Safe updates and delisting
+### Goal 1 — Safe updates and delisting
 
 - Refresh existing sources without allowing unrelated catalog drift in approval jobs.
 - Preserve retired theme IDs so identifiers cannot be reused accidentally.
@@ -69,15 +63,15 @@ The copied plugin automation must remain disabled or be removed before this is e
 - Validate repository rename or transfer identity before changing an active source URL.
 - Keep updates, publication, and deployment serialized around the canonical registry.
 
-### Goal 3 — Engagement migration
+### Goal 2 — Engagement migration
 
 Decide whether the optional anonymous views, command-copy totals, and hearts help theme discovery. If retained, rename the Worker and schema contract to theme IDs, keep the feature credential-free, and avoid accounts, tracking, ratings, or installation telemetry.
 
-### Goal 4 — Deployment and maintainer proposal
+### Goal 3 — Production review and maintainer proposal
 
 Before approaching the Omarchy maintainers:
 
-- remove every active copied plugin artifact and workflow;
+- remove every remaining inactive copied artifact;
 - verify a clean `npm ci`, build, tests, and static Pages deployment;
 - test submission success and rejection paths;
 - document the exact trust and mutable-install boundaries;

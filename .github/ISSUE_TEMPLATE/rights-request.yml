@@ -1,6 +1,7 @@
 name: Rights or asset removal request
 description: Request review or removal of marketplace content that may affect your rights.
 title: "[Rights request]: "
+labels: ["rights-request"]
 body:
   - type: markdown
     attributes:
@@ -11,7 +12,7 @@ body:
     attributes:
       label: Material URL
       description: Link directly to the listing, preview, repository reference, or other material at issue.
-      placeholder: https://omarchyplugins.com/plugin.html?id=example
+      placeholder: https://github.com/yamz8/omarchy-theme-marketplace
     validations:
       required: true
   - type: textarea

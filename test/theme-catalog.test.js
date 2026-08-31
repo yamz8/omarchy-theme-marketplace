@@ -11,7 +11,7 @@ async function readJson(path) {
 test("registry contains theme sources, not plugin manifests", async () => {
   const registry = await readJson("registry.json");
   assert.equal(registry.schemaVersion, 1);
-  assert.ok(registry.builtInSources.some((source) => source.themeRoot === "themes"));
+  assert.ok(registry.builtInSources.some((source) => source.repo === "https://github.com/omacom/omarchy" && source.themeRoot === "themes"));
   assert.ok(registry.sources.some((source) => source.repo === "https://github.com/dhh/omarchy-giants-theme"));
   assert.equal(Object.hasOwn(registry, "plugins"), false);
 });

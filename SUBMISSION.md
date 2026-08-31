@@ -1,6 +1,6 @@
 # Submit an Omarchy Theme
 
-This is the theme repository and marketplace contract. The structured GitHub submission workflow is not implemented yet; until it is, open a normal issue and wait for manual review.
+This is the theme repository and marketplace contract. Submit through the structured GitHub issue form after testing the published repository on current Omarchy.
 
 ## Repository requirements
 
@@ -91,7 +91,7 @@ Then verify:
 
 ## Open a proposal
 
-Until the structured form exists, open a [new marketplace issue](https://github.com/yamz8/omarchy-theme-marketplace/issues/new) with:
+Open the [theme submission form](https://github.com/yamz8/omarchy-theme-marketplace/issues/new?template=submit-theme.yml) with:
 
 ```markdown
 Title: [Theme]: Theme name
@@ -126,11 +126,13 @@ Do not create an issue on someone else's behalf until the repository owner confi
 
 ## Review and publication
 
-Current review is manual. A maintainer checks the repository contract, current install behavior, listing metadata, and asset rights, then adds the source to `registry.json`. The publication build resolves an exact commit, generates catalog data and preview assets, runs tests, and publishes only after its diff is reviewed.
+Validation reads the repository tree, palette, preview, README, and license at the exact current commit without executing repository contents. It posts deterministic compatibility feedback to the issue. Passing validation is necessary but does not publish the theme.
+
+An authorized maintainer reviews the proposal and applies `approved-theme`. Publication then performs a fresh inspection, rejects duplicate or retired IDs, records the approval and exact commit in `registry.json`, generates catalog data and preview assets from that commit, runs tests, and refuses to push if `main` changed after the tested build.
 
 The marketplace snapshot does not pin the normal install command. The install command obtains current mutable upstream, so the detail page exposes both that boundary and the exact commit inspected for the catalog.
 
-Future automation will preserve this contract, bind approval to the exact inspected commit, fail closed on ambiguous source identity, and deploy the tested static artifact without rebuilding it.
+The Pages workflow deploys the committed, tested static artifact without rebuilding it.
 
 ## Update or remove a listing
 

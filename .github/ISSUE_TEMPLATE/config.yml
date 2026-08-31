@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Browse the marketplace
-    url: https://omarchyplugins.com/
-    about: Check whether the plugin is already listed.
+  - name: Browse the theme marketplace project
+    url: https://github.com/yamz8/omarchy-theme-marketplace
+    about: Check the current theme catalog and project status before opening an issue.

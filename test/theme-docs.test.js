@@ -32,12 +32,13 @@ test("project documentation uses the native Omarchy theme contract", async () =>
   assert.doesNotMatch(combined, /submit-plugin|verify-plugin/);
 });
 
-test("submission guidance identifies its current manual boundary", async () => {
+test("submission guidance identifies the guarded automated publication boundary", async () => {
   const [submission, publish] = await Promise.all([read("SUBMISSION.md"), read("site/publish.html")]);
-  assert.match(submission, /structured GitHub submission workflow is not implemented yet/i);
+  assert.match(submission, /theme submission form/);
   assert.match(submission, /\[Theme\]: Theme name/);
   assert.match(submission, /I own or have permission to submit the theme and its assets/);
-  assert.match(publish, /Structured theme submission automation is the next implementation phase/);
+  assert.match(submission, /approved-theme/);
+  assert.match(publish, /exact current commit/);
   assert.match(publish, /Open a theme proposal/);
 });
 
