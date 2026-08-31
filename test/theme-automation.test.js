@@ -213,6 +213,15 @@ test("repository automation is theme-only, pinned, and least-privilege scoped", 
   assert.match(workflowSource, /EXPECTED_THEME_COMMIT/);
   const refreshWorkflow = await read(".github/workflows/refresh-catalog.yml");
   assert.match(refreshWorkflow, /PIN_COMMUNITY_CATALOG_SNAPSHOTS: "1"/);
+  assert.match(refreshWorkflow, /git diff --exit-code HEAD -- site/);
+  assert.match(refreshWorkflow, /git ls-files --others --exclude-standard -- site/);
+  assert.match(refreshWorkflow, /uses: actions\/upload-pages-artifact@[0-9a-f]{40}/);
+  assert.match(refreshWorkflow, /artifact_name: \$\{\{ steps\.identity\.outputs\.artifact_name \}\}/);
+  assert.match(refreshWorkflow, /deploy:\n\s+needs: refresh/);
+  assert.match(refreshWorkflow, /group: github-pages-deployments/);
+  assert.match(refreshWorkflow, /pages: write\n\s+id-token: write/);
+  assert.match(refreshWorkflow, /uses: actions\/deploy-pages@[0-9a-f]{40}/);
+  assert.match(refreshWorkflow, /artifact_name: \$\{\{ needs\.refresh\.outputs\.artifact_name \}\}/);
   assert.match(workflowSource, /theme-catalog-writes/);
   assert.match(workflowSource, /contains\(github\.event\.issue\.labels\.\*\.name, 'theme-validated'\)/);
   assert.match(workflowSource, /permissions:\n\s+contents: write\n\s+issues: write/);

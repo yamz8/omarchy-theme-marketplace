@@ -51,7 +51,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Sticky issue feedback exposes the derived theme ID, commit, palette mode, preview dimensions, wallpaper count, license, and install boundary.
 - `approved-theme` requires a write-authorized maintainer and triggers a fresh exact-snapshot inspection.
 - Publication rejects duplicate and retired IDs, records approval evidence, builds the approved commit, tests it, and refuses stale pushes.
-- Scheduled refresh and Pages deployment are theme-specific, serialized, and deploy committed tested output without rebuilding.
+- Scheduled refresh is theme-specific, serializes catalog writes, and deploys its exact tested `site/` artifact without rebuilding; maintainer pushes use the separate Pages workflow.
 
 ### Optional anonymous engagement
 

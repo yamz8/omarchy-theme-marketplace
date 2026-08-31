@@ -43,10 +43,10 @@ Do not hand-edit `site/catalog.json`, `site/explorer-data.json`, or `site/assets
 | Existing update | Manual `update-theme.yml` dispatch | Publishes the exact maintainer-supplied commit and archives the prior catalog snapshot |
 | Delisting | Manual `delist-themes.yml` dispatch | Removes complete sources, retires IDs, and removes only exclusive previews |
 | Rename or transfer | Manual `migrate-theme-repository.yml` dispatch | Requires old/new immutable identity equality and validates canonical HEAD |
-| Scheduled refresh | `refresh-catalog.yml` | Refreshes built-ins and rechecks community themes at their published commits |
-| Site deployment | Push to `main` | Tests and deploys the committed `site/` tree without rebuilding it |
+| Scheduled refresh | `refresh-catalog.yml` | Refreshes built-ins, rechecks community themes at their published commits, and deploys the exact tested `site/` artifact |
+| Site deployment | Maintainer push to `main` or manual dispatch | Tests and deploys the committed `site/` tree without rebuilding it |
 
-All catalog writes share `theme-catalog-writes`. Update, delisting, and migration build and test with read-only repository permissions, verify immutable artifact semantics separately, and give write permission only to the final guarded publication job. A changed `main` base aborts publication.
+All catalog writes share `theme-catalog-writes`. Update, delisting, and migration build and test with read-only repository permissions, verify immutable artifact semantics separately, and give write permission only to the final guarded publication job. A changed `main` base aborts publication. Scheduled refresh keeps that catalog-write lock through its guarded push and exact-artifact deployment; its deployment job separately shares `github-pages-deployments` with normal Pages releases.
 
 ## Trust boundary
 

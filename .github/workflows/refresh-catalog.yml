@@ -15,6 +15,8 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
+    outputs:
+      artifact_name: ${{ steps.identity.outputs.artifact_name }}
     steps:
       - name: Check out main without persisted credentials
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -70,3 +72,45 @@ jobs:
           fi
           authorization="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic ${authorization}" push origin HEAD:main
+
+      - name: Confirm the Pages tree matches the published commit
+        run: |
+          set -euo pipefail
+          git diff --exit-code HEAD -- site
+          test -z "$(git ls-files --others --exclude-standard -- site)"
+
+      - name: Name the immutable Pages artifact
+        id: identity
+        run: echo "artifact_name=refreshed-theme-pages-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the tested Pages tree
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          name: ${{ steps.identity.outputs.artifact_name }}
+          path: site
+          retention-days: 7
+
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages-deployments
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - name: Deploy the tested Pages tree
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        with:
+          artifact_name: ${{ needs.refresh.outputs.artifact_name }}
+          timeout: 300000
