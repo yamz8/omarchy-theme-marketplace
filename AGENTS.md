@@ -177,7 +177,7 @@ New community submissions use `submit-theme.yml`, exact-snapshot validation, and
 
 `theme-submission.mjs` owns the structured issue contract. `theme-github-source.mjs` owns bounded GitHub transport and exact snapshots. `theme-source-validation.mjs` owns static theme compatibility. `approve-theme-submission.mjs` owns the registry projection for approved new sources. Do not duplicate these rules in workflows.
 
-Theme update, repository migration, and delisting remain manual until their own guarded workflows are implemented. Do not stretch the new-listing workflow to perform those actions.
+Existing-theme updates use `update-theme.yml`, exact maintainer-supplied commits, the shared native source validator, and selective catalog builds. `update-theme-source.mjs` owns update provenance and history, while `verify-theme-update.mjs` owns the immutable publication projection check. Complete-source delisting uses `delist-themes.yml` and `delist-themes.mjs`; it permanently retires theme IDs and publishes its report only as a workflow artifact. Keep both operations manual, personal-maintainer-only, and serialized with other catalog writes. Repository migration remains unavailable until its own immutable-identity workflow is implemented. Do not stretch the new-listing workflow to perform updates, migrations, or delisting.
 
 Opening issues, changing labels, pushing, transferring the repository, changing DNS, or deploying production requires explicit maintainer authority.
 

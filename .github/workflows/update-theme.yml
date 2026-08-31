@@ -1,0 +1,346 @@
+name: Update marketplace theme
+
+on:
+  workflow_dispatch:
+    inputs:
+      theme_id:
+        description: "Exact installed theme ID"
+        required: true
+        type: string
+      commit_sha:
+        description: "Exact new upstream commit SHA"
+        required: true
+        type: string
+      tested_omarchy_version:
+        description: "Omarchy version used to test this update"
+        required: true
+        type: string
+      confirm_update:
+        description: "Publish this exact theme snapshot"
+        required: true
+        default: false
+        type: boolean
+
+permissions: {}
+
+concurrency:
+  group: >-
+    ${{ github.actor == 'yamz8' &&
+        github.triggering_actor == 'yamz8' &&
+        github.repository == 'yamz8/omarchy-theme-marketplace' &&
+        github.ref == 'refs/heads/main' &&
+        github.run_attempt == 1 &&
+        inputs.confirm_update == true &&
+        'theme-catalog-writes' || format('ignored-theme-update-{0}', github.run_id) }}
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Authorize exact manual theme update
+        env:
+          ACTOR: ${{ github.actor }}
+          CONFIRM_UPDATE: ${{ inputs.confirm_update }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          TESTED_OMARCHY_VERSION: ${{ inputs.tested_omarchy_version }}
+          THEME_ID: ${{ inputs.theme_id }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          UPDATE_COMMIT: ${{ inputs.commit_sha }}
+        run: |
+          set -euo pipefail
+          test "$EVENT_NAME" = workflow_dispatch
+          test "$REPOSITORY" = yamz8/omarchy-theme-marketplace
+          test "$REF" = refs/heads/main
+          test "$ACTOR" = yamz8
+          test "$TRIGGERING_ACTOR" = yamz8
+          test "$RUN_ATTEMPT" = 1
+          test "$CONFIRM_UPDATE" = true
+          [[ "$THEME_ID" =~ ^[a-z0-9][a-z0-9._-]{0,127}$ ]]
+          [[ "$THEME_ID" != *..* ]]
+          [[ "$UPDATE_COMMIT" =~ ^[0-9a-fA-F]{40}$ ]]
+          [[ "$TESTED_OMARCHY_VERSION" =~ ^[0-9A-Za-z][0-9A-Za-z._+-]{0,31}$ ]]
+
+  prepare:
+    needs: authorize
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    outputs:
+      artifact_name: ${{ steps.identity.outputs.artifact_name }}
+      base_commit: ${{ steps.base.outputs.commit }}
+      catalog_sha: ${{ steps.bundle.outputs.catalog_sha }}
+      explorer_sha: ${{ steps.bundle.outputs.explorer_sha }}
+      publication_sha: ${{ steps.bundle.outputs.publication_sha }}
+      registry_sha: ${{ steps.bundle.outputs.registry_sha }}
+      report_sha: ${{ steps.bundle.outputs.report_sha }}
+    steps:
+      - name: Check out current main with complete history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Record update base commit
+        id: base
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install marketplace dependencies
+        run: npm ci
+
+      - name: Validate and record the exact theme update
+        id: update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MARKETPLACE_UPDATE_BY: ${{ github.actor }}
+          MARKETPLACE_UPDATE_COMMIT: ${{ inputs.commit_sha }}
+          MARKETPLACE_UPDATE_OMARCHY_VERSION: ${{ inputs.tested_omarchy_version }}
+          MARKETPLACE_UPDATE_THEME_ID: ${{ inputs.theme_id }}
+        run: |
+          node scripts/update-theme-source.mjs \
+            --registry=registry.json \
+            --catalog=site/catalog.json \
+            --report="$RUNNER_TEMP/theme-update-report.json"
+
+      - name: Build only the exact updated theme snapshot
+        env:
+          EXPECTED_THEME_COMMIT: ${{ steps.update.outputs.commit }}
+          EXPECTED_THEME_REPOSITORY: ${{ steps.update.outputs.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build
+
+      - name: Test the updated marketplace
+        run: npm test
+
+      - name: Confirm only update outputs changed
+        run: |
+          set -euo pipefail
+          git diff --check
+          git diff --exit-code -- . \
+            ':!registry.json' \
+            ':!site/catalog.json' \
+            ':!site/explorer-data.json' \
+            ':!site/assets/img/themes/'
+
+      - name: Name the immutable update artifact
+        id: identity
+        run: echo "artifact_name=updated-theme-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Bundle the tested update transaction
+        id: bundle
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/theme-update-publication"
+          mkdir -p "$bundle/site/assets/img"
+          cp registry.json "$bundle/registry.json"
+          cp site/catalog.json "$bundle/site/catalog.json"
+          cp site/explorer-data.json "$bundle/site/explorer-data.json"
+          cp "$RUNNER_TEMP/theme-update-report.json" "$bundle/theme-update-report.json"
+          cp -a site/assets/img/themes "$bundle/site/assets/img/themes"
+          (
+            cd "$bundle"
+            find registry.json theme-update-report.json site/catalog.json site/explorer-data.json site/assets/img/themes -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS
+          )
+          read -r registry_sha _ < <(sha256sum registry.json)
+          read -r catalog_sha _ < <(sha256sum site/catalog.json)
+          read -r explorer_sha _ < <(sha256sum site/explorer-data.json)
+          read -r report_sha _ < <(sha256sum "$RUNNER_TEMP/theme-update-report.json")
+          read -r publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          echo "registry_sha=${registry_sha}" >> "$GITHUB_OUTPUT"
+          echo "catalog_sha=${catalog_sha}" >> "$GITHUB_OUTPUT"
+          echo "explorer_sha=${explorer_sha}" >> "$GITHUB_OUTPUT"
+          echo "report_sha=${report_sha}" >> "$GITHUB_OUTPUT"
+          echo "publication_sha=${publication_sha}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the tested update transaction
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ${{ steps.identity.outputs.artifact_name }}
+          path: ${{ runner.temp }}/theme-update-publication
+          if-no-files-found: error
+          retention-days: 7
+
+  verify:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check out the tested update base with complete history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.prepare.outputs.base_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up verification Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+
+      - name: Download the tested update transaction
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ needs.prepare.outputs.artifact_name }}
+          path: ${{ runner.temp }}/theme-update-publication
+
+      - name: Verify hashes and the exact update projection
+        env:
+          EXPECTED_CATALOG_SHA: ${{ needs.prepare.outputs.catalog_sha }}
+          EXPECTED_EXPLORER_SHA: ${{ needs.prepare.outputs.explorer_sha }}
+          EXPECTED_PUBLICATION_SHA: ${{ needs.prepare.outputs.publication_sha }}
+          EXPECTED_REGISTRY_SHA: ${{ needs.prepare.outputs.registry_sha }}
+          EXPECTED_REPORT_SHA: ${{ needs.prepare.outputs.report_sha }}
+          MARKETPLACE_UPDATE_BY: ${{ github.actor }}
+          MARKETPLACE_UPDATE_COMMIT: ${{ inputs.commit_sha }}
+          MARKETPLACE_UPDATE_OMARCHY_VERSION: ${{ inputs.tested_omarchy_version }}
+          MARKETPLACE_UPDATE_THEME_ID: ${{ inputs.theme_id }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/theme-update-publication"
+          if [ -n "$(find "$bundle" -type l -print -quit)" ]; then
+            echo "Artifact contains an unexpected symbolic link." >&2
+            exit 1
+          fi
+          actual_files="$(cd "$bundle" && find . -type f -printf '%P\n' | sort)"
+          expected_files="$(
+            cd "$bundle"
+            {
+              printf '%s\n' SHA256SUMS registry.json theme-update-report.json site/catalog.json site/explorer-data.json
+              find site/assets/img/themes -type f -print
+            } | sort
+          )"
+          test "$actual_files" = "$expected_files"
+          read -r actual_publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          test "$actual_publication_sha" = "$EXPECTED_PUBLICATION_SHA"
+          (cd "$bundle" && sha256sum --check SHA256SUMS)
+          read -r actual_registry_sha _ < <(sha256sum "$bundle/registry.json")
+          read -r actual_catalog_sha _ < <(sha256sum "$bundle/site/catalog.json")
+          read -r actual_explorer_sha _ < <(sha256sum "$bundle/site/explorer-data.json")
+          read -r actual_report_sha _ < <(sha256sum "$bundle/theme-update-report.json")
+          test "$actual_registry_sha" = "$EXPECTED_REGISTRY_SHA"
+          test "$actual_catalog_sha" = "$EXPECTED_CATALOG_SHA"
+          test "$actual_explorer_sha" = "$EXPECTED_EXPLORER_SHA"
+          test "$actual_report_sha" = "$EXPECTED_REPORT_SHA"
+          node scripts/verify-theme-update.mjs \
+            --base-registry=registry.json \
+            --base-catalog=site/catalog.json \
+            --base-preview-dir=site/assets/img/themes \
+            --next-registry="$bundle/registry.json" \
+            --next-catalog="$bundle/site/catalog.json" \
+            --next-preview-dir="$bundle/site/assets/img/themes" \
+            --report="$bundle/theme-update-report.json"
+          cp "$bundle/registry.json" registry.json
+          cp "$bundle/site/catalog.json" site/catalog.json
+          node scripts/build-explorer-data.mjs
+          cmp -s site/explorer-data.json "$bundle/site/explorer-data.json"
+
+  publish:
+    needs: [prepare, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Check out the tested update base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.prepare.outputs.base_commit }}
+          persist-credentials: false
+
+      - name: Download the verified update transaction
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ needs.prepare.outputs.artifact_name }}
+          path: ${{ runner.temp }}/theme-update-publication
+
+      - name: Verify and apply immutable update files
+        env:
+          EXPECTED_CATALOG_SHA: ${{ needs.prepare.outputs.catalog_sha }}
+          EXPECTED_EXPLORER_SHA: ${{ needs.prepare.outputs.explorer_sha }}
+          EXPECTED_PUBLICATION_SHA: ${{ needs.prepare.outputs.publication_sha }}
+          EXPECTED_REGISTRY_SHA: ${{ needs.prepare.outputs.registry_sha }}
+          EXPECTED_REPORT_SHA: ${{ needs.prepare.outputs.report_sha }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/theme-update-publication"
+          if [ -n "$(find "$bundle" -type l -print -quit)" ]; then
+            echo "Artifact contains an unexpected symbolic link." >&2
+            exit 1
+          fi
+          read -r actual_publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          test "$actual_publication_sha" = "$EXPECTED_PUBLICATION_SHA"
+          (cd "$bundle" && sha256sum --check SHA256SUMS)
+          read -r actual_registry_sha _ < <(sha256sum "$bundle/registry.json")
+          read -r actual_catalog_sha _ < <(sha256sum "$bundle/site/catalog.json")
+          read -r actual_explorer_sha _ < <(sha256sum "$bundle/site/explorer-data.json")
+          read -r actual_report_sha _ < <(sha256sum "$bundle/theme-update-report.json")
+          test "$actual_registry_sha" = "$EXPECTED_REGISTRY_SHA"
+          test "$actual_catalog_sha" = "$EXPECTED_CATALOG_SHA"
+          test "$actual_explorer_sha" = "$EXPECTED_EXPLORER_SHA"
+          test "$actual_report_sha" = "$EXPECTED_REPORT_SHA"
+          cp "$bundle/registry.json" registry.json
+          cp "$bundle/site/catalog.json" site/catalog.json
+          cp "$bundle/site/explorer-data.json" site/explorer-data.json
+          rm -rf site/assets/img/themes
+          cp -a "$bundle/site/assets/img/themes" site/assets/img/themes
+
+      - name: Reauthorize update before publication
+        env:
+          ACTOR: ${{ github.actor }}
+          CONFIRM_UPDATE: ${{ inputs.confirm_update }}
+          REF: ${{ github.ref }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          set -euo pipefail
+          test "$REPOSITORY" = yamz8/omarchy-theme-marketplace
+          test "$REF" = refs/heads/main
+          test "$ACTOR" = yamz8
+          test "$TRIGGERING_ACTOR" = yamz8
+          test "$RUN_ATTEMPT" = 1
+          test "$CONFIRM_UPDATE" = true
+
+      - name: Commit and push the tested update
+        env:
+          EXPECTED_BASE_COMMIT: ${{ needs.prepare.outputs.base_commit }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registry.json site/catalog.json site/explorer-data.json site/assets/img/themes/
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "Theme update produced no repository change." >&2
+            exit 1
+          fi
+          subject="$(jq -er '.commitSubject | select(type == "string" and length > 0 and contains("\n") == false)' "$RUNNER_TEMP/theme-update-publication/theme-update-report.json")"
+          git commit -m "$subject"
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$EXPECTED_BASE_COMMIT" ]; then
+            echo "main changed after the tested update; refusing to publish stale artifacts." >&2
+            exit 1
+          fi
+          authorization="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic ${authorization}" push origin HEAD:main

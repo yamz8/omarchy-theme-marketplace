@@ -69,6 +69,7 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 ### Targeted catalog maintenance
 
 - Exact approval builds refresh only the selected community repository and preserve unrelated catalog records and preview bytes.
+- Existing-theme updates validate a maintainer-supplied exact commit, archive the previous catalog snapshot, rebuild only that source, and independently verify that unrelated records and preview bytes remain unchanged.
 - Maintainer-only delisting removes one complete community source, permanently retires its installed theme ID, and removes only previews exclusive to that theme.
 - Delisting is a static, replayable registry/catalog projection with a checksummed machine-readable report; the report remains an immutable workflow artifact rather than a tracked site file.
 - Read-only jobs create, test, and independently replay the delisting transaction before a narrowly scoped write-token job can publish it from an unchanged `main` base.
@@ -77,7 +78,6 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 
 ### Goal 1 — Safe updates and delisting
 
-- Provide a guarded exact-snapshot update path for an existing community theme source.
 - Validate repository rename or transfer identity before changing an active source URL.
 - Keep updates, publication, and deployment serialized around the canonical registry.
 

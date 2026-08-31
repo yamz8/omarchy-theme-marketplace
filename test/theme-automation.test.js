@@ -194,6 +194,7 @@ test("repository automation is theme-only, pinned, and least-privilege scoped", 
     "deploy-pages.yml",
     "provision-labels.yml",
     "refresh-catalog.yml",
+    "update-theme.yml",
     "validate-theme-submission.yml",
     "verify.yml",
   ]);
