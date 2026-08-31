@@ -73,15 +73,11 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Maintainer-only delisting removes one complete community source, permanently retires its installed theme ID, and removes only previews exclusive to that theme.
 - Delisting is a static, replayable registry/catalog projection with a checksummed machine-readable report; the report remains an immutable workflow artifact rather than a tracked site file.
 - Read-only jobs create, test, and independently replay the delisting transaction before a narrowly scoped write-token job can publish it from an unchanged `main` base.
+- Repository migrations require old and new paths to resolve simultaneously to one immutable GitHub node/database identity, preserve the installed theme ID and historical evidence, validate canonical HEAD, and rebuild only the migrated source.
 
 ## Next implementation goals
 
-### Goal 1 — Safe updates and delisting
-
-- Validate repository rename or transfer identity before changing an active source URL.
-- Keep updates, publication, and deployment serialized around the canonical registry.
-
-### Goal 2 — Production review and maintainer proposal
+### Production review and maintainer proposal
 
 Before approaching the Omarchy maintainers:
 

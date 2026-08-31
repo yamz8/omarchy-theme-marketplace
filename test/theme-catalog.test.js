@@ -195,3 +195,50 @@ test("selective catalog builds reject slug changes, collisions, and retired IDs"
     /retired and cannot be republished/,
   );
 });
+
+test("selective catalog builds replace one historical migration path without unrelated drift", () => {
+  const builtInRepo = "https://github.com/omacom/omarchy";
+  const preservedRepo = "https://github.com/example/omarchy-preserved-theme";
+  const previousRepo = "https://github.com/example/omarchy-canyon-theme";
+  const nextRepo = "https://github.com/example/canyon-theme";
+  const registry = {
+    schemaVersion: 1,
+    retiredThemeIds: [],
+    builtInSources: [{ repo: builtInRepo, themeRoot: "themes" }],
+    sources: [{ repo: preservedRepo }, { repo: nextRepo }],
+  };
+  const previousCatalog = {
+    schemaVersion: 1,
+    themes: [
+      catalogTheme({ id: "tokyo-night", repo: builtInRepo, sourceType: "builtin" }),
+      catalogTheme({ id: "preserved", repo: preservedRepo }),
+      catalogTheme({ id: "canyon", repo: previousRepo }),
+    ],
+  };
+  const plan = selectiveThemeBuildPlan(registry, previousCatalog, nextRepo, {
+    previousRepository: previousRepo,
+  });
+  assert.equal(plan.previousTargetTheme.repo, previousRepo);
+  assert.equal(plan.preservedThemes.length, 2);
+
+  const refreshed = catalogTheme({ id: "canyon", repo: nextRepo, name: "Canonical Canyon" });
+  const catalog = mergeSelectiveThemeCatalog(
+    registry,
+    previousCatalog,
+    nextRepo,
+    refreshed,
+    "2026-08-31T12:00:00.000Z",
+    { previousRepository: previousRepo },
+  );
+  assert.equal(catalog.themes.find((theme) => theme.id === "canyon"), refreshed);
+  assert.equal(catalog.themes.find((theme) => theme.id === "preserved"), previousCatalog.themes[1]);
+  assert.equal(catalog.themes.some((theme) => theme.repo === previousRepo), false);
+
+  assert.throws(
+    () => selectiveThemeBuildPlan(registry, {
+      ...previousCatalog,
+      themes: previousCatalog.themes.slice(0, 2),
+    }, nextRepo, { previousRepository: previousRepo }),
+    /does not exactly cover historical migration source/,
+  );
+});

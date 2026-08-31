@@ -140,6 +140,7 @@ test("approval adds one audit-bound theme source and preserves retired IDs", () 
   );
   assert.equal(registry.sources.length, 1);
   assert.equal(source.repo, submission.repo);
+  assert.equal(source.listingApprovedRepository, submission.repo);
   assert.equal(source.listingApprovedCommit, "a".repeat(40));
   assert.equal(source.listingApprovedBy, "maintainer");
   assert.equal(source.testedOmarchyVersion, "4.0.1");
@@ -192,6 +193,7 @@ test("repository automation is theme-only, pinned, and least-privilege scoped", 
     "approve-theme-submission.yml",
     "delist-themes.yml",
     "deploy-pages.yml",
+    "migrate-theme-repository.yml",
     "provision-labels.yml",
     "refresh-catalog.yml",
     "update-theme.yml",

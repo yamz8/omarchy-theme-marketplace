@@ -45,6 +45,9 @@ export async function resolveRepositorySnapshot(repoUrl, requestedReference = ""
   if (String(metadata.full_name || "").toLowerCase() !== repository.slug.toLowerCase()) {
     throw new Error(`Use the canonical GitHub repository URL reported by GitHub: ${metadata.html_url || metadata.full_name}`);
   }
+  if (!Number.isSafeInteger(metadata.id) || metadata.id < 1 || typeof metadata.node_id !== "string" || !metadata.node_id) {
+    throw new Error(`Repository immutable identity is unavailable: ${repository.slug}`);
+  }
   const branch = requestedReference || metadata.default_branch;
   if (!branch) throw new Error(`Repository has no default branch: ${repository.slug}`);
 
@@ -69,6 +72,11 @@ export async function resolveRepositorySnapshot(repoUrl, requestedReference = ""
     license: metadata.license?.spdx_id && metadata.license.spdx_id !== "NOASSERTION"
       ? metadata.license.spdx_id
       : "",
+    repositoryIdentity: Object.freeze({
+      nodeId: metadata.node_id,
+      databaseId: metadata.id,
+      nameWithOwner: metadata.full_name,
+    }),
     entries: Object.freeze((tree.tree || []).map((entry) => ({
       path: String(entry.path || ""),
       type: String(entry.type || ""),

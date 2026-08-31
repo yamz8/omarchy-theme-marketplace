@@ -78,6 +78,7 @@ test("theme updates archive the exact prior snapshot and preserve unrelated sour
 
   assert.strictEqual(result.nextRegistry.sources[1], value.retainedSource);
   assert.equal(result.nextSource.listingApprovedCommit, "0".repeat(40));
+  assert.equal(result.nextSource.listingUpdatedRepository, targetRepo);
   assert.equal(result.nextSource.listingUpdatedCommit, nextCommit);
   assert.equal(result.nextSource.listingUpdatedBranch, "main");
   assert.equal(result.nextSource.listingUpdatedAt, updateAt);

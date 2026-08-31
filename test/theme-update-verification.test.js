@@ -43,6 +43,7 @@ function fixture() {
   const nextSource = {
     ...baseSource,
     testedOmarchyVersion: report.testedOmarchyVersion,
+    listingUpdatedRepository: repository,
     listingUpdatedCommit: updatedCommit,
     listingUpdatedBranch: "main",
     listingUpdatedAt: report.updatedAt,

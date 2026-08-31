@@ -61,7 +61,8 @@ export function verifyThemeUpdateProjection(baseRegistry, baseCatalog, nextRegis
 
   const baseSource = sourceByRepository(baseRegistry, report.repository);
   const nextSource = sourceByRepository(nextRegistry, report.repository);
-  if (nextSource.listingUpdatedCommit?.toLowerCase() !== report.updatedCommit.toLowerCase()
+  if (githubRepositoryKey(nextSource.listingUpdatedRepository) !== githubRepositoryKey(report.repository)
+    || nextSource.listingUpdatedCommit?.toLowerCase() !== report.updatedCommit.toLowerCase()
     || nextSource.listingUpdatedBranch !== report.updatedBranch
     || nextSource.listingUpdatedAt !== report.updatedAt
     || nextSource.listingUpdatedBy !== report.updatedBy

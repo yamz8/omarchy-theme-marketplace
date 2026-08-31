@@ -36,6 +36,7 @@ export function addApprovedThemeSource(registry, catalog, submission, validation
     tags: [...submission.tags],
     license: validation.license,
     testedOmarchyVersion: submission.testedOmarchyVersion,
+    listingApprovedRepository: submission.repo,
     listingApprovedCommit: validation.commit,
     listingApprovedAt: approvedAt,
     listingApprovedBy: approval.approvedBy,

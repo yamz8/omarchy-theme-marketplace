@@ -121,6 +121,7 @@ export function planThemeUpdate(registry, catalog, themeId, validation, options 
     ...source,
     license: validation.license,
     testedOmarchyVersion: options.testedOmarchyVersion,
+    listingUpdatedRepository: source.repo,
     listingUpdatedCommit: validation.commit,
     listingUpdatedBranch: validation.branch,
     listingUpdatedAt: updatedAt,
