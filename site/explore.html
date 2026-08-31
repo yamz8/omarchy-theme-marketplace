@@ -1,32 +1,102 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore the growing Omarchy theme community."><meta name="theme-color" content="#000000">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore palettes, sources, and growth across the Omarchy theme ecosystem.">
+    <meta name="theme-color" content="#000000">
     <title>Explore Themes | Omarchy Themes</title>
-    <link rel="icon" href="favicon.svg?v=20260728-9" type="image/svg+xml"><link rel="stylesheet" href="assets/css/style.css?v=20260831-04">
+    <link rel="icon" href="favicon.svg?v=20260728-9" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260831-04">
+    <link rel="stylesheet" href="assets/css/explore.css?v=20260831-01">
     <script>document.documentElement.dataset.theme = localStorage.getItem("omarchy-marketplace-color") || "dark";</script>
   </head>
-  <body>
-    <a class="skip-link" href="#content">Skip to content</a>
-    <div class="app-shell">
-      <aside class="left-sidebar">
-        <div class="sidebar-brand"><a href="index.html" aria-label="Omarchy Theme Marketplace home"><img src="assets/img/omarchy-wordmark.png" alt="" width="656" height="192"><span>THEME MARKETPLACE</span></a></div>
-        <div class="sidebar-section"><span class="label">Marketplace</span><div class="workspace-select"><span class="workspace-dot" aria-hidden="true"></span>Omarchy themes</div></div>
-        <div class="sidebar-group"><div class="sidebar-group-title">Discover</div><a class="sidebar-link" href="index.html">Browse themes</a><a class="sidebar-link active" href="explore.html" aria-current="page">Explore themes</a><a class="sidebar-link" href="develop.html">Develop a theme</a><a class="sidebar-link" href="publish.html">Publish a theme</a></div>
-        <div class="sidebar-bottom"><a class="sidebar-link" href="https://github.com/yamz8/omarchy-theme-marketplace" target="_blank" rel="noreferrer">GitHub repository ↗</a></div>
-      </aside>
-      <div class="center-panel">
-        <header class="doc-topbar"><div class="crumbs"><span>Omarchy / Themes / </span><b>Explore</b></div><div class="top-actions"><a class="square-action desktop-only" href="index.html">Browse</a><button class="square-action icon-only theme-toggle" type="button" aria-label="Toggle color theme"><svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg><svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg></button></div></header>
-        <main class="page-content" id="content">
-          <header class="page-header"><div class="page-eyebrow">Community map</div><h1>Explore Omarchy themes</h1><div class="page-meta"><span>Built-in foundations</span><span>Community additions</span></div></header>
-          <p class="intro">See how Omarchy's built-in themes and independent theme repositories form one ecosystem. The full theme graph and catalog-growth view will be introduced in a dedicated implementation step.</p>
-          <section class="docs-section"><h2>Two sources, one theme system</h2><div class="theme-source-overview"><article><span class="builtin-badge">Built in</span><h3>Omarchy themes</h3><p>Versioned with Omarchy and activated with <code>omarchy theme set &lt;slug&gt;</code>.</p><a class="button" href="index.html#catalog">Browse built-in themes →</a></article><article><span class="status-badge">Community</span><h3>GitHub themes</h3><p>Independent repositories installed with <code>omarchy theme install &lt;url&gt;</code>.</p><a class="button" href="index.html#catalog">Browse community themes →</a></article></div></section>
-        </main>
+  <body class="marketplace-page explore-page">
+    <a class="skip-link" href="#explorer">Skip to theme explorer</a>
+
+    <header class="market-header">
+      <div class="market-header-inner">
+        <div class="market-brand">
+          <a class="market-brand-home" href="index.html" aria-label="Omarchy Theme Marketplace home"><img src="assets/img/omarchy-wordmark.png" alt="" width="656" height="192"><span>THEME MARKETPLACE</span></a>
+        </div>
+        <nav class="market-nav" aria-label="Main navigation">
+          <a class="market-support-link" href="https://ko-fi.com/hancore" target="_blank" rel="noreferrer" aria-label="Support HANCORE on Ko-fi"><span class="market-support-dot" aria-hidden="true"></span>Support ↗</a>
+          <a href="index.html#catalog" aria-label="Browse themes">Browse<span class="market-nav-detail">&nbsp;themes</span></a>
+          <a class="active" href="explore.html" aria-current="page">Explore</a>
+          <a href="develop.html" aria-label="Develop a theme">Develop<span class="market-nav-detail">&nbsp;a theme</span></a>
+          <a href="https://github.com/yamz8/omarchy-theme-marketplace" target="_blank" rel="noreferrer" aria-label="Contribute to the theme marketplace">Contribute</a>
+          <a href="publish.html" aria-label="Publish a theme">Publish<span class="market-nav-detail">&nbsp;a theme</span><span aria-hidden="true">&nbsp;→</span></a>
+          <button class="square-action icon-only theme-toggle" type="button" aria-label="Toggle color theme"><svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/></svg><svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg></button>
+        </nav>
       </div>
-      <aside class="right-aside"><div class="aside-block"><span class="aside-title">Explore</span><a class="aside-link active" href="#content">Overview</a><a class="aside-link" href="index.html#catalog">Theme catalog</a></div></aside>
-    </div>
-    <nav class="mobile-bottom" aria-label="Mobile navigation"><a href="index.html">Browse</a><a class="active" href="explore.html" aria-current="page">Explore</a><a href="develop.html">Develop</a><a href="publish.html">Publish</a></nav>
-    <script type="module" src="assets/js/static-page.js?v=20260831-02"></script>
+    </header>
+
+    <main id="explorer" class="explore-main">
+      <header class="explore-heading">
+        <div><span class="page-eyebrow">Theme ecosystem</span><h1>explore omarchy themes</h1><p>Compare palettes by accent hue and background luminance, inspect the current source mix, or follow registry growth over time.</p></div>
+        <div class="explore-heading-side">
+          <div class="explore-tabs" role="tablist" aria-label="Explorer view">
+            <button id="atlas-tab" class="active" type="button" role="tab" aria-selected="true" aria-controls="atlas-view" data-explore-view="atlas">Palette atlas</button>
+            <button id="growth-tab" type="button" role="tab" aria-selected="false" aria-controls="growth-view" data-explore-view="growth" tabindex="-1">Growth</button>
+          </div>
+          <div class="explore-freshness">Catalog snapshot · <time id="explorer-updated" datetime="">Pending</time></div>
+        </div>
+      </header>
+
+      <section class="explore-summary" aria-label="Theme ecosystem summary">
+        <div><span>Total themes</span><strong id="summary-total">—</strong></div>
+        <div><span>Built in</span><strong id="summary-builtin">—</strong></div>
+        <div><span>Community</span><strong id="summary-community">—</strong></div>
+        <div><span>Authors</span><strong id="summary-authors">—</strong></div>
+        <div><span>Wallpapers</span><strong id="summary-wallpapers">—</strong></div>
+      </section>
+
+      <section id="atlas-view" class="explore-view atlas-view" role="tabpanel" aria-labelledby="atlas-tab">
+        <div class="explore-toolbar">
+          <label class="explore-search"><span class="sr-only">Search theme palette atlas</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="atlas-search" type="search" name="atlas-search" placeholder="Search themes or @authors…" autocomplete="off" spellcheck="false"><output id="atlas-match-count" for="atlas-search" aria-live="polite"></output></label>
+          <div class="atlas-filter" role="group" aria-label="Filter palette atlas by source"><button class="active" type="button" data-atlas-source="all" aria-pressed="true">All</button><button type="button" data-atlas-source="builtin" aria-pressed="false">Built in</button><button type="button" data-atlas-source="community" aria-pressed="false">Community</button></div>
+          <div class="atlas-filter" role="group" aria-label="Filter palette atlas by mode"><button class="active" type="button" data-atlas-mode="all" aria-pressed="true">All modes</button><button type="button" data-atlas-mode="dark" aria-pressed="false">Dark</button><button type="button" data-atlas-mode="light" aria-pressed="false">Light</button></div>
+        </div>
+        <div class="atlas-workspace">
+          <div class="atlas-chart-wrap">
+            <svg id="palette-atlas" class="palette-atlas" viewBox="0 0 900 560" role="img" aria-labelledby="atlas-title atlas-description">
+              <title id="atlas-title">Omarchy theme palette atlas</title>
+              <desc id="atlas-description">Themes plotted by accent hue horizontally and background luminance vertically.</desc>
+              <g data-atlas-grid aria-hidden="true"></g><g data-atlas-points></g>
+            </svg>
+            <span class="atlas-axis atlas-axis-x">Accent hue · red → yellow → green → cyan → blue → magenta → red</span>
+            <span class="atlas-axis atlas-axis-y">Background luminance · light → dark</span>
+          </div>
+          <aside id="atlas-detail" class="atlas-detail" aria-live="polite" hidden>
+            <button id="atlas-detail-close" class="detail-close" type="button" aria-label="Close selected theme">×</button>
+            <span class="panel-kicker">Selected theme</span><img id="atlas-detail-preview" alt="" width="720" height="405">
+            <span id="atlas-detail-source" class="atlas-detail-source"></span><h2 id="atlas-detail-title"></h2><p id="atlas-detail-author"></p>
+            <div id="atlas-detail-palette" class="atlas-detail-palette" aria-label="Selected theme palette"></div>
+            <dl><div><dt>Mode</dt><dd id="atlas-detail-mode"></dd></div><div><dt>Wallpapers</dt><dd id="atlas-detail-wallpapers"></dd></div></dl>
+            <a id="atlas-detail-link" class="button primary" href="theme.html">View theme →</a>
+          </aside>
+        </div>
+        <div class="explore-statusbar" aria-live="polite"><span><strong id="atlas-visible">0</strong> visible themes</span><span><strong id="atlas-dark">0</strong> dark</span><span><strong id="atlas-light">0</strong> light</span><span class="status-method">Hue + relative luminance</span></div>
+      </section>
+
+      <section id="growth-view" class="explore-view growth-view" role="tabpanel" aria-labelledby="growth-tab" hidden>
+        <figure class="growth-poster">
+          <figcaption class="growth-poster-header">
+            <div><span class="page-eyebrow">Curated registry</span><h2>theme catalog growth</h2><p>Committed theme-registry snapshots plus the current generated catalog.</p></div>
+            <div class="growth-summary"><div><span>Current total</span><strong id="growth-total">—</strong></div><div><span>Community</span><strong id="growth-community">—</strong></div><div><span>Snapshots</span><strong id="growth-snapshots">—</strong></div></div>
+          </figcaption>
+          <div class="growth-chart-wrap" role="region" aria-label="Theme catalog growth chart" tabindex="0">
+            <svg id="growth-chart" class="growth-chart" viewBox="0 0 900 420" role="img" aria-labelledby="growth-title growth-description"><title id="growth-title">Theme catalog growth</title><desc id="growth-description">Cumulative built-in and community theme totals across recorded registry snapshots.</desc><g data-growth-grid aria-hidden="true"></g><path data-growth-area></path><path data-growth-line></path><g data-growth-points></g></svg>
+          </div>
+          <div class="growth-legend"><span><i></i>Total themes</span><span><b></b>Community themes</span><span id="growth-range">No snapshots</span></div>
+        </figure>
+      </section>
+
+      <p id="explore-error" class="explore-error" role="alert" hidden>The theme explorer data could not be loaded. Try again in a moment.</p>
+    </main>
+
+    <footer class="market-footer" id="site-footer"><div class="footer-status"><a class="footer-status-link footer-maintainer" href="https://github.com/yamz8" target="_blank" rel="noreferrer">YAMZ8 <span aria-hidden="true">↗</span></a><div class="footer-status-copy"><span class="footer-project-name">OMARCHY THEME MARKETPLACE</span></div><div class="footer-resource-links"><a class="footer-status-link" href="https://github.com/yamz8/omarchy-theme-marketplace/blob/main/LICENSE" target="_blank" rel="noreferrer">MIT LICENSE <span aria-hidden="true">↗</span></a><a class="footer-status-link" href="https://github.com/yamz8/omarchy-theme-marketplace" target="_blank" rel="noreferrer">GITHUB <span aria-hidden="true">↗</span></a></div></div></footer>
+    <nav class="mobile-bottom" aria-label="Mobile navigation"><a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20H4v-8.5Z"/></svg>Home</a><a href="index.html#catalog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>Browse</a><a class="active" href="explore.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="m8 7 8-1M7 9l4 7m6-8-4 8"/></svg>Explore</a><a href="publish.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>Publish</a></nav>
+    <script type="module" src="assets/js/explore.js?v=20260831-01"></script>
   </body>
 </html>

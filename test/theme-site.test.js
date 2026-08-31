@@ -42,5 +42,7 @@ test("every active page uses the same final asset versions", async () => {
   for (const page of pages) assert.match(page, /style\.css\?v=20260831-04/);
   assert.match(pages[0], /app\.js\?v=20260831-03/);
   assert.match(pages[1], /theme\.js\?v=20260831-03/);
-  for (const page of pages.slice(2)) assert.match(page, /static-page\.js\?v=20260831-02/);
+  assert.match(pages[2], /explore\.css\?v=20260831-01/);
+  assert.match(pages[2], /explore\.js\?v=20260831-01/);
+  for (const page of pages.slice(3)) assert.match(page, /static-page\.js\?v=20260831-02/);
 });
