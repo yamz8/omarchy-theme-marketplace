@@ -26,10 +26,14 @@ function sourceByRepository(registry, repository) {
 function previewNames(themes) {
   const names = new Set();
   for (const theme of themes) {
-    for (const variant of ["card", "detail"]) {
-      const path = theme.preview?.[variant];
+    const paths = [
+      theme.preview?.card,
+      theme.preview?.detail,
+      ...(theme.wallpapers || []).flatMap((wallpaper) => [wallpaper.thumbnail, wallpaper.detail]),
+    ];
+    for (const path of paths) {
       if (!/^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/.test(path || "")) {
-        throw new Error(`Invalid generated preview path for theme: ${theme.id}`);
+        throw new Error(`Invalid generated image path for theme: ${theme.id}`);
       }
       names.add(path.split("/").at(-1));
     }
@@ -119,18 +123,18 @@ export function verifyThemeUpdateProjection(baseRegistry, baseCatalog, nextRegis
 async function verifyPreviewProjection(plan, baseDirectory, nextDirectory) {
   const nextFiles = new Set(await readdir(nextDirectory));
   if (!same([...nextFiles].sort(), [...plan.nextPreviewNames].sort())) {
-    throw new Error("Theme update preview directory does not exactly match the next catalog");
+    throw new Error("Theme update image directory does not exactly match the next catalog");
   }
   for (const name of plan.unrelatedPreviewNames) {
     const [before, after] = await Promise.all([
       readFile(resolve(baseDirectory, name)),
       readFile(resolve(nextDirectory, name)),
     ]);
-    if (!before.equals(after)) throw new Error(`Theme update changed an unrelated preview: ${name}`);
+    if (!before.equals(after)) throw new Error(`Theme update changed an unrelated image: ${name}`);
   }
   for (const name of plan.replacedPreviewNames) {
     if (!plan.nextPreviewNames.has(name) && nextFiles.has(name)) {
-      throw new Error(`Theme update retained an obsolete target preview: ${name}`);
+      throw new Error(`Theme update retained an obsolete target image: ${name}`);
     }
   }
 }

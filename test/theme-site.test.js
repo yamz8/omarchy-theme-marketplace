@@ -16,6 +16,7 @@ test("active marketplace pages use theme language and routes", async () => {
   assert.match(pages[0], /data-wallpapers="deep"/);
   assert.match(pages[1], /id="theme-detail"/);
   assert.match(pages[1], /id="aside-commit"/);
+  assert.match(pages[1], /href="#wallpapers"/);
   assert.match(pages[1], /href="#related"/);
 });
 
@@ -37,8 +38,27 @@ test("browser code renders catalog values through escaping helpers", async () =>
   assert.match(app, /function wallpaperGroup/);
   assert.match(app, /renderCommunitySpotlight/);
   assert.match(detail, /function paletteDistance/);
+  assert.match(detail, /function wallpaperGallery/);
+  assert.match(detail, /function setupWallpaperGallery/);
+  assert.match(detail, /data-wallpaper-previous/);
+  assert.match(detail, /data-wallpaper-next/);
+  assert.match(detail, /aria-pressed=/);
+  assert.match(detail, /ArrowLeft/);
+  assert.match(detail, /ArrowRight/);
+  assert.match(detail, /pointerType !== "mouse"/);
+  assert.match(detail, /prefers-reduced-motion: reduce/);
   assert.match(detail, /Exact theme source/);
   assert.match(detail, /Compatibility is not a security review/);
+});
+
+test("theme detail wallpaper gallery uses the shared restrained visual system", async () => {
+  const styles = await read("site/assets/css/style.css");
+  assert.match(styles, /\.wallpaper-stage\s*\{[^}]*aspect-ratio:\s*16 \/ 9;/);
+  assert.match(styles, /\.wallpaper-stage\s*\{[^}]*touch-action:\s*pan-y;/);
+  assert.match(styles, /\.wallpaper-controls\s*\{[^}]*grid-template-columns:/);
+  assert.match(styles, /\.wallpaper-thumbnails\s*\{[^}]*overflow-x:\s*auto;/);
+  assert.match(styles, /\.wallpaper-thumbnail\[aria-pressed="true"\]/);
+  assert.match(styles, /\.wallpaper-step:disabled/);
 });
 
 test("theme cards balance source, engagement, and commands around visible traits", async () => {
@@ -63,9 +83,9 @@ test("theme cards balance source, engagement, and commands around visible traits
 
 test("every active page uses the same final asset versions", async () => {
   const pages = await Promise.all(["index", "theme", "explore", "develop", "publish"].map((name) => read(`site/${name}.html`)));
-  for (const page of pages) assert.match(page, /style\.css\?v=20260831-07/);
+  for (const page of pages) assert.match(page, /style\.css\?v=20260831-09/);
   assert.match(pages[0], /app\.js\?v=20260831-07/);
-  assert.match(pages[1], /theme\.js\?v=20260831-04/);
+  assert.match(pages[1], /theme\.js\?v=20260831-09/);
   assert.match(pages[2], /explore\.css\?v=20260831-01/);
   assert.match(pages[2], /explore\.js\?v=20260831-02/);
   for (const page of pages.slice(3)) assert.match(page, /static-page\.js\?v=20260831-03/);

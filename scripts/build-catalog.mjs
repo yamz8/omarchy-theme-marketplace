@@ -1,7 +1,9 @@
 import { createHash } from "node:crypto";
+import { execFile } from "node:child_process";
 import { copyFile, mkdtemp, readdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { promisify } from "node:util";
 import sharp from "sharp";
 import { githubRepositoryKey } from "./github-repository.mjs";
 import {
@@ -28,6 +30,17 @@ const catalogPath = resolve(root, "site/catalog.json");
 const imageDirectory = resolve(root, "site/assets/img/themes");
 const maxPreviewBytes = 50 * 1024 * 1024;
 const maxPreviewPixels = 40_000_000;
+export const maxCatalogWallpapers = 24;
+const execFileAsync = promisify(execFile);
+
+async function readCommittedCatalog() {
+  const { stdout } = await execFileAsync("git", ["show", "HEAD:site/catalog.json"], {
+    cwd: root,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  return JSON.parse(stdout);
+}
 
 function stableImagePrefix(theme) {
   const digest = createHash("sha256")
@@ -35,6 +48,14 @@ function stableImagePrefix(theme) {
     .digest("hex")
     .slice(0, 10);
   return `${theme.id}-${digest}`;
+}
+
+function stableWallpaperPrefix(theme, sourcePath) {
+  const digest = createHash("sha256")
+    .update(`${theme.repo}\0${theme.checkedCommit}\0${sourcePath}`)
+    .digest("hex")
+    .slice(0, 10);
+  return `${theme.id}-wallpaper-${digest}`;
 }
 
 async function normalizePreview(buffer, prefix, outputDirectory) {
@@ -62,17 +83,55 @@ async function normalizePreview(buffer, prefix, outputDirectory) {
   };
 }
 
-async function materializeTheme({ theme, snapshot, previewPath, outputDirectory }) {
-  if (!previewPath) return { ...theme, preview: null };
-  const preview = await fetchSnapshotBuffer(snapshot, previewPath, { maxBytes: maxPreviewBytes });
+async function normalizeWallpaper(buffer, prefix, outputDirectory) {
+  const metadata = await sharp(buffer, { animated: false, limitInputPixels: maxPreviewPixels }).metadata();
+  const pixels = Number(metadata.width || 0) * Number(metadata.height || 0);
+  if (!pixels || pixels > maxPreviewPixels) throw new Error(`Wallpaper has unsupported dimensions: ${prefix}`);
+
+  const thumbnailName = `${prefix}-thumbnail.webp`;
+  const detailName = `${prefix}-detail.webp`;
+  await Promise.all([
+    sharp(buffer, { animated: false, limitInputPixels: maxPreviewPixels })
+      .rotate()
+      .resize({ width: 320, withoutEnlargement: true })
+      .webp({ quality: 78 })
+      .toFile(resolve(outputDirectory, thumbnailName)),
+    sharp(buffer, { animated: false, limitInputPixels: maxPreviewPixels })
+      .rotate()
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 86 })
+      .toFile(resolve(outputDirectory, detailName)),
+  ]);
   return {
-    ...theme,
-    preview: await normalizePreview(preview, stableImagePrefix(theme), outputDirectory),
+    thumbnail: `assets/img/themes/${thumbnailName}`,
+    detail: `assets/img/themes/${detailName}`,
   };
 }
 
-async function buildBuiltInThemes(source, outputDirectory) {
-  const snapshot = await resolveRepositorySnapshot(source.repo, source.branch);
+async function materializeTheme({ theme, snapshot, previewPath, backgroundPaths, outputDirectory }) {
+  const previewBuffer = previewPath
+    ? await fetchSnapshotBuffer(snapshot, previewPath, { maxBytes: maxPreviewBytes })
+    : null;
+  const wallpapers = [];
+  for (const sourcePath of backgroundPaths.slice(0, maxCatalogWallpapers)) {
+    const buffer = await fetchSnapshotBuffer(snapshot, sourcePath, { maxBytes: maxPreviewBytes });
+    wallpapers.push({
+      sourcePath,
+      ...await normalizeWallpaper(buffer, stableWallpaperPrefix(theme, sourcePath), outputDirectory),
+    });
+  }
+  return {
+    ...theme,
+    preview: previewBuffer
+      ? await normalizePreview(previewBuffer, stableImagePrefix(theme), outputDirectory)
+      : null,
+    wallpapers,
+    wallpaperGalleryTruncated: backgroundPaths.length > wallpapers.length,
+  };
+}
+
+async function buildBuiltInThemes(source, outputDirectory, { expectedCommit = "" } = {}) {
+  const snapshot = await resolveRepositorySnapshot(source.repo, source.branch, { expectedCommit });
   const themes = [];
   for (const slug of builtInThemeDirectories(snapshot, source.themeRoot)) {
     const directory = `${source.themeRoot}/${slug}`;
@@ -100,6 +159,7 @@ async function buildBuiltInThemes(source, outputDirectory) {
       theme,
       snapshot,
       previewPath: tree.previewPath ? `${directory}/${tree.previewPath}` : "",
+      backgroundPaths: tree.backgroundPaths.map((path) => `${directory}/${path}`),
       outputDirectory,
     }));
   }
@@ -128,6 +188,7 @@ async function buildCommunityTheme(source, outputDirectory, { expectedCommit = "
     theme,
     snapshot,
     previewPath: tree.previewPath,
+    backgroundPaths: tree.backgroundPaths,
     outputDirectory,
   });
 }
@@ -143,11 +204,15 @@ function validateRegistry(registry) {
   const expectedCommit = process.env.EXPECTED_THEME_COMMIT || "";
   const previousRepository = process.env.PREVIOUS_THEME_REPOSITORY || "";
   const pinCommunitySnapshots = process.env.PIN_COMMUNITY_CATALOG_SNAPSHOTS || "";
+  const pinCatalogSnapshots = process.env.PIN_CATALOG_SNAPSHOTS || "";
   if (pinCommunitySnapshots && pinCommunitySnapshots !== "1") {
     throw new Error("PIN_COMMUNITY_CATALOG_SNAPSHOTS must be exactly 1 when set");
   }
-  if (pinCommunitySnapshots && expectedRepository) {
-    throw new Error("Pinned community refresh and selective theme builds are mutually exclusive");
+  if (pinCatalogSnapshots && pinCatalogSnapshots !== "1") {
+    throw new Error("PIN_CATALOG_SNAPSHOTS must be exactly 1 when set");
+  }
+  if ((pinCommunitySnapshots || pinCatalogSnapshots) && expectedRepository) {
+    throw new Error("Pinned catalog rebuilds and selective theme builds are mutually exclusive");
   }
   if (expectedRepository && !/^[0-9a-f]{40}$/i.test(expectedCommit)) {
     throw new Error("EXPECTED_THEME_COMMIT must be a full commit SHA when EXPECTED_THEME_REPOSITORY is set");
@@ -202,6 +267,61 @@ export function communitySnapshotPins(registry, previousCatalog) {
     }
   }
   return pins;
+}
+
+export function catalogSnapshotPins(registry, previousCatalog) {
+  if (previousCatalog?.schemaVersion !== 1 || !Array.isArray(previousCatalog.themes)) {
+    throw new Error("Pinned catalog rebuild requires an existing schemaVersion 1 catalog");
+  }
+  assertUniqueThemeIds(previousCatalog.themes);
+  const sourceTypes = new Map([
+    ...registry.builtInSources.map((source) => [githubRepositoryKey(source.repo), "builtin"]),
+    ...registry.sources.map((source) => [githubRepositoryKey(source.repo), "community"]),
+  ]);
+  if (sourceTypes.size !== registry.builtInSources.length + registry.sources.length) {
+    throw new Error("Pinned catalog rebuild requires unique source repositories");
+  }
+
+  const themesBySource = new Map();
+  const themesById = new Map();
+  for (const theme of previousCatalog.themes) {
+    const repositoryKey = githubRepositoryKey(theme.repo);
+    if (sourceTypes.get(repositoryKey) !== theme.sourceType || themesById.has(theme.id)) {
+      throw new Error(`Pinned catalog contains a stale or ambiguous theme: ${theme.id}`);
+    }
+    const themes = themesBySource.get(repositoryKey) || [];
+    themes.push(theme);
+    themesBySource.set(repositoryKey, themes);
+    themesById.set(theme.id, theme);
+  }
+
+  const commits = new Map();
+  for (const [repositoryKey, sourceType] of sourceTypes) {
+    const themes = themesBySource.get(repositoryKey) || [];
+    if (!themes.length || (sourceType === "community" && themes.length !== 1)) {
+      throw new Error(`Pinned catalog does not exactly cover source: ${repositoryKey}`);
+    }
+    const sourceCommits = new Set(themes.map((theme) => String(theme.checkedCommit || "").toLowerCase()));
+    if (sourceCommits.size !== 1 || !/^[0-9a-f]{40}$/.test([...sourceCommits][0] || "")) {
+      throw new Error(`Pinned catalog source commit is invalid or ambiguous: ${repositoryKey}`);
+    }
+    commits.set(repositoryKey, [...sourceCommits][0]);
+  }
+  return Object.freeze({ commits, themesById });
+}
+
+function preservePinnedCatalogMetadata(theme, previousTheme) {
+  if (!previousTheme
+    || githubRepositoryKey(previousTheme.repo) !== githubRepositoryKey(theme.repo)
+    || previousTheme.checkedCommit !== theme.checkedCommit) {
+    throw new Error(`Pinned catalog theme changed identity or commit: ${theme.id}`);
+  }
+  return {
+    ...theme,
+    stars: previousTheme.stars,
+    repositoryUpdatedAt: previousTheme.repositoryUpdatedAt,
+    checkedAt: previousTheme.checkedAt,
+  };
 }
 
 export function selectiveThemeBuildPlan(registry, previousCatalog, expectedRepository, { previousRepository = "" } = {}) {
@@ -321,13 +441,17 @@ async function seedPreviewDirectory(outputDirectory) {
   }
 }
 
-async function retainReferencedPreviews(themes, outputDirectory) {
+async function retainReferencedThemeImages(themes, outputDirectory) {
   const referenced = new Set();
   for (const theme of themes) {
-    for (const variant of ["card", "detail"]) {
-      const path = theme.preview?.[variant];
+    const paths = [
+      theme.preview?.card,
+      theme.preview?.detail,
+      ...(theme.wallpapers || []).flatMap((wallpaper) => [wallpaper.thumbnail, wallpaper.detail]),
+    ];
+    for (const path of paths) {
       if (!/^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/.test(path || "")) {
-        throw new Error(`Theme has an invalid generated preview path: ${theme.id}`);
+        throw new Error(`Theme has an invalid generated image path: ${theme.id}`);
       }
       referenced.add(path.split("/").at(-1));
     }
@@ -336,7 +460,7 @@ async function retainReferencedPreviews(themes, outputDirectory) {
   const entries = await readdir(outputDirectory, { withFileTypes: true });
   const available = new Set(entries.filter((entry) => entry.isFile()).map((entry) => entry.name));
   const missing = [...referenced].filter((name) => !available.has(name));
-  if (missing.length) throw new Error(`Generated theme previews are missing: ${missing.join(", ")}`);
+  if (missing.length) throw new Error(`Generated theme images are missing: ${missing.join(", ")}`);
   await Promise.all(entries
     .filter((entry) => !entry.isFile() || !referenced.has(entry.name))
     .map((entry) => rm(resolve(outputDirectory, entry.name), { recursive: true, force: true })));
@@ -349,6 +473,7 @@ export async function buildCatalog() {
   const expectedRepository = process.env.EXPECTED_THEME_REPOSITORY || "";
   const previousRepository = process.env.PREVIOUS_THEME_REPOSITORY || "";
   const pinCommunitySnapshots = process.env.PIN_COMMUNITY_CATALOG_SNAPSHOTS === "1";
+  const pinCatalogSnapshots = process.env.PIN_CATALOG_SNAPSHOTS === "1";
 
   try {
     if (expectedRepository) {
@@ -366,25 +491,41 @@ export async function buildCatalog() {
         new Date().toISOString(),
         { previousRepository },
       );
-      await retainReferencedPreviews(catalog.themes, temporaryImageDirectory);
+      await retainReferencedThemeImages(catalog.themes, temporaryImageDirectory);
       await rm(imageDirectory, { recursive: true, force: true });
       await rename(temporaryImageDirectory, imageDirectory);
       await writeFile(catalogPath, `${JSON.stringify(catalog, null, 2)}\n`);
       return catalog;
     }
 
+    if (pinCommunitySnapshots && pinCatalogSnapshots) {
+      throw new Error("PIN_COMMUNITY_CATALOG_SNAPSHOTS and PIN_CATALOG_SNAPSHOTS are mutually exclusive");
+    }
+    const previousCatalog = pinCatalogSnapshots
+      ? await readCommittedCatalog()
+      : pinCommunitySnapshots
+        ? JSON.parse(await readFile(catalogPath, "utf8"))
+        : null;
+    const pinnedCatalog = pinCatalogSnapshots ? catalogSnapshotPins(registry, previousCatalog) : null;
     const communityPins = pinCommunitySnapshots
-      ? communitySnapshotPins(registry, JSON.parse(await readFile(catalogPath, "utf8")))
+      ? communitySnapshotPins(registry, previousCatalog)
       : new Map();
     const builtInGroups = await Promise.all(
-      registry.builtInSources.map((source) => buildBuiltInThemes(source, temporaryImageDirectory)),
+      registry.builtInSources.map((source) => buildBuiltInThemes(source, temporaryImageDirectory, {
+        expectedCommit: pinnedCatalog?.commits.get(githubRepositoryKey(source.repo)) || "",
+      })),
     );
     const communityThemes = await Promise.all(
       registry.sources.map((source) => buildCommunityTheme(source, temporaryImageDirectory, {
-        expectedCommit: communityPins.get(githubRepositoryKey(source.repo)) || "",
+        expectedCommit: pinnedCatalog?.commits.get(githubRepositoryKey(source.repo))
+          || communityPins.get(githubRepositoryKey(source.repo))
+          || "",
       })),
     );
-    const themes = assertUniqueThemeIds([...builtInGroups.flat(), ...communityThemes])
+    const materializedThemes = assertUniqueThemeIds([...builtInGroups.flat(), ...communityThemes]);
+    const themes = (pinnedCatalog
+      ? materializedThemes.map((theme) => preservePinnedCatalogMetadata(theme, pinnedCatalog.themesById.get(theme.id)))
+      : materializedThemes)
       .sort((first, second) => first.name.localeCompare(second.name));
     const warnings = themes
       .filter((theme) => theme.license === "Not declared")

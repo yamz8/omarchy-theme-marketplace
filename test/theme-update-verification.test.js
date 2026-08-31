@@ -21,6 +21,11 @@ function theme(id, repo, commit) {
       card: `assets/img/themes/${id}-${commit[0]}-card.webp`,
       detail: `assets/img/themes/${id}-${commit[0]}-detail.webp`,
     },
+    wallpapers: [{
+      sourcePath: `backgrounds/${id}.webp`,
+      thumbnail: `assets/img/themes/${id}-${commit[0]}-wallpaper-thumbnail.webp`,
+      detail: `assets/img/themes/${id}-${commit[0]}-wallpaper-detail.webp`,
+    }],
   };
 }
 
@@ -106,7 +111,12 @@ test("update verification accepts one exact target projection with unrelated ide
     value.expected,
   );
   assert.equal(result.nextTheme.checkedCommit, updatedCommit);
-  assert.deepEqual([...result.unrelatedPreviewNames].sort(), ["forest-c-card.webp", "forest-c-detail.webp"]);
+  assert.deepEqual([...result.unrelatedPreviewNames].sort(), [
+    "forest-c-card.webp",
+    "forest-c-detail.webp",
+    "forest-c-wallpaper-detail.webp",
+    "forest-c-wallpaper-thumbnail.webp",
+  ]);
 });
 
 test("update verification rejects unrelated catalog, registry, report, and archive drift", () => {

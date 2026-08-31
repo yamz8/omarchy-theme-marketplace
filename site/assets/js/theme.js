@@ -31,6 +31,27 @@ function previewPath(theme, variant = "detail") {
   return /^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/.test(path) ? path : "";
 }
 
+function wallpaperPath(wallpaper, variant = "detail") {
+  const path = String(wallpaper?.[variant] || "");
+  return /^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/.test(path) ? path : "";
+}
+
+function wallpaperName(wallpaper, index) {
+  const fileName = String(wallpaper?.sourcePath || "").split("/").at(-1) || `wallpaper-${index + 1}`;
+  return fileName.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").replace(/^\d+\s+/, "").trim() || `Wallpaper ${index + 1}`;
+}
+
+function themeWallpapers(theme) {
+  if (!Array.isArray(theme?.wallpapers)) return [];
+  return theme.wallpapers
+    .map((wallpaper, index) => ({
+      detail: wallpaperPath(wallpaper),
+      thumbnail: wallpaperPath(wallpaper, "thumbnail"),
+      name: wallpaperName(wallpaper, index),
+    }))
+    .filter((wallpaper) => wallpaper.detail && wallpaper.thumbnail);
+}
+
 const paletteGroups = Object.freeze([
   ["Interface", [
     ["background", "Background"], ["foreground", "Foreground"], ["accent", "Accent"],
@@ -70,6 +91,37 @@ function paletteMarkup(theme) {
     })
     .join("");
   return `<div class="detail-palette-band" aria-label="${escapeHtml(theme.name)} palette">${band}</div><div class="theme-palette-groups">${groups}</div>`;
+}
+
+function wallpaperGallery(theme) {
+  const wallpapers = themeWallpapers(theme);
+  if (!wallpapers.length) return "";
+  const first = wallpapers[0];
+  const stepDisabled = wallpapers.length === 1 ? " disabled" : "";
+  const truncation = theme.wallpaperGalleryTruncated
+    ? `<p class="wallpaper-limit-note">Showing the first ${wallpapers.length} of ${escapeHtml(theme.backgroundCount)} wallpapers.</p>`
+    : "";
+  const thumbnails = wallpapers.map((wallpaper, index) => `<button class="wallpaper-thumbnail" type="button" role="listitem" data-wallpaper-index="${index}" aria-label="Show wallpaper ${index + 1}: ${escapeHtml(wallpaper.name)}" aria-pressed="${index === 0}" tabindex="${index === 0 ? "0" : "-1"}">
+    <img src="${escapeHtml(wallpaper.thumbnail)}" alt="" width="320" height="180" loading="lazy"><span aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+  </button>`).join("");
+  return `<section class="detail-section theme-wallpaper-section" id="wallpapers">
+    <div class="wallpaper-section-head">
+      <div><h2>Wallpapers</h2><p>Browse the background images included in the exact inspected theme snapshot.</p></div>
+      <output class="wallpaper-position" data-wallpaper-position aria-live="polite" aria-atomic="true">1 / ${wallpapers.length}</output>
+    </div>
+    <div class="wallpaper-viewer" data-wallpaper-viewer data-wallpaper-count="${wallpapers.length}">
+      <button class="wallpaper-stage" type="button" data-open-wallpaper aria-label="Open wallpaper 1 of ${wallpapers.length}: ${escapeHtml(first.name)}">
+        <img src="${escapeHtml(first.detail)}" alt="${escapeHtml(theme.name)} wallpaper 1: ${escapeHtml(first.name)}" width="1920" height="1080" draggable="false">
+      </button>
+      <div class="wallpaper-controls">
+        <button class="wallpaper-step" type="button" data-wallpaper-previous${stepDisabled}>Previous</button>
+        <span class="wallpaper-name" data-wallpaper-name>${escapeHtml(first.name)}</span>
+        <button class="wallpaper-step" type="button" data-wallpaper-next${stepDisabled}>Next</button>
+      </div>
+      <div class="wallpaper-thumbnails" role="list" aria-label="${escapeHtml(theme.name)} wallpapers">${thumbnails}</div>
+    </div>
+    ${truncation}
+  </section>`;
 }
 
 function commandPanel(theme) {
@@ -153,6 +205,91 @@ function showToast(message) {
   window.setTimeout(() => toast.classList.remove("show"), 1_700);
 }
 
+function openPreviewDialog(src, alt) {
+  const dialog = document.querySelector("#preview-lightbox");
+  dialog.innerHTML = `<button class="lightbox-close" type="button" aria-label="Close preview">×</button><img class="lightbox-img" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}">`;
+  dialog.showModal();
+  dialog.querySelector(".lightbox-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  }, { once: true });
+}
+
+function setupWallpaperGallery(theme) {
+  const wallpapers = themeWallpapers(theme);
+  const viewer = content.querySelector("[data-wallpaper-viewer]");
+  if (!viewer || !wallpapers.length) return;
+
+  const stage = viewer.querySelector("[data-open-wallpaper]");
+  const image = stage.querySelector("img");
+  const position = content.querySelector("[data-wallpaper-position]");
+  const name = viewer.querySelector("[data-wallpaper-name]");
+  const previous = viewer.querySelector("[data-wallpaper-previous]");
+  const next = viewer.querySelector("[data-wallpaper-next]");
+  const thumbnails = [...viewer.querySelectorAll("[data-wallpaper-index]")];
+  let activeIndex = 0;
+  let pointerStart = null;
+  let suppressOpen = false;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const showWallpaper = (requestedIndex, { focusThumbnail = false } = {}) => {
+    activeIndex = (requestedIndex + wallpapers.length) % wallpapers.length;
+    const wallpaper = wallpapers[activeIndex];
+    image.src = wallpaper.detail;
+    image.alt = `${theme.name} wallpaper ${activeIndex + 1}: ${wallpaper.name}`;
+    stage.setAttribute("aria-label", `Open wallpaper ${activeIndex + 1} of ${wallpapers.length}: ${wallpaper.name}`);
+    position.textContent = `${activeIndex + 1} / ${wallpapers.length}`;
+    name.textContent = wallpaper.name;
+    thumbnails.forEach((thumbnail, index) => {
+      const selected = index === activeIndex;
+      thumbnail.setAttribute("aria-pressed", String(selected));
+      thumbnail.tabIndex = selected ? 0 : -1;
+      if (selected) {
+        thumbnail.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest", inline: "nearest" });
+        if (focusThumbnail) thumbnail.focus();
+      }
+    });
+  };
+
+  previous.addEventListener("click", () => showWallpaper(activeIndex - 1));
+  next.addEventListener("click", () => showWallpaper(activeIndex + 1));
+  thumbnails.forEach((thumbnail) => {
+    thumbnail.addEventListener("click", () => showWallpaper(Number(thumbnail.dataset.wallpaperIndex)));
+  });
+  viewer.addEventListener("keydown", (event) => {
+    const keyActions = {
+      ArrowLeft: () => showWallpaper(activeIndex - 1, { focusThumbnail: event.target.matches("[data-wallpaper-index]") }),
+      ArrowRight: () => showWallpaper(activeIndex + 1, { focusThumbnail: event.target.matches("[data-wallpaper-index]") }),
+      Home: () => showWallpaper(0, { focusThumbnail: event.target.matches("[data-wallpaper-index]") }),
+      End: () => showWallpaper(wallpapers.length - 1, { focusThumbnail: event.target.matches("[data-wallpaper-index]") }),
+    };
+    if (!keyActions[event.key]) return;
+    event.preventDefault();
+    keyActions[event.key]();
+  });
+  stage.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "mouse") pointerStart = event.clientX;
+  });
+  stage.addEventListener("pointerup", (event) => {
+    if (pointerStart === null) return;
+    const distance = event.clientX - pointerStart;
+    pointerStart = null;
+    if (Math.abs(distance) < 48) return;
+    suppressOpen = true;
+    showWallpaper(activeIndex + (distance < 0 ? 1 : -1));
+    window.setTimeout(() => { suppressOpen = false; }, 0);
+  });
+  stage.addEventListener("pointercancel", () => { pointerStart = null; });
+  stage.addEventListener("click", () => {
+    if (suppressOpen) {
+      suppressOpen = false;
+      return;
+    }
+    const wallpaper = wallpapers[activeIndex];
+    openPreviewDialog(wallpaper.detail, `${theme.name} wallpaper ${activeIndex + 1}: ${wallpaper.name}`);
+  });
+}
+
 function render(theme, themes, {
   engagementEnabled = false,
   engagement = {},
@@ -195,6 +332,7 @@ function render(theme, themes, {
     ${preview ? `<button class="detail-preview" type="button" data-open-preview aria-label="Open ${escapeHtml(theme.name)} preview"><img src="${escapeHtml(preview)}" alt="${escapeHtml(theme.name)} theme preview" width="1600" height="900"></button>` : ""}
     <div class="theme-tags">${(theme.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}</div>
 
+    ${wallpaperGallery(theme)}
     <section class="detail-section" id="palette"><h2>Palette</h2><p>Colors resolved from the theme's root <code>colors.toml</code>, using the same fallback relationships as Omarchy.</p>${paletteMarkup(theme)}</section>
     <section class="detail-section" id="install"><h2>${theme.builtIn ? "Set theme" : "Install theme"}</h2><p>${escapeHtml(installExplanation)}</p><div class="install-location"><span>Local theme path</span><code>${escapeHtml(installedPath)}</code></div>${commandPanel(theme)}</section>
     <section class="detail-section" id="compatibility"><h2>Omarchy compatibility</h2><p>The catalog checks theme structure and palette data without executing repository code.</p>${compatibilityList(theme)}</section>
@@ -218,15 +356,10 @@ function render(theme, themes, {
   const previewButton = content.querySelector("[data-open-preview]");
   if (previewButton) {
     previewButton.addEventListener("click", () => {
-      const dialog = document.querySelector("#preview-lightbox");
-      dialog.innerHTML = `<button class="lightbox-close" type="button" aria-label="Close preview">×</button><img class="lightbox-img" src="${escapeHtml(preview)}" alt="${escapeHtml(theme.name)} theme preview">`;
-      dialog.showModal();
-      dialog.querySelector(".lightbox-close").addEventListener("click", () => dialog.close());
-      dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) dialog.close();
-      }, { once: true });
+      openPreviewDialog(preview, `${theme.name} theme preview`);
     });
   }
+  setupWallpaperGallery(theme);
 }
 
 setupThemeToggle();

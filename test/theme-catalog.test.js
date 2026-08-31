@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 import {
+  catalogSnapshotPins,
   communitySnapshotPins,
+  maxCatalogWallpapers,
   mergeSelectiveThemeCatalog,
   selectiveThemeBuildPlan,
 } from "../scripts/build-catalog.mjs";
@@ -39,15 +41,28 @@ test("generated catalog contains unique, installable Omarchy themes", async () =
     assert.match(theme.checkedCommit, /^[0-9a-f]{40}$/);
     assert.ok(theme.preview?.card?.startsWith("assets/img/themes/"));
     assert.ok(theme.preview?.detail?.startsWith("assets/img/themes/"));
+    assert.ok(Array.isArray(theme.wallpapers));
+    assert.ok(theme.wallpapers.length > 0);
+    assert.equal(theme.wallpapers.length, Math.min(theme.backgroundCount, maxCatalogWallpapers));
+    assert.equal(theme.wallpaperGalleryTruncated, theme.backgroundCount > maxCatalogWallpapers);
+    for (const wallpaper of theme.wallpapers) {
+      assert.match(wallpaper.sourcePath, /(?:^|\/)backgrounds\/[^/]+$/i);
+      assert.ok(wallpaper.thumbnail?.startsWith("assets/img/themes/"));
+      assert.ok(wallpaper.detail?.startsWith("assets/img/themes/"));
+    }
   }
 });
 
-test("generated preview files exactly match catalog references", async () => {
+test("generated theme images exactly match catalog references", async () => {
   const catalog = await readJson("site/catalog.json");
   const referenced = new Set();
   for (const theme of catalog.themes) {
-    for (const variant of ["card", "detail"]) {
-      const path = theme.preview?.[variant];
+    const paths = [
+      theme.preview?.card,
+      theme.preview?.detail,
+      ...theme.wallpapers.flatMap((wallpaper) => [wallpaper.thumbnail, wallpaper.detail]),
+    ];
+    for (const path of paths) {
       assert.match(path, /^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/);
       referenced.add(path.split("/").at(-1));
     }
@@ -56,19 +71,42 @@ test("generated preview files exactly match catalog references", async () => {
   assert.deepEqual([...generated].sort(), [...referenced].sort());
 });
 
-function catalogTheme({ id, repo, sourceType = "community", name = id, license = "MIT" }) {
+function catalogTheme({ id, repo, sourceType = "community", name = id, license = "MIT", checkedCommit = "a".repeat(40) }) {
   return {
     id,
     name,
     repo,
     sourceType,
     license,
+    checkedCommit,
     preview: {
       card: `assets/img/themes/${id}-card.webp`,
       detail: `assets/img/themes/${id}-detail.webp`,
     },
   };
 }
+
+test("full pinned catalog rebuilds bind every source to committed snapshot evidence", () => {
+  const builtInRepo = "https://github.com/omacom/omarchy";
+  const communityRepo = "https://github.com/example/omarchy-canyon-theme";
+  const registry = {
+    schemaVersion: 1,
+    builtInSources: [{ repo: builtInRepo }],
+    sources: [{ repo: communityRepo }],
+  };
+  const previousCatalog = {
+    schemaVersion: 1,
+    themes: [
+      catalogTheme({ id: "catppuccin", repo: builtInRepo, sourceType: "builtin", checkedCommit: "b".repeat(40) }),
+      catalogTheme({ id: "tokyo-night", repo: builtInRepo, sourceType: "builtin", checkedCommit: "b".repeat(40) }),
+      catalogTheme({ id: "canyon", repo: communityRepo, checkedCommit: "c".repeat(40) }),
+    ],
+  };
+  const pins = catalogSnapshotPins(registry, previousCatalog);
+  assert.equal(pins.commits.get("omacom/omarchy"), "b".repeat(40));
+  assert.equal(pins.commits.get("example/omarchy-canyon-theme"), "c".repeat(40));
+  assert.equal(pins.themesById.get("tokyo-night").sourceType, "builtin");
+});
 
 function selectiveFixture({ includeTarget = false } = {}) {
   const builtInRepo = "https://github.com/omacom/omarchy";

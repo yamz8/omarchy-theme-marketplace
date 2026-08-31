@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T11:53:17.696Z",
+  "generatedAt": "2026-08-31T18:40:57.488Z",
   "schemaVersion": 1,
   "mode": "live",
   "themes": [
@@ -70,7 +70,30 @@
       "preview": {
         "card": "assets/img/themes/catppuccin-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/catppuccin-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/catppuccin/backgrounds/1-totoro.webp",
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-6a5d909164-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-6a5d909164-detail.webp"
+        },
+        {
+          "sourcePath": "themes/catppuccin/backgrounds/2-waves.webp",
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-53e9c2e420-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-53e9c2e420-detail.webp"
+        },
+        {
+          "sourcePath": "themes/catppuccin/backgrounds/3-blue-eye.webp",
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-f1994bc5ee-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-f1994bc5ee-detail.webp"
+        },
+        {
+          "sourcePath": "themes/catppuccin/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-f33373a5fc-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-f33373a5fc-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "catppuccin-latte",
@@ -139,7 +162,20 @@
       "preview": {
         "card": "assets/img/themes/catppuccin-latte-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/catppuccin-latte-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/catppuccin-latte/backgrounds/1-color-fade.webp",
+          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-ce2a48c030-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-latte-wallpaper-ce2a48c030-detail.webp"
+        },
+        {
+          "sourcePath": "themes/catppuccin-latte/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-fd164dc8d2-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-latte-wallpaper-fd164dc8d2-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "ethereal",
@@ -205,7 +241,25 @@
       "preview": {
         "card": "assets/img/themes/ethereal-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/ethereal-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/ethereal/backgrounds/1-cosmic.webp",
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-1c0b410b1c-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-1c0b410b1c-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ethereal/backgrounds/2-meadow.webp",
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-2eff638f46-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-2eff638f46-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ethereal/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-bafbebabce-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-bafbebabce-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "everforest",
@@ -274,7 +328,20 @@
       "preview": {
         "card": "assets/img/themes/everforest-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/everforest-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/everforest/backgrounds/1-tree-tops.webp",
+          "thumbnail": "assets/img/themes/everforest-wallpaper-5ed389ac07-thumbnail.webp",
+          "detail": "assets/img/themes/everforest-wallpaper-5ed389ac07-detail.webp"
+        },
+        {
+          "sourcePath": "themes/everforest/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/everforest-wallpaper-7a0ccac5a2-thumbnail.webp",
+          "detail": "assets/img/themes/everforest-wallpaper-7a0ccac5a2-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "flexoki-light",
@@ -343,7 +410,20 @@
       "preview": {
         "card": "assets/img/themes/flexoki-light-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/flexoki-light-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/flexoki-light/backgrounds/1-orb.webp",
+          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-2c27ed6fc9-thumbnail.webp",
+          "detail": "assets/img/themes/flexoki-light-wallpaper-2c27ed6fc9-detail.webp"
+        },
+        {
+          "sourcePath": "themes/flexoki-light/backgrounds/2-omarchy.webp",
+          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-edfe046ad2-thumbnail.webp",
+          "detail": "assets/img/themes/flexoki-light-wallpaper-edfe046ad2-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "giants",
@@ -410,7 +490,20 @@
       "preview": {
         "card": "assets/img/themes/giants-a90f2b00a8-card.webp",
         "detail": "assets/img/themes/giants-a90f2b00a8-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "backgrounds/1-turing-von-neumann.jpg",
+          "thumbnail": "assets/img/themes/giants-wallpaper-e187fdce44-thumbnail.webp",
+          "detail": "assets/img/themes/giants-wallpaper-e187fdce44-detail.webp"
+        },
+        {
+          "sourcePath": "backgrounds/omarchy.png",
+          "thumbnail": "assets/img/themes/giants-wallpaper-fc33da6bda-thumbnail.webp",
+          "detail": "assets/img/themes/giants-wallpaper-fc33da6bda-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "gruvbox",
@@ -479,7 +572,40 @@
       "preview": {
         "card": "assets/img/themes/gruvbox-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/gruvbox-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/1-the-backwater.jpg",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-705abd9d5c-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-705abd9d5c-detail.webp"
+        },
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/2-flower-basket.webp",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-1f0c80cce8-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-1f0c80cce8-detail.webp"
+        },
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/3-village-square.jpg",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-1925892793-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-1925892793-detail.webp"
+        },
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/4-idyllic-procession.jpg",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-baa3b8710c-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-baa3b8710c-detail.webp"
+        },
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/5-leaves.jpg",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-d9ff696b6c-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-d9ff696b6c-detail.webp"
+        },
+        {
+          "sourcePath": "themes/gruvbox/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-e45f480440-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-e45f480440-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "hackerman",
@@ -548,7 +674,25 @@
       "preview": {
         "card": "assets/img/themes/hackerman-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/hackerman-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/hackerman/backgrounds/1-synth-scape.jpg",
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-de52c9f346-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-de52c9f346-detail.webp"
+        },
+        {
+          "sourcePath": "themes/hackerman/backgrounds/2-geometric.webp",
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-7a9990964d-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-7a9990964d-detail.webp"
+        },
+        {
+          "sourcePath": "themes/hackerman/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-51eb7ba8c7-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-51eb7ba8c7-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "kanagawa",
@@ -618,7 +762,20 @@
       "preview": {
         "card": "assets/img/themes/kanagawa-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/kanagawa-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/kanagawa/backgrounds/1-kanagawa.jpg",
+          "thumbnail": "assets/img/themes/kanagawa-wallpaper-8e6d777ccd-thumbnail.webp",
+          "detail": "assets/img/themes/kanagawa-wallpaper-8e6d777ccd-detail.webp"
+        },
+        {
+          "sourcePath": "themes/kanagawa/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/kanagawa-wallpaper-ff1adccb8e-thumbnail.webp",
+          "detail": "assets/img/themes/kanagawa-wallpaper-ff1adccb8e-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "last-horizon",
@@ -687,7 +844,30 @@
       "preview": {
         "card": "assets/img/themes/last-horizon-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/last-horizon-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/last-horizon/backgrounds/1-eyes-wide.webp",
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-a1537ca717-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-a1537ca717-detail.webp"
+        },
+        {
+          "sourcePath": "themes/last-horizon/backgrounds/2-blink.webp",
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-ea1c1107c0-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-ea1c1107c0-detail.webp"
+        },
+        {
+          "sourcePath": "themes/last-horizon/backgrounds/3-bokeh.webp",
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-1bc0716833-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-1bc0716833-detail.webp"
+        },
+        {
+          "sourcePath": "themes/last-horizon/backgrounds/4-new-horizons.jpg",
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-3418a49885-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-3418a49885-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "lumon",
@@ -757,7 +937,25 @@
       "preview": {
         "card": "assets/img/themes/lumon-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/lumon-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/lumon/backgrounds/01-united-in-severance.webp",
+          "thumbnail": "assets/img/themes/lumon-wallpaper-285231ed7e-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-285231ed7e-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lumon/backgrounds/02-opinions-equally.webp",
+          "thumbnail": "assets/img/themes/lumon-wallpaper-d7c2f243be-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-d7c2f243be-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lumon/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/lumon-wallpaper-c654ac481d-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-c654ac481d-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "lupine",
@@ -823,7 +1021,40 @@
       "preview": {
         "card": "assets/img/themes/lupine-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/lupine-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/lupine/backgrounds/01-cherry-blossom-bokeh.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-90d918762e-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-90d918762e-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lupine/backgrounds/02-cherry-blossom-white.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-3402a8b792-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-3402a8b792-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lupine/backgrounds/03-pastel-clouds.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-6995d0a88e-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-6995d0a88e-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lupine/backgrounds/04-elegant-blue-wave.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-722551f8e6-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-722551f8e6-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lupine/backgrounds/05-abstract-wave.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-bce48f4c93-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-bce48f4c93-detail.webp"
+        },
+        {
+          "sourcePath": "themes/lupine/backgrounds/06-omarchy.webp",
+          "thumbnail": "assets/img/themes/lupine-wallpaper-5f105faf28-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-5f105faf28-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "matte-black",
@@ -892,7 +1123,30 @@
       "preview": {
         "card": "assets/img/themes/matte-black-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/matte-black-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/matte-black/backgrounds/0-ship-at-sea.jpg",
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-96b75aaa52-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-96b75aaa52-detail.webp"
+        },
+        {
+          "sourcePath": "themes/matte-black/backgrounds/1-dark-waters.webp",
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-70cb4eb864-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-70cb4eb864-detail.webp"
+        },
+        {
+          "sourcePath": "themes/matte-black/backgrounds/2-dot-hands.webp",
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-7bbe559adb-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-7bbe559adb-detail.webp"
+        },
+        {
+          "sourcePath": "themes/matte-black/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-7fd0db86ab-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-7fd0db86ab-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "miasma",
@@ -958,7 +1212,25 @@
       "preview": {
         "card": "assets/img/themes/miasma-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/miasma-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/miasma/backgrounds/01-nature-of-fear.webp",
+          "thumbnail": "assets/img/themes/miasma-wallpaper-1a6de7e9d7-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-1a6de7e9d7-detail.webp"
+        },
+        {
+          "sourcePath": "themes/miasma/backgrounds/02-crowned.webp",
+          "thumbnail": "assets/img/themes/miasma-wallpaper-19c5129f10-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-19c5129f10-detail.webp"
+        },
+        {
+          "sourcePath": "themes/miasma/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/miasma-wallpaper-3b3d1868b4-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-3b3d1868b4-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "nord",
@@ -1027,7 +1299,30 @@
       "preview": {
         "card": "assets/img/themes/nord-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/nord-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/nord/backgrounds/0-black-moon.jpg",
+          "thumbnail": "assets/img/themes/nord-wallpaper-4b6a2a6928-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-4b6a2a6928-detail.webp"
+        },
+        {
+          "sourcePath": "themes/nord/backgrounds/1-city-view.webp",
+          "thumbnail": "assets/img/themes/nord-wallpaper-6ef0d1d4f4-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-6ef0d1d4f4-detail.webp"
+        },
+        {
+          "sourcePath": "themes/nord/backgrounds/2-night-hawks.webp",
+          "thumbnail": "assets/img/themes/nord-wallpaper-701a4e78b6-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-701a4e78b6-detail.webp"
+        },
+        {
+          "sourcePath": "themes/nord/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/nord-wallpaper-b519bc81a4-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-b519bc81a4-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "osaka-jade",
@@ -1096,7 +1391,30 @@
       "preview": {
         "card": "assets/img/themes/osaka-jade-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/osaka-jade-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/osaka-jade/backgrounds/1-glowing-city.webp",
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-b419d1538f-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-b419d1538f-detail.webp"
+        },
+        {
+          "sourcePath": "themes/osaka-jade/backgrounds/2-shaded-entrance.webp",
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-af8181b17f-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-af8181b17f-detail.webp"
+        },
+        {
+          "sourcePath": "themes/osaka-jade/backgrounds/3-mountain-moon.webp",
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-ff617cd0e4-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-ff617cd0e4-detail.webp"
+        },
+        {
+          "sourcePath": "themes/osaka-jade/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-502f332cef-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-502f332cef-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "retro-82",
@@ -1166,7 +1484,55 @@
       "preview": {
         "card": "assets/img/themes/retro-82-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/retro-82-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/retro-82/backgrounds/1-in-the-groove.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-efe9c86e82-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-efe9c86e82-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/2-dusk-guardian.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-e16839d538-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-e16839d538-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/3-glassy-lines.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-6d9b2286fe-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-6d9b2286fe-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/4-gateway.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-cebd777ee0-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-cebd777ee0-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/5-zen-boat.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-4c8d63e533-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-4c8d63e533-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/6-abstract-pyramids.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-832a374cf1-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-832a374cf1-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/7-the-journey.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-f867df9f32-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-f867df9f32-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/8-glitter-glass.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-1f05e53f0f-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-1f05e53f0f-detail.webp"
+        },
+        {
+          "sourcePath": "themes/retro-82/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-0659feb329-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-0659feb329-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "ristretto",
@@ -1232,7 +1598,35 @@
       "preview": {
         "card": "assets/img/themes/ristretto-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/ristretto-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/ristretto/backgrounds/0-launch.webp",
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-74f2f5b0cf-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-74f2f5b0cf-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ristretto/backgrounds/1-color-curves.webp",
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-8959e8cf30-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-8959e8cf30-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ristretto/backgrounds/2-coffee-beans.jpg",
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-f8376651c5-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-f8376651c5-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ristretto/backgrounds/3-industrial-moon.webp",
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-cb190219cd-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-cb190219cd-detail.webp"
+        },
+        {
+          "sourcePath": "themes/ristretto/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-63f67a887b-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-63f67a887b-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "rose-pine",
@@ -1301,7 +1695,30 @@
       "preview": {
         "card": "assets/img/themes/rose-pine-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/rose-pine-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/rose-pine/backgrounds/1-funky-shapes.webp",
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-06b7f8a1f4-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-06b7f8a1f4-detail.webp"
+        },
+        {
+          "sourcePath": "themes/rose-pine/backgrounds/2-dot-map.webp",
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-8cd8643e49-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-8cd8643e49-detail.webp"
+        },
+        {
+          "sourcePath": "themes/rose-pine/backgrounds/3-omarchy-plants.webp",
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-58242a6136-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-58242a6136-detail.webp"
+        },
+        {
+          "sourcePath": "themes/rose-pine/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-6ec277b81c-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-6ec277b81c-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "solitude",
@@ -1371,7 +1788,35 @@
       "preview": {
         "card": "assets/img/themes/solitude-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/solitude-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/solitude/backgrounds/1-on-pole.webp",
+          "thumbnail": "assets/img/themes/solitude-wallpaper-12351c9895-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-12351c9895-detail.webp"
+        },
+        {
+          "sourcePath": "themes/solitude/backgrounds/2-wreakage.webp",
+          "thumbnail": "assets/img/themes/solitude-wallpaper-fbf16452db-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-fbf16452db-detail.webp"
+        },
+        {
+          "sourcePath": "themes/solitude/backgrounds/3-climb.jpg",
+          "thumbnail": "assets/img/themes/solitude-wallpaper-092be87f1c-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-092be87f1c-detail.webp"
+        },
+        {
+          "sourcePath": "themes/solitude/backgrounds/4-ether.webp",
+          "thumbnail": "assets/img/themes/solitude-wallpaper-0fefc8ad31-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-0fefc8ad31-detail.webp"
+        },
+        {
+          "sourcePath": "themes/solitude/backgrounds/5-eyed.jpg",
+          "thumbnail": "assets/img/themes/solitude-wallpaper-1301ff2df6-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-1301ff2df6-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "tokyo-night",
@@ -1440,7 +1885,50 @@
       "preview": {
         "card": "assets/img/themes/tokyo-night-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/tokyo-night-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/0-winding-road.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-f29e60f5f4-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-f29e60f5f4-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/1-quattro.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-00ab092975-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-00ab092975-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/2-swirl-buck.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-647b2996f0-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-647b2996f0-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/3-sunset-lake.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-dd6d103a11-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-dd6d103a11-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/4-omakub.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-de8e626933-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-de8e626933-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/5-oma-cityscape.jpg",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-f5f62b340d-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-f5f62b340d-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/6-oma.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-99c76b69f9-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-99c76b69f9-detail.webp"
+        },
+        {
+          "sourcePath": "themes/tokyo-night/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-c84463286d-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-c84463286d-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "vantablack",
@@ -1506,7 +1994,35 @@
       "preview": {
         "card": "assets/img/themes/vantablack-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/vantablack-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/vantablack/backgrounds/0-dot-hands.webp",
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-0768ed30e6-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-0768ed30e6-detail.webp"
+        },
+        {
+          "sourcePath": "themes/vantablack/backgrounds/1-twisted-stairs.webp",
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-956c4dd2eb-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-956c4dd2eb-detail.webp"
+        },
+        {
+          "sourcePath": "themes/vantablack/backgrounds/2-layers-deep.webp",
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-5a8fc6865e-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-5a8fc6865e-detail.webp"
+        },
+        {
+          "sourcePath": "themes/vantablack/backgrounds/3-layers-stacked.webp",
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-e63222f301-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-e63222f301-detail.webp"
+        },
+        {
+          "sourcePath": "themes/vantablack/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-16ef21fc56-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-16ef21fc56-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     },
     {
       "id": "white",
@@ -1572,7 +2088,30 @@
       "preview": {
         "card": "assets/img/themes/white-6eb9ed429d-card.webp",
         "detail": "assets/img/themes/white-6eb9ed429d-detail.webp"
-      }
+      },
+      "wallpapers": [
+        {
+          "sourcePath": "themes/white/backgrounds/1-white.webp",
+          "thumbnail": "assets/img/themes/white-wallpaper-6238fa1e92-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-6238fa1e92-detail.webp"
+        },
+        {
+          "sourcePath": "themes/white/backgrounds/2-white.webp",
+          "thumbnail": "assets/img/themes/white-wallpaper-9ece6e27b4-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-9ece6e27b4-detail.webp"
+        },
+        {
+          "sourcePath": "themes/white/backgrounds/3-white.webp",
+          "thumbnail": "assets/img/themes/white-wallpaper-a37686c2cb-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-a37686c2cb-detail.webp"
+        },
+        {
+          "sourcePath": "themes/white/backgrounds/omarchy.webp",
+          "thumbnail": "assets/img/themes/white-wallpaper-e67bd7c2cb-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-e67bd7c2cb-detail.webp"
+        }
+      ],
+      "wallpaperGalleryTruncated": false
     }
   ],
   "warnings": [

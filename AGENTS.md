@@ -145,6 +145,8 @@ Do not leave different versions for the same asset across pages.
 
 Treat registry, catalog, repository, palette, README, license, and asset values as untrusted input.
 
+The static detail gallery materializes at most 24 wallpapers per theme. `backgroundCount` still records every supported root-level background, and the interface must disclose when a gallery is truncated.
+
 - Escape dynamic HTML with `escapeHtml`.
 - Encode URL path segments with `encodeURIComponent`.
 - Build query strings with `URLSearchParams`.

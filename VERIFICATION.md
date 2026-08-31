@@ -48,7 +48,7 @@ That selects the version shipped by the locally installed Omarchy package, which
 
 ## Refreshes and updates
 
-`npm run build` resolves every configured source again. If upstream has changed, the generated catalog and preview assets can change with it. Review the exact diff before publication.
+`npm run build` resolves every configured source again. If upstream has changed, the generated catalog, preview assets, and wallpaper gallery assets can change with it. Review the exact diff before publication.
 
 The marketplace does not yet have a separate theme-update approval workflow or durable historical verification record. Those controls are required before automated update or delisting publication is enabled.
 

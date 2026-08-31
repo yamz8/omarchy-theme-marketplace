@@ -26,14 +26,14 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Built-in themes are discovered from `omacom/omarchy` under the configured `themes/` root.
 - Community themes resolve from public GitHub repositories.
 - The builder records an exact commit, branch, fetch time, palette, mode, source, wallpaper count, preview source, license, and filtered root files.
-- Preview images are bounded, metadata-stripped, and normalized into card and detail WebP assets.
+- Preview and wallpaper images are bounded, metadata-stripped, and normalized into purpose-sized WebP assets.
 - Giants is the initial community reference source.
 
 ### Marketplace UI
 
 - Browse supports theme search, source, mode, wallpaper-count filters, deterministic sorting, and copy feedback.
 - Cards expose palette, source, mode, wallpaper count, and native Set or Install commands.
-- Detail pages expose the full palette, previews, installed path, exact source trace, install boundary, and related palettes.
+- Detail pages expose the full palette, desktop preview, browsable exact-snapshot wallpapers, installed path, exact source trace, install boundary, and related palettes.
 - Explore provides a palette atlas and registry-growth view.
 - Dark/light UI themes, accessible controls, and the required responsive header states are implemented.
 
@@ -63,14 +63,14 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 ### Release hygiene
 
 - Inactive plugin-marketplace screenshots and README graphics have been removed.
-- Tests require every local HTML asset reference to resolve and every generated theme preview to be referenced by the catalog, with no orphan preview files.
+- Tests require every local HTML asset reference to resolve and every generated theme image to be referenced by the catalog, with no orphan files.
 - The release audit covers a reproducible dependency install, live catalog build, tests, whitespace, generated-output review, and the responsive browser matrix.
 
 ### Targeted catalog maintenance
 
-- Exact approval builds refresh only the selected community repository and preserve unrelated catalog records and preview bytes.
-- Existing-theme updates validate a maintainer-supplied exact commit, archive the previous catalog snapshot, rebuild only that source, and independently verify that unrelated records and preview bytes remain unchanged.
-- Maintainer-only delisting removes one complete community source, permanently retires its installed theme ID, and removes only previews exclusive to that theme.
+- Exact approval builds refresh only the selected community repository and preserve unrelated catalog records and generated image bytes.
+- Existing-theme updates validate a maintainer-supplied exact commit, archive the previous catalog snapshot, rebuild only that source, and independently verify that unrelated records and generated image bytes remain unchanged.
+- Maintainer-only delisting removes one complete community source, permanently retires its installed theme ID, and removes only generated images exclusive to that theme.
 - Delisting is a static, replayable registry/catalog projection with a checksummed machine-readable report; the report remains an immutable workflow artifact rather than a tracked site file.
 - Read-only jobs create, test, and independently replay the delisting transaction before a narrowly scoped write-token job can publish it from an unchanged `main` base.
 - Repository migrations require old and new paths to resolve simultaneously to one immutable GitHub node/database identity, preserve the installed theme ID and historical evidence, validate canonical HEAD, and rebuild only the migrated source.
@@ -94,7 +94,6 @@ Opening the proposal, transferring the repository, changing DNS, or pushing a pr
 
 ## Deferred ideas
 
-- richer wallpaper browsing;
 - color-distance search and palette comparisons;
 - compatibility history across Omarchy versions;
 - theme collections or editor-curated sets;

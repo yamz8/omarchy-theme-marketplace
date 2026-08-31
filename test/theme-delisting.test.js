@@ -28,6 +28,11 @@ function theme(id, repo, { sourceType = "community", license = "MIT" } = {}) {
       card: `assets/img/themes/${id}-card.webp`,
       detail: `assets/img/themes/${id}-detail.webp`,
     },
+    wallpapers: [{
+      sourcePath: `backgrounds/${id}.webp`,
+      thumbnail: `assets/img/themes/${id}-wallpaper-thumbnail.webp`,
+      detail: `assets/img/themes/${id}-wallpaper-detail.webp`,
+    }],
   };
 }
 
@@ -88,9 +93,17 @@ test("a theme delisting plan removes one complete source without unrelated drift
     removedThemeCount: 1,
     removedSourceCount: 1,
     removedWarningCount: 1,
+    removedImagePaths: [
+      "assets/img/themes/target-card.webp",
+      "assets/img/themes/target-detail.webp",
+      "assets/img/themes/target-wallpaper-detail.webp",
+      "assets/img/themes/target-wallpaper-thumbnail.webp",
+    ],
     removedPreviewPaths: [
       "assets/img/themes/target-card.webp",
       "assets/img/themes/target-detail.webp",
+      "assets/img/themes/target-wallpaper-detail.webp",
+      "assets/img/themes/target-wallpaper-thumbnail.webp",
     ],
     commitSubject: "Delist target theme",
   });
@@ -124,7 +137,7 @@ test("theme delisting fails closed on retired, missing, mismatched, shared, or s
         ? { ...entry, preview: { ...entry.preview, detail: "assets/img/themes/target-detail.webp" } }
         : entry),
     }, ["target"], { generatedAt: nextGeneratedAt }),
-    /Preview is shared/,
+    /Generated image is shared/,
   );
   assert.throws(
     () => planThemeDelisting(value.registry, value.catalog, ["target"], { generatedAt: previousGeneratedAt }),
@@ -146,6 +159,8 @@ test("the theme delisting writer removes only the planned preview files", async 
     for (const entry of value.catalog.themes) {
       await writeFile(path.join(directory, "site", entry.preview.card), `${entry.id} card\n`);
       await writeFile(path.join(directory, "site", entry.preview.detail), `${entry.id} detail\n`);
+      await writeFile(path.join(directory, "site", entry.wallpapers[0].thumbnail), `${entry.id} wallpaper thumbnail\n`);
+      await writeFile(path.join(directory, "site", entry.wallpapers[0].detail), `${entry.id} wallpaper detail\n`);
     }
 
     const report = await applyThemeDelisting({
@@ -164,8 +179,12 @@ test("the theme delisting writer removes only the planned preview files", async 
     assert.equal(nextCatalog.themes.some(({ id }) => id === "target"), false);
     assert.equal(existsSync(path.join(previewDirectory, "target-card.webp")), false);
     assert.equal(existsSync(path.join(previewDirectory, "target-detail.webp")), false);
+    assert.equal(existsSync(path.join(previewDirectory, "target-wallpaper-thumbnail.webp")), false);
+    assert.equal(existsSync(path.join(previewDirectory, "target-wallpaper-detail.webp")), false);
     assert.equal(existsSync(path.join(previewDirectory, "retained-card.webp")), true);
     assert.equal(existsSync(path.join(previewDirectory, "retained-detail.webp")), true);
+    assert.equal(existsSync(path.join(previewDirectory, "retained-wallpaper-thumbnail.webp")), true);
+    assert.equal(existsSync(path.join(previewDirectory, "retained-wallpaper-detail.webp")), true);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
@@ -184,6 +203,8 @@ test("the theme delisting writer rejects symbolic-link preview boundaries", asyn
     await writeFile(catalogPath, `${JSON.stringify(value.catalog, null, 2)}\n`);
     await writeFile(path.join(realPreviewDirectory, "target-card.webp"), "card\n");
     await writeFile(path.join(realPreviewDirectory, "target-detail.webp"), "detail\n");
+    await writeFile(path.join(realPreviewDirectory, "target-wallpaper-thumbnail.webp"), "wallpaper thumbnail\n");
+    await writeFile(path.join(realPreviewDirectory, "target-wallpaper-detail.webp"), "wallpaper detail\n");
     await symlink(realPreviewDirectory, linkedPreviewDirectory, "dir");
     await assert.rejects(() => applyThemeDelisting({
       registryPath,
@@ -204,7 +225,7 @@ test("the theme delisting writer rejects symbolic-link preview boundaries", asyn
       reportPath: path.join(directory, "target-report.json"),
       themeIds: ["target"],
       generatedAt: nextGeneratedAt,
-    }), /Preview is not a regular file/);
+    }), /Generated image is not a regular file/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

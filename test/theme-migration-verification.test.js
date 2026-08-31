@@ -20,6 +20,7 @@ function fixture() {
     checkedBranch: "main",
     checkedAt: "2026-08-31T10:00:00.000Z",
     preview: { card: "assets/img/themes/canyon-a-card.webp", detail: "assets/img/themes/canyon-a-detail.webp" },
+    wallpapers: [{ sourcePath: "backgrounds/canyon.webp", thumbnail: "assets/img/themes/canyon-a-wallpaper-thumbnail.webp", detail: "assets/img/themes/canyon-a-wallpaper-detail.webp" }],
   };
   const otherTheme = {
     id: "forest",
@@ -31,6 +32,7 @@ function fixture() {
     checkedBranch: "main",
     checkedAt: "2026-08-31T10:00:00.000Z",
     preview: { card: "assets/img/themes/forest-card.webp", detail: "assets/img/themes/forest-detail.webp" },
+    wallpapers: [{ sourcePath: "backgrounds/forest.webp", thumbnail: "assets/img/themes/forest-wallpaper-thumbnail.webp", detail: "assets/img/themes/forest-wallpaper-detail.webp" }],
   };
   const report = {
     schemaVersion: 1,
@@ -75,7 +77,13 @@ function fixture() {
       generatedAt: "2026-08-31T11:01:00.000Z",
       schemaVersion: 1,
       mode: "live",
-      themes: [{ ...baseTheme, repo: newRepo, checkedCommit: headCommit, preview: { card: "assets/img/themes/canyon-b-card.webp", detail: "assets/img/themes/canyon-b-detail.webp" } }, otherTheme],
+      themes: [{
+        ...baseTheme,
+        repo: newRepo,
+        checkedCommit: headCommit,
+        preview: { card: "assets/img/themes/canyon-b-card.webp", detail: "assets/img/themes/canyon-b-detail.webp" },
+        wallpapers: [{ sourcePath: "backgrounds/canyon.webp", thumbnail: "assets/img/themes/canyon-b-wallpaper-thumbnail.webp", detail: "assets/img/themes/canyon-b-wallpaper-detail.webp" }],
+      }, otherTheme],
       warnings: [],
     },
     report,
@@ -93,7 +101,12 @@ test("migration verification accepts one canonical path replacement with unrelat
     { themeId: "canyon", newRepository: newRepo },
   );
   assert.equal(result.nextTheme.repo, newRepo);
-  assert.deepEqual([...result.unrelatedPreviewNames].sort(), ["forest-card.webp", "forest-detail.webp"]);
+  assert.deepEqual([...result.unrelatedPreviewNames].sort(), [
+    "forest-card.webp",
+    "forest-detail.webp",
+    "forest-wallpaper-detail.webp",
+    "forest-wallpaper-thumbnail.webp",
+  ]);
 });
 
 test("migration verification rejects promoted evidence and unrelated catalog or registry drift", () => {

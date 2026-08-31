@@ -14,7 +14,7 @@ Submit one public GitHub repository for one theme. The repository must:
 - contain a root license file and identify separately licensed or restricted assets;
 - avoid symlinks and unsupported executable content as part of the installed theme.
 
-A root `preview.png`, `preview.jpg`, `preview.jpeg`, or `preview.webp` is strongly recommended. When no root preview is present, the marketplace uses the first supported wallpaper. The build limits preview inputs to 50 MB and 40 megapixels, strips metadata, and creates card and detail WebP variants.
+A root `preview.png`, `preview.jpg`, `preview.jpeg`, or `preview.webp` is strongly recommended. When no root preview is present, the marketplace uses the first supported wallpaper. The build limits preview and wallpaper inputs to 50 MB and 40 megapixels each, strips metadata, creates card/detail preview variants, and creates thumbnail/detail wallpaper variants for the theme page. The static detail gallery publishes at most 24 wallpapers and reports when additional supported backgrounds were omitted.
 
 Do not add a marketplace manifest. Theme-owned behavior comes from the native Omarchy repository structure; curated listing copy stays in `registry.json`.
 
@@ -128,7 +128,7 @@ Do not create an issue on someone else's behalf until the repository owner confi
 
 Validation reads the repository tree, palette, preview, README, and license at the exact current commit without executing repository contents. It posts deterministic compatibility feedback to the issue. Passing validation is necessary but does not publish the theme.
 
-An authorized maintainer reviews the proposal and applies `approved-theme`. Publication then performs a fresh inspection, rejects duplicate or retired IDs, records the approval and exact commit in `registry.json`, generates catalog data and preview assets from that commit, runs tests, packages the exact tested Pages artifact, and refuses to push if `main` changed after the tested build.
+An authorized maintainer reviews the proposal and applies `approved-theme`. Publication then performs a fresh inspection, rejects duplicate or retired IDs, records the approval and exact commit in `registry.json`, generates catalog data and normalized theme image assets from that commit, runs tests, packages the exact tested Pages artifact, and refuses to push if `main` changed after the tested build.
 
 The marketplace snapshot does not pin the normal install command. The install command obtains current mutable upstream, so the detail page exposes both that boundary and the exact commit inspected for the catalog.
 

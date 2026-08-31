@@ -33,7 +33,7 @@ See [Develop a theme](site/develop.html) for the repository contract and [Submit
 
 ## Marketplace behavior
 
-The catalog build reads theme files from an exact Git commit without executing repository code. It validates the palette and repository structure, records source metadata, and normalizes previews into card and detail WebP assets.
+The catalog build reads theme files from an exact Git commit without executing repository code. It validates the palette and repository structure, records source metadata, normalizes previews into card and detail WebP assets, and generates bounded thumbnail/detail variants for the theme's wallpaper gallery. The static gallery publishes at most 24 wallpapers per theme while retaining the full supported-background count in catalog metadata.
 
 Catalog inspection is a compatibility check, not a security review. The normal community install command clones current mutable upstream, which may be newer than the exact commit shown by the marketplace. Review the repository and its current commit before installation.
 
@@ -69,7 +69,7 @@ Refresh the catalog from GitHub and then rebuild Explore data:
 npm run build
 ```
 
-The full build performs live GitHub requests and may update generated catalog and preview files when upstream repositories change.
+The full build performs live GitHub requests and may update generated catalog and theme image files when upstream repositories change.
 The scheduled workflow pins community repositories to their already-published exact commits; only guarded approval, update, or repository-migration workflows can advance a community snapshot.
 
 ## Submit a theme
@@ -78,7 +78,7 @@ Use the [structured theme form](https://github.com/yamz8/omarchy-theme-marketpla
 
 Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded workflow then performs a fresh inspection, builds the exact approved commit, runs tests, packages the tested `site/` tree, commits the registry and generated outputs together, deploys that exact artifact, and only then closes the proposal.
 
-The theme catalog, browse page, detail page, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, pinned scheduled refresh, exact-snapshot updates, complete-source delisting, repository migration, and static Pages deployment are implemented.
+The theme catalog, browse page, detail page with exact-snapshot wallpaper browsing, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, pinned scheduled refresh, exact-snapshot updates, complete-source delisting, repository migration, and static Pages deployment are implemented.
 
 See [OPERATIONS.md](OPERATIONS.md) for the architecture and release handoff, [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection. A [maintainer proposal draft](MAINTAINER_PROPOSAL.md) is included for review but has not been submitted.
 

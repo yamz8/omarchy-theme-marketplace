@@ -24,7 +24,7 @@ The catalog builder reads public GitHub repositories without executing their con
 4. discovers supported images directly under `backgrounds/`;
 5. records a root README and license when present;
 6. records root files that Omarchy's remote-theme filtering does not install, including symlinks, Lua files, and generated terminal/editor configuration files;
-7. bounds preview input to 50 MB and 40 megapixels, strips metadata, and creates separate card and detail WebP files.
+7. bounds preview and wallpaper inputs to 50 MB and 40 megapixels each, limits each static gallery to 24 wallpapers, strips metadata, and creates separate card, thumbnail, and detail WebP files.
 
 The check is deliberately narrow. It does not prove that an image decoder, generated application configuration, repository host, current branch head, or later upstream commit is safe. It does not inspect every possible semantic property of a color palette or asset license.
 
@@ -59,12 +59,12 @@ New submissions use a structured issue and deterministic static inspection. Vali
 5. forces the catalog build to use that exact approved commit for the new source;
 6. runs tests and whitespace checks;
 7. refuses to publish if `main` changed after the tested build;
-8. commits only the registry, generated catalog, Explore data, and normalized theme previews;
+8. commits only the registry, generated catalog, Explore data, and normalized theme image assets;
 9. deploys the exact tested `site/` artifact only after guarded publication succeeds.
 
 Every catalog-writing workflow carries its exact tested `site/` artifact into a separately permissioned Pages job instead of relying on its workflow-token push to trigger another workflow. Maintainer pushes use the standalone Pages workflow, which tests and uploads the committed `site/` tree without rebuilding it. Scheduled refreshes remain separately serialized, pin community themes to their already-published exact commits, and refuse to publish stale output.
 
-Existing-theme updates, complete-source delisting, and repository rename or transfer are separate manual maintainer workflows. They create and test a checksummed publication transaction in a read-only job, verify its exact registry/catalog/preview projection in another read-only job, limit the write-token job to applying that immutable transaction from an unchanged `main` base, and deploy only the matching tested Pages artifact. Delisting permanently retires IDs. Migration requires simultaneous old/new immutable GitHub identity evidence and does not rewrite historical snapshot evidence.
+Existing-theme updates, complete-source delisting, and repository rename or transfer are separate manual maintainer workflows. They create and test a checksummed publication transaction in a read-only job, verify its exact registry/catalog/generated-image projection in another read-only job, limit the write-token job to applying that immutable transaction from an unchanged `main` base, and deploy only the matching tested Pages artifact. Delisting permanently retires IDs. Migration requires simultaneous old/new immutable GitHub identity evidence and does not rewrite historical snapshot evidence.
 
 Never represent compatibility validation or maintainer approval as security verification, and never execute submitted theme repository contents in CI.
 

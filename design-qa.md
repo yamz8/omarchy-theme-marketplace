@@ -1,36 +1,45 @@
-# Theme card design QA
+# Wallpaper gallery design QA
 
 ## Evidence
 
-- Source visual truth: `/tmp/codex-clipboard-QPSXxb.png`
-- Implementation capture: `/tmp/theme-card-design-qa/implementation-final.png`
-- Focused comparison: `/tmp/theme-card-design-qa/card-comparison.png`
-- Source viewport: 1890 x 1017 physical pixels; the compared card was normalized to 352 CSS pixels wide.
-- Implementation viewport: 1512 x 727 CSS pixels at 1.25 device pixel ratio.
-- Component comparison: 352 x 382 pixels per card.
-- State: dark catalog, first theme card, credential-free engagement totals loaded from a temporary local stub.
+- Source visual truth: `/tmp/theme-wallpaper-gallery-reference-normalized.png`, captured from the deployed detail page at commit `34b1fe2a` before the gallery existed.
+- Browser-rendered implementation: `/tmp/theme-wallpaper-gallery-implementation-1440.png`.
+- Focused gallery evidence: `/tmp/theme-wallpaper-gallery-implementation-focus.png`.
+- Mobile evidence: `/tmp/theme-wallpaper-gallery-mobile.png`.
+- Combined full-view comparison: `/tmp/theme-wallpaper-gallery-comparison.png`.
+- Full-view comparison size: 1440 x 900 CSS pixels per side, normalized to 1440 x 900 image pixels.
+- Mobile viewport and capture: 320 x 900 CSS and image pixels.
+- State: Catppuccin built-in theme, dark mode, first wallpaper selected; light mode was also checked across the responsive matrix.
 
-## Interaction checks
+## Findings
 
-- Rendered the catalog at 320, 375, 760, 761, 800, 850, 879, 880, 1024, and 1440 CSS pixels.
-- Checked dark and light modes without horizontal page overflow or clipped footer controls.
-- Checked keyboard focus for **View source** and the command-copy control.
-- Checked that the command tooltip is visible on keyboard focus and that both controls retain accessible names.
-- Kept the existing command-copy behavior covered by the site tests; the visual review did not modify the system clipboard.
+- No P0 or P1 issues found.
+- P2: Raw numeric ordering prefixes initially appeared in wallpaper names, such as `2 waves`. The display-name formatter now removes numeric filename prefixes while retaining deterministic source ordering.
+- P2: A normal live rebuild refreshed mutable repository metadata even though source commits were unchanged. The generator now supports a complete committed-snapshot rebuild for asset/schema migrations, and the final catalog contains no unrelated star, activity, commit, or checked-time drift.
+- The gallery intentionally extends the page below the existing desktop preview. The full-view comparison confirms that the established shell, typography, preview proportions, metadata, tags, borders, and spacing remain unchanged above it.
 
-## Findings and resolution
+## Interaction and responsive checks
 
-- P1: Theme card actions formed a dense, right-heavy row and visually competed with tags. Resolved with a balanced two-tier footer.
-- P2: The text command action was heavier than the plugin card's compact icon actions. Resolved with an icon-only card control and accessible tooltip.
-- P2: Disabling engagement could leave an empty action row. Resolved by rerendering the fallback and placing the command beside the source action.
-- P3: Theme cards remain intentionally taller than plugin cards because mode, wallpaper count, palette, and inspected source are native theme information.
+- Rendered at 320, 375, 760, 761, 800, 850, 879, 880, 1024, and 1440 CSS pixels in dark and light modes.
+- No horizontal page overflow, clipped stage, clipped controls, or wrapped Previous/Next labels were detected.
+- Previous/Next controls update the image, accessible position output, filename, and selected thumbnail.
+- ArrowLeft and ArrowRight navigate from the main viewer; thumbnail navigation uses a roving tab stop and retains visible keyboard focus.
+- The selected thumbnail exposes `aria-pressed="true"`; the position output announces changes through `aria-live`.
+- Opening and closing the selected wallpaper lightbox works and preserves descriptive image alternative text.
+- Touch/pen horizontal swipe handling is present on the main stage while vertical page scrolling remains available.
+- JavaScript scrolling respects `prefers-reduced-motion`.
+- Browser console warnings and errors: none.
 
 ## Fidelity surfaces
 
-- Typography: retained the existing marketplace monospace and sans-serif hierarchy.
-- Spacing: tightened the footer cadence while preserving theme-specific facts.
-- Color: reused existing neutral, orange, focus, and light-mode tokens.
-- Assets: retained the generated theme previews, current cropping, and palette strips.
-- Copy: retained native `omarchy theme set` and `omarchy theme install` behavior and explicit source access.
+- Typography: existing sans-serif content hierarchy and monospace technical controls are preserved.
+- Spacing and layout: the gallery follows the existing detail-section rhythm, square controls, thin borders, and full-width media treatment.
+- Colors and tokens: only existing background, panel, line, text, muted, and orange accent tokens are used in dark and light modes.
+- Image quality: every wallpaper is generated from the exact inspected snapshot, metadata-stripped, bounded before decoding, and emitted as separate thumbnail and detail WebP assets without stretching.
+- Copy and content: wording distinguishes wallpapers from the desktop theme preview and names the exact inspected snapshot boundary.
+
+## Follow-up polish
+
+- P3: A future iteration could add lightbox-level Previous/Next controls; the current page viewer already supports complete keyboard, pointer, and touch navigation before opening the selected image.
 
 Final result: passed

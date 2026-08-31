@@ -29,13 +29,21 @@ function strictIsoTimestamp(value, field) {
 function normalizedPreviewPath(value) {
   if (value === undefined || value === null || value === "") return "";
   if (typeof value !== "string" || !value.startsWith(previewPrefix)) {
-    throw new Error("Catalog preview paths must stay inside assets/img/themes");
+    throw new Error("Catalog image paths must stay inside assets/img/themes");
   }
   const filename = value.slice(previewPrefix.length);
   if (!filename || basename(filename) !== filename || filename.includes("..") || !filename.endsWith(".webp")) {
-    throw new Error("Catalog preview paths must name one generated WebP file");
+    throw new Error("Catalog image paths must name one generated WebP file");
   }
   return value;
+}
+
+function themeImagePaths(theme) {
+  return [
+    theme.preview?.card,
+    theme.preview?.detail,
+    ...(theme.wallpapers || []).flatMap((wallpaper) => [wallpaper.thumbnail, wallpaper.detail]),
+  ].map(normalizedPreviewPath).filter(Boolean);
 }
 
 function serialized(value) {
@@ -121,19 +129,15 @@ export function planThemeDelisting(registry, catalog, requestedThemeIds, options
   }
 
   const removedThemes = themeIds.map((id) => catalogById.get(id));
-  const previewPaths = new Set();
+  const imagePaths = new Set();
   for (const theme of removedThemes) {
-    for (const variant of ["card", "detail"]) {
-      const previewPath = normalizedPreviewPath(theme.preview?.[variant]);
-      if (previewPath) previewPaths.add(previewPath);
-    }
+    for (const imagePath of themeImagePaths(theme)) imagePaths.add(imagePath);
   }
   const remainingThemes = catalog.themes.filter((theme) => !requested.has(theme.id));
   for (const theme of remainingThemes) {
-    for (const variant of ["card", "detail"]) {
-      const previewPath = normalizedPreviewPath(theme.preview?.[variant]);
-      if (previewPath && previewPaths.has(previewPath)) {
-        throw new Error(`Preview is shared with a retained theme: ${previewPath}`);
+    for (const imagePath of themeImagePaths(theme)) {
+      if (imagePaths.has(imagePath)) {
+        throw new Error(`Generated image is shared with a retained theme: ${imagePath}`);
       }
     }
   }
@@ -169,7 +173,8 @@ export function planThemeDelisting(registry, catalog, requestedThemeIds, options
     removedThemeCount: removedThemes.length,
     removedSourceCount: selectedSources.size,
     removedWarningCount: catalog.warnings.length - nextWarnings.length,
-    removedPreviewPaths: [...previewPaths].sort(),
+    removedImagePaths: [...imagePaths].sort(),
+    removedPreviewPaths: [...imagePaths].sort(),
     commitSubject: themeIds.length === 1
       ? `Delist ${themeIds[0]} theme`
       : `Delist ${themeIds.length} marketplace themes`,
@@ -202,19 +207,19 @@ export async function applyThemeDelisting(options) {
     requestedBy: options.requestedBy,
   });
 
-  for (const previewPath of result.report.removedPreviewPaths) {
-    const target = resolve(previewDirectory, previewPath.slice(previewPrefix.length));
+  for (const imagePath of result.report.removedImagePaths) {
+    const target = resolve(previewDirectory, imagePath.slice(previewPrefix.length));
     const metadata = await lstat(target);
     if (!metadata.isFile() || metadata.isSymbolicLink()) {
-      throw new Error(`Preview is not a regular file: ${previewPath}`);
+      throw new Error(`Generated image is not a regular file: ${imagePath}`);
     }
   }
 
   await writeAtomic(options.registryPath, serialized(result.nextRegistry));
   await writeAtomic(options.catalogPath, serialized(result.nextCatalog));
   await writeAtomic(options.reportPath, serialized(result.report));
-  for (const previewPath of result.report.removedPreviewPaths) {
-    await unlink(resolve(previewDirectory, previewPath.slice(previewPrefix.length)));
+  for (const imagePath of result.report.removedImagePaths) {
+    await unlink(resolve(previewDirectory, imagePath.slice(previewPrefix.length)));
   }
   return result.report;
 }
