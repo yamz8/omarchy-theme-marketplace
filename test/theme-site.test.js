@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -45,4 +45,20 @@ test("every active page uses the same final asset versions", async () => {
   assert.match(pages[2], /explore\.css\?v=20260831-01/);
   assert.match(pages[2], /explore\.js\?v=20260831-02/);
   for (const page of pages.slice(3)) assert.match(page, /static-page\.js\?v=20260831-03/);
+});
+
+test("every local page asset reference resolves inside the static site", async () => {
+  for (const name of ["index", "theme", "explore", "develop", "publish"]) {
+    const page = await read(`site/${name}.html`);
+    const references = [...page.matchAll(/\b(?:href|src)="([^"]+)"/g)]
+      .map((match) => match[1])
+      .filter((value) => value && !value.startsWith("#") && !/^[a-z]+:/i.test(value))
+      .map((value) => value.split(/[?#]/, 1)[0]);
+    for (const reference of references) {
+      await assert.doesNotReject(
+        access(new URL(`site/${reference}`, root)),
+        `${name}.html references missing local asset ${reference}`,
+      );
+    }
+  }
 });

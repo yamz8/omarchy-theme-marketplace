@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const root = new URL("../", import.meta.url);
@@ -35,4 +35,18 @@ test("generated catalog contains unique, installable Omarchy themes", async () =
     assert.ok(theme.preview?.card?.startsWith("assets/img/themes/"));
     assert.ok(theme.preview?.detail?.startsWith("assets/img/themes/"));
   }
+});
+
+test("generated preview files exactly match catalog references", async () => {
+  const catalog = await readJson("site/catalog.json");
+  const referenced = new Set();
+  for (const theme of catalog.themes) {
+    for (const variant of ["card", "detail"]) {
+      const path = theme.preview?.[variant];
+      assert.match(path, /^assets\/img\/themes\/[A-Za-z0-9._-]+\.webp$/);
+      referenced.add(path.split("/").at(-1));
+    }
+  }
+  const generated = new Set(await readdir(new URL("site/assets/img/themes/", root)));
+  assert.deepEqual([...generated].sort(), [...referenced].sort());
 });

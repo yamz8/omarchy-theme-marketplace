@@ -60,6 +60,12 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Local and Worker-side rate limits are best-effort abuse controls; no identity or general analytics are introduced.
 - Production engagement stays disabled until a reviewed HTTPS endpoint and exact allowed origins are configured. No production hostname is assumed.
 
+### Release hygiene
+
+- Inactive plugin-marketplace screenshots and README graphics have been removed.
+- Tests require every local HTML asset reference to resolve and every generated theme preview to be referenced by the catalog, with no orphan preview files.
+- The release audit covers a reproducible dependency install, live catalog build, tests, whitespace, generated-output review, and the responsive browser matrix.
+
 ## Next implementation goals
 
 ### Goal 1 — Safe updates and delisting
@@ -74,7 +80,6 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 
 Before approaching the Omarchy maintainers:
 
-- remove every remaining inactive copied artifact;
 - verify a clean `npm ci`, build, tests, and static Pages deployment;
 - test submission success and rejection paths;
 - document the exact trust and mutable-install boundaries;
