@@ -190,6 +190,7 @@ test("repository automation is theme-only, pinned, and least-privilege scoped", 
   ]);
   assert.deepEqual(workflowNames.sort(), [
     "approve-theme-submission.yml",
+    "delist-themes.yml",
     "deploy-pages.yml",
     "provision-labels.yml",
     "refresh-catalog.yml",

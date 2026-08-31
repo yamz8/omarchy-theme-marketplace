@@ -1,0 +1,341 @@
+name: Delist marketplace themes
+
+on:
+  workflow_dispatch:
+    inputs:
+      theme_ids:
+        description: "Exact installed theme IDs, separated by commas or whitespace"
+        required: true
+        type: string
+      confirm_delisting:
+        description: "Permanently retire these theme IDs"
+        required: true
+        default: false
+        type: boolean
+
+permissions: {}
+
+concurrency:
+  group: >-
+    ${{ github.actor == 'yamz8' &&
+        github.triggering_actor == 'yamz8' &&
+        github.repository == 'yamz8/omarchy-theme-marketplace' &&
+        github.ref == 'refs/heads/main' &&
+        github.run_attempt == 1 &&
+        inputs.confirm_delisting == true &&
+        'theme-catalog-writes' || format('ignored-theme-delisting-{0}', github.run_id) }}
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  authorize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Authorize exact manual delisting request
+        env:
+          ACTOR: ${{ github.actor }}
+          CONFIRM_DELISTING: ${{ inputs.confirm_delisting }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          set -euo pipefail
+          test "$EVENT_NAME" = workflow_dispatch
+          test "$REPOSITORY" = yamz8/omarchy-theme-marketplace
+          test "$REF" = refs/heads/main
+          test "$ACTOR" = yamz8
+          test "$TRIGGERING_ACTOR" = yamz8
+          test "$RUN_ATTEMPT" = 1
+          test "$CONFIRM_DELISTING" = true
+
+  prepare:
+    needs: authorize
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      artifact_name: ${{ steps.identity.outputs.artifact_name }}
+      base_commit: ${{ steps.base.outputs.commit }}
+      catalog_sha: ${{ steps.bundle.outputs.catalog_sha }}
+      explorer_sha: ${{ steps.bundle.outputs.explorer_sha }}
+      publication_sha: ${{ steps.bundle.outputs.publication_sha }}
+      registry_sha: ${{ steps.bundle.outputs.registry_sha }}
+      report_sha: ${{ steps.bundle.outputs.report_sha }}
+    steps:
+      - name: Check out current main with complete history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Record delisting base commit
+        id: base
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install marketplace dependencies
+        run: npm ci
+
+      - name: Apply exact static delisting projection
+        env:
+          MARKETPLACE_DELIST_REQUESTED_BY: ${{ github.actor }}
+          MARKETPLACE_DELIST_THEME_IDS: ${{ inputs.theme_ids }}
+        run: |
+          set -euo pipefail
+          node scripts/delist-themes.mjs \
+            --registry=registry.json \
+            --catalog=site/catalog.json \
+            --preview-dir=site/assets/img/themes \
+            --report="$RUNNER_TEMP/delisting-report.json"
+
+      - name: Build Explorer data from the delisted catalog
+        run: npm run build:explorer
+
+      - name: Test the delisted marketplace state
+        run: npm test
+
+      - name: Confirm only delisting outputs changed
+        run: |
+          set -euo pipefail
+          git diff --check
+          git diff --exit-code -- . \
+            ':!registry.json' \
+            ':!site/catalog.json' \
+            ':!site/explorer-data.json' \
+            ':!site/assets/img/themes/'
+
+      - name: Name the immutable publication artifact
+        id: identity
+        run: echo "artifact_name=delisted-themes-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Bundle the tested delisting transaction
+        id: bundle
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/delisted-publication"
+          mkdir -p "$bundle/site/assets/img"
+          cp registry.json "$bundle/registry.json"
+          cp site/catalog.json "$bundle/site/catalog.json"
+          cp site/explorer-data.json "$bundle/site/explorer-data.json"
+          cp "$RUNNER_TEMP/delisting-report.json" "$bundle/delisting-report.json"
+          cp -a site/assets/img/themes "$bundle/site/assets/img/themes"
+          (
+            cd "$bundle"
+            find registry.json delisting-report.json site/catalog.json site/explorer-data.json site/assets/img/themes -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS
+          )
+          read -r registry_sha _ < <(sha256sum registry.json)
+          read -r catalog_sha _ < <(sha256sum site/catalog.json)
+          read -r explorer_sha _ < <(sha256sum site/explorer-data.json)
+          read -r report_sha _ < <(sha256sum "$RUNNER_TEMP/delisting-report.json")
+          read -r publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          echo "registry_sha=${registry_sha}" >> "$GITHUB_OUTPUT"
+          echo "catalog_sha=${catalog_sha}" >> "$GITHUB_OUTPUT"
+          echo "explorer_sha=${explorer_sha}" >> "$GITHUB_OUTPUT"
+          echo "report_sha=${report_sha}" >> "$GITHUB_OUTPUT"
+          echo "publication_sha=${publication_sha}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload tested delisting transaction
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ${{ steps.identity.outputs.artifact_name }}
+          path: ${{ runner.temp }}/delisted-publication
+          if-no-files-found: error
+          retention-days: 7
+
+  verify:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      - name: Check out the tested base with complete history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.prepare.outputs.base_commit }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up verification Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+
+      - name: Download the tested transaction
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ needs.prepare.outputs.artifact_name }}
+          path: ${{ runner.temp }}/delisted-publication
+
+      - name: Replay and verify the delisting transaction
+        env:
+          EXPECTED_CATALOG_SHA: ${{ needs.prepare.outputs.catalog_sha }}
+          EXPECTED_EXPLORER_SHA: ${{ needs.prepare.outputs.explorer_sha }}
+          EXPECTED_PUBLICATION_SHA: ${{ needs.prepare.outputs.publication_sha }}
+          EXPECTED_REGISTRY_SHA: ${{ needs.prepare.outputs.registry_sha }}
+          EXPECTED_REPORT_SHA: ${{ needs.prepare.outputs.report_sha }}
+          MARKETPLACE_DELIST_REQUESTED_BY: ${{ github.actor }}
+          MARKETPLACE_DELIST_THEME_IDS: ${{ inputs.theme_ids }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/delisted-publication"
+          if [ -n "$(find "$bundle" -type l -print -quit)" ]; then
+            echo "Artifact contains an unexpected symbolic link." >&2
+            exit 1
+          fi
+          actual_files="$(cd "$bundle" && find . -type f -printf '%P\n' | sort)"
+          expected_files="$(
+            cd "$bundle"
+            {
+              printf '%s\n' SHA256SUMS registry.json delisting-report.json site/catalog.json site/explorer-data.json
+              find site/assets/img/themes -type f -print
+            } | sort
+          )"
+          test "$actual_files" = "$expected_files"
+          read -r actual_publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          test "$actual_publication_sha" = "$EXPECTED_PUBLICATION_SHA"
+          (cd "$bundle" && sha256sum --check SHA256SUMS)
+          read -r actual_registry_sha _ < <(sha256sum "$bundle/registry.json")
+          read -r actual_catalog_sha _ < <(sha256sum "$bundle/site/catalog.json")
+          read -r actual_explorer_sha _ < <(sha256sum "$bundle/site/explorer-data.json")
+          read -r actual_report_sha _ < <(sha256sum "$bundle/delisting-report.json")
+          test "$actual_registry_sha" = "$EXPECTED_REGISTRY_SHA"
+          test "$actual_catalog_sha" = "$EXPECTED_CATALOG_SHA"
+          test "$actual_explorer_sha" = "$EXPECTED_EXPLORER_SHA"
+          test "$actual_report_sha" = "$EXPECTED_REPORT_SHA"
+
+          generated_at="$(jq -er 'select(.schemaVersion == 1 and .requestedBy == "yamz8") | .generatedAt' "$bundle/delisting-report.json")"
+          recomputed="$RUNNER_TEMP/recomputed-delisting"
+          mkdir -p "$recomputed/site/assets/img"
+          cp registry.json "$recomputed/registry.json"
+          cp site/catalog.json "$recomputed/site/catalog.json"
+          cp -a site/assets/img/themes "$recomputed/site/assets/img/themes"
+          MARKETPLACE_DELIST_GENERATED_AT="$generated_at" \
+            node scripts/delist-themes.mjs \
+              --registry="$recomputed/registry.json" \
+              --catalog="$recomputed/site/catalog.json" \
+              --preview-dir="$recomputed/site/assets/img/themes" \
+              --report="$recomputed/delisting-report.json"
+          cmp -s "$recomputed/registry.json" "$bundle/registry.json"
+          cmp -s "$recomputed/site/catalog.json" "$bundle/site/catalog.json"
+          cmp -s "$recomputed/delisting-report.json" "$bundle/delisting-report.json"
+          (
+            cd "$recomputed"
+            find site/assets/img/themes -type f -print0 | sort -z | xargs -0 sha256sum
+          ) > "$RUNNER_TEMP/recomputed-previews.SHA256SUMS"
+          (
+            cd "$bundle"
+            find site/assets/img/themes -type f -print0 | sort -z | xargs -0 sha256sum
+          ) > "$RUNNER_TEMP/artifact-previews.SHA256SUMS"
+          cmp -s "$RUNNER_TEMP/recomputed-previews.SHA256SUMS" "$RUNNER_TEMP/artifact-previews.SHA256SUMS"
+
+          cp "$recomputed/registry.json" registry.json
+          cp "$recomputed/site/catalog.json" site/catalog.json
+          node scripts/build-explorer-data.mjs
+          cmp -s site/explorer-data.json "$bundle/site/explorer-data.json"
+
+  publish:
+    needs: [prepare, verify]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Check out the tested delisting base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.prepare.outputs.base_commit }}
+          persist-credentials: false
+
+      - name: Download the verified transaction
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: ${{ needs.prepare.outputs.artifact_name }}
+          path: ${{ runner.temp }}/delisted-publication
+
+      - name: Verify and apply immutable delisting files
+        env:
+          EXPECTED_CATALOG_SHA: ${{ needs.prepare.outputs.catalog_sha }}
+          EXPECTED_EXPLORER_SHA: ${{ needs.prepare.outputs.explorer_sha }}
+          EXPECTED_PUBLICATION_SHA: ${{ needs.prepare.outputs.publication_sha }}
+          EXPECTED_REGISTRY_SHA: ${{ needs.prepare.outputs.registry_sha }}
+          EXPECTED_REPORT_SHA: ${{ needs.prepare.outputs.report_sha }}
+        run: |
+          set -euo pipefail
+          bundle="$RUNNER_TEMP/delisted-publication"
+          if [ -n "$(find "$bundle" -type l -print -quit)" ]; then
+            echo "Artifact contains an unexpected symbolic link." >&2
+            exit 1
+          fi
+          read -r actual_publication_sha _ < <(sha256sum "$bundle/SHA256SUMS")
+          test "$actual_publication_sha" = "$EXPECTED_PUBLICATION_SHA"
+          (cd "$bundle" && sha256sum --check SHA256SUMS)
+          read -r actual_registry_sha _ < <(sha256sum "$bundle/registry.json")
+          read -r actual_catalog_sha _ < <(sha256sum "$bundle/site/catalog.json")
+          read -r actual_explorer_sha _ < <(sha256sum "$bundle/site/explorer-data.json")
+          read -r actual_report_sha _ < <(sha256sum "$bundle/delisting-report.json")
+          test "$actual_registry_sha" = "$EXPECTED_REGISTRY_SHA"
+          test "$actual_catalog_sha" = "$EXPECTED_CATALOG_SHA"
+          test "$actual_explorer_sha" = "$EXPECTED_EXPLORER_SHA"
+          test "$actual_report_sha" = "$EXPECTED_REPORT_SHA"
+          cp "$bundle/registry.json" registry.json
+          cp "$bundle/site/catalog.json" site/catalog.json
+          cp "$bundle/site/explorer-data.json" site/explorer-data.json
+          rm -rf site/assets/img/themes
+          cp -a "$bundle/site/assets/img/themes" site/assets/img/themes
+
+      - name: Reauthorize delisting before publication
+        env:
+          ACTOR: ${{ github.actor }}
+          CONFIRM_DELISTING: ${{ inputs.confirm_delisting }}
+          REF: ${{ github.ref }}
+          REPOSITORY: ${{ github.repository }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+        run: |
+          set -euo pipefail
+          test "$REPOSITORY" = yamz8/omarchy-theme-marketplace
+          test "$REF" = refs/heads/main
+          test "$ACTOR" = yamz8
+          test "$TRIGGERING_ACTOR" = yamz8
+          test "$RUN_ATTEMPT" = 1
+          test "$CONFIRM_DELISTING" = true
+
+      - name: Commit and push the tested delisting
+        env:
+          EXPECTED_BASE_COMMIT: ${{ needs.prepare.outputs.base_commit }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add registry.json site/catalog.json site/explorer-data.json site/assets/img/themes/
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo "Delisting publication produced no repository change." >&2
+            exit 1
+          fi
+          subject="$(jq -er '.commitSubject | select(type == "string" and length > 0 and contains("\n") == false)' "$RUNNER_TEMP/delisted-publication/delisting-report.json")"
+          git commit -m "$subject"
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$EXPECTED_BASE_COMMIT" ]; then
+            echo "main changed after the tested delisting; refusing to publish stale artifacts." >&2
+            exit 1
+          fi
+          authorization="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic ${authorization}" push origin HEAD:main

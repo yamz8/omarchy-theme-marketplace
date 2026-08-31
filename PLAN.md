@@ -66,13 +66,18 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Tests require every local HTML asset reference to resolve and every generated theme preview to be referenced by the catalog, with no orphan preview files.
 - The release audit covers a reproducible dependency install, live catalog build, tests, whitespace, generated-output review, and the responsive browser matrix.
 
+### Targeted catalog maintenance
+
+- Exact approval builds refresh only the selected community repository and preserve unrelated catalog records and preview bytes.
+- Maintainer-only delisting removes one complete community source, permanently retires its installed theme ID, and removes only previews exclusive to that theme.
+- Delisting is a static, replayable registry/catalog projection with a checksummed machine-readable report; the report remains an immutable workflow artifact rather than a tracked site file.
+- Read-only jobs create, test, and independently replay the delisting transaction before a narrowly scoped write-token job can publish it from an unchanged `main` base.
+
 ## Next implementation goals
 
 ### Goal 1 — Safe updates and delisting
 
-- Refresh existing sources without allowing unrelated catalog drift in approval jobs.
-- Preserve retired theme IDs so identifiers cannot be reused accidentally.
-- Provide maintainer-only delisting with a machine-readable report.
+- Provide a guarded exact-snapshot update path for an existing community theme source.
 - Validate repository rename or transfer identity before changing an active source URL.
 - Keep updates, publication, and deployment serialized around the canonical registry.
 
