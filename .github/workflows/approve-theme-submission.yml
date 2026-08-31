@@ -16,6 +16,9 @@ jobs:
     permissions:
       contents: write
       issues: write
+    outputs:
+      pages_artifact_name: ${{ steps.pages_identity.outputs.artifact_name }}
+      theme_id: ${{ steps.approval.outputs.theme_id }}
     steps:
       - name: Require an authorized maintainer decision
         env:
@@ -73,7 +76,19 @@ jobs:
       - name: Check publication whitespace
         run: git diff --check
 
+      - name: Name the immutable Pages artifact
+        id: pages_identity
+        run: echo "artifact_name=approved-theme-pages-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload the tested Pages tree
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          name: ${{ steps.pages_identity.outputs.artifact_name }}
+          path: site
+          retention-days: 7
+
       - name: Commit and push the tested publication
+        id: publication
         env:
           BASE_COMMIT: ${{ steps.base.outputs.commit }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -92,21 +107,78 @@ jobs:
           fi
           authorization="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)"
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic ${authorization}" push origin HEAD:main
+          echo "published=true" >> "$GITHUB_OUTPUT"
 
-      - name: Close the published proposal
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-          THEME_ID: ${{ steps.approval.outputs.theme_id }}
+      - name: Confirm the Pages tree matches the published commit
         run: |
-          gh issue comment "$ISSUE_NUMBER" --body "Published theme ${THEME_ID} from the exact approved snapshot. The normal install command still obtains current mutable upstream."
-          gh issue close "$ISSUE_NUMBER" --reason completed
+          set -euo pipefail
+          git diff --exit-code HEAD -- site
+          test -z "$(git ls-files --others --exclude-standard -- site)"
 
       - name: Make a failed decision retryable
-        if: failure()
+        if: failure() && steps.publication.outputs.published != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           gh issue edit "$ISSUE_NUMBER" --remove-label approved-theme || true
           gh issue comment "$ISSUE_NUMBER" --body "Theme publication failed without changing the marketplace. Review the workflow, correct the current issue or repository, then apply approved-theme again." || true
+
+      - name: Report a post-publication packaging failure
+        if: failure() && steps.publication.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "The theme was committed, but the exact Pages tree check failed. Do not apply approved-theme again; inspect this workflow run and deploy the committed site after resolving the packaging failure." || true
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages-deployments
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - name: Deploy the tested Pages tree
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        with:
+          artifact_name: ${{ needs.publish.outputs.pages_artifact_name }}
+          timeout: 300000
+
+  finalize:
+    needs: [publish, deploy]
+    if: always() && needs.publish.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Close the published proposal
+        if: needs.deploy.result == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          THEME_ID: ${{ needs.publish.outputs.theme_id }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "Published theme ${THEME_ID} from the exact approved snapshot and deployed the tested marketplace. The normal install command still obtains current mutable upstream."
+          gh issue close "$ISSUE_NUMBER" --reason completed
+
+      - name: Report a Pages deployment failure
+        if: needs.deploy.result != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          THEME_ID: ${{ needs.publish.outputs.theme_id }}
+        run: gh issue comment "$ISSUE_NUMBER" --body "Theme ${THEME_ID} is committed, but its tested Pages artifact was not deployed. Do not apply approved-theme again; rerun or manually dispatch the site deployment after resolving the Pages failure."

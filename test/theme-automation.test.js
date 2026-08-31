@@ -230,3 +230,37 @@ test("repository automation is theme-only, pinned, and least-privilege scoped", 
   for (const checklistItem of submissionChecklist) assert.ok(form.includes(checklistItem));
   assert.match(form, /title: "\[Theme\]: "/);
 });
+
+test("approved themes deploy their exact tested Pages artifact before proposal closure", async () => {
+  const workflow = await read(".github/workflows/approve-theme-submission.yml");
+  const publishStart = workflow.indexOf("\n  publish:\n");
+  const deployStart = workflow.indexOf("\n  deploy:\n", publishStart);
+  const finalizeStart = workflow.indexOf("\n  finalize:\n", deployStart);
+  assert.ok(publishStart > 0 && deployStart > publishStart && finalizeStart > deployStart);
+
+  const publish = workflow.slice(publishStart, deployStart);
+  assert.match(publish, /pages_artifact_name: \$\{\{ steps\.pages_identity\.outputs\.artifact_name \}\}/);
+  assert.match(publish, /upload-pages-artifact@[a-f0-9]{40}/);
+  assert.match(publish, /git diff --exit-code HEAD -- site/);
+  assert.match(publish, /git ls-files --others --exclude-standard -- site/);
+  assert.match(publish, /failure\(\) && steps\.publication\.outputs\.published != 'true'/);
+  assert.match(publish, /failure\(\) && steps\.publication\.outputs\.published == 'true'/);
+  assert.ok(publish.indexOf("upload-pages-artifact@") < publish.indexOf("push origin HEAD:main"));
+  assert.ok(publish.indexOf("push origin HEAD:main") < publish.indexOf("git diff --exit-code HEAD -- site"));
+
+  const deploy = workflow.slice(deployStart, finalizeStart);
+  assert.match(deploy, /needs: publish/);
+  assert.match(deploy, /permissions:\n      contents: read\n      pages: write\n      id-token: write/);
+  assert.match(deploy, /group: github-pages-deployments/);
+  assert.match(deploy, /configure-pages@[a-f0-9]{40}/);
+  assert.match(deploy, /deploy-pages@[a-f0-9]{40}/);
+  assert.match(deploy, /artifact_name: \$\{\{ needs\.publish\.outputs\.pages_artifact_name \}\}/);
+  assert.doesNotMatch(deploy, /contents: write|git |npm |node |scripts\//);
+
+  const finalize = workflow.slice(finalizeStart);
+  assert.match(finalize, /needs: \[publish, deploy\]/);
+  assert.match(finalize, /always\(\) && needs\.publish\.result == 'success'/);
+  assert.match(finalize, /needs\.deploy\.result == 'success'/);
+  assert.match(finalize, /needs\.deploy\.result != 'success'/);
+  assert.match(finalize, /issues: write/);
+});

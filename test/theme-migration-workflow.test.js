@@ -47,15 +47,32 @@ test("a read-only verifier checks migration semantics, unrelated bytes, and Expl
 });
 
 test("the migration write-token job applies only verified files and performs one guarded push", () => {
-  const publish = jobSource("publish");
+  const publish = jobSource("publish", "deploy");
   assert.match(publish, /needs: \[prepare, verify\]/);
   assert.match(publish, /permissions:\n      actions: read\n      contents: write/);
+  assert.match(publish, /pages_artifact_name: \$\{\{ steps\.pages_identity\.outputs\.artifact_name \}\}/);
   assert.match(publish, /sha256sum --check SHA256SUMS/);
   assert.match(publish, /Reauthorize migration before publication/);
+  assert.match(publish, /upload-pages-artifact@[a-f0-9]{40}/);
   assert.match(publish, /git add registry\.json site\/catalog\.json site\/explorer-data\.json site\/assets\/img\/themes\//);
   assert.match(publish, /refusing to publish stale artifacts/);
+  assert.match(publish, /git diff --exit-code HEAD -- site/);
+  assert.match(publish, /git ls-files --others --exclude-standard -- site/);
+  assert.ok(publish.indexOf("upload-pages-artifact@") < publish.indexOf("push origin HEAD:main"));
+  assert.ok(publish.indexOf("push origin HEAD:main") < publish.indexOf("git diff --exit-code HEAD -- site"));
   assert.equal((publish.match(/push origin HEAD:main/g) || []).length, 1);
   assert.doesNotMatch(publish, /node |npm |scripts\//);
+});
+
+test("repository migration deploys only the exact artifact from the guarded publisher", () => {
+  const deploy = jobSource("deploy");
+  assert.match(deploy, /needs: publish/);
+  assert.match(deploy, /permissions:\n      contents: read\n      pages: write\n      id-token: write/);
+  assert.match(deploy, /group: github-pages-deployments/);
+  assert.match(deploy, /configure-pages@[a-f0-9]{40}/);
+  assert.match(deploy, /deploy-pages@[a-f0-9]{40}/);
+  assert.match(deploy, /artifact_name: \$\{\{ needs\.publish\.outputs\.pages_artifact_name \}\}/);
+  assert.doesNotMatch(deploy, /contents: write|git |npm |node |scripts\//);
 });
 
 test("every third-party migration action is pinned to a full commit", () => {

@@ -76,7 +76,7 @@ The scheduled workflow pins community repositories to their already-published ex
 
 Use the [structured theme form](https://github.com/yamz8/omarchy-theme-marketplace/issues/new?template=submit-theme.yml) after testing the public repository on current Omarchy. Validation reads the exact current commit without executing repository contents and posts the theme ID, mode, preview, wallpaper count, license, and commit trace.
 
-Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded publication job then performs a fresh inspection, builds the exact approved commit, runs tests, commits the registry and generated outputs together, and lets the normal Pages workflow deploy the committed static site.
+Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded workflow then performs a fresh inspection, builds the exact approved commit, runs tests, packages the tested `site/` tree, commits the registry and generated outputs together, deploys that exact artifact, and only then closes the proposal.
 
 The theme catalog, browse page, detail page, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, pinned scheduled refresh, exact-snapshot updates, complete-source delisting, repository migration, and static Pages deployment are implemented.
 

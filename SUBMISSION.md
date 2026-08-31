@@ -128,11 +128,11 @@ Do not create an issue on someone else's behalf until the repository owner confi
 
 Validation reads the repository tree, palette, preview, README, and license at the exact current commit without executing repository contents. It posts deterministic compatibility feedback to the issue. Passing validation is necessary but does not publish the theme.
 
-An authorized maintainer reviews the proposal and applies `approved-theme`. Publication then performs a fresh inspection, rejects duplicate or retired IDs, records the approval and exact commit in `registry.json`, generates catalog data and preview assets from that commit, runs tests, and refuses to push if `main` changed after the tested build.
+An authorized maintainer reviews the proposal and applies `approved-theme`. Publication then performs a fresh inspection, rejects duplicate or retired IDs, records the approval and exact commit in `registry.json`, generates catalog data and preview assets from that commit, runs tests, packages the exact tested Pages artifact, and refuses to push if `main` changed after the tested build.
 
 The marketplace snapshot does not pin the normal install command. The install command obtains current mutable upstream, so the detail page exposes both that boundary and the exact commit inspected for the catalog.
 
-The Pages workflow deploys the committed, tested static artifact without rebuilding it.
+After guarded publication succeeds, the same workflow deploys the exact tested static artifact without rebuilding it and closes the proposal only after Pages succeeds.
 
 ## Update or remove a listing
 
@@ -140,8 +140,8 @@ Open an issue identifying the theme ID, repository, requested action, and reason
 
 Maintainers use separate manual workflows for catalog maintenance:
 
-- **Update marketplace theme** validates a maintainer-supplied exact commit, records the prior snapshot, and rebuilds only that theme.
-- **Delist marketplace themes** removes complete community sources, permanently retires their installed IDs, and emits an immutable machine-readable report.
-- **Migrate theme repository** accepts a rename or transfer only when the old and new GitHub paths resolve simultaneously to the same immutable node and database IDs and still derive the same installed theme ID.
+- **Update marketplace theme** validates a maintainer-supplied exact commit, records the prior snapshot, rebuilds only that theme, and deploys its tested artifact after publication.
+- **Delist marketplace themes** removes complete community sources, permanently retires their installed IDs, emits an immutable machine-readable report, and deploys its tested artifact after publication.
+- **Migrate theme repository** accepts a rename or transfer only when the old and new GitHub paths resolve simultaneously to the same immutable node and database IDs and still derive the same installed theme ID, then deploys its tested artifact after publication.
 
 Scheduled refreshes recheck community sources at their already-published commits. They do not advance community listings to mutable upstream HEAD. Rights or urgent safety concerns can result in removal through the guarded delisting workflow.
