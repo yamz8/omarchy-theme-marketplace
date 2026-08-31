@@ -1,51 +1,76 @@
-<div align="center">
+# Omarchy Theme Marketplace
 
-<p><a href="https://omarchyplugins.com/"><img src="site/assets/img/readme-tagline.png" alt="Browse and discover community plugins for Omarchy at omarchyplugins.com" width="660"></a></p>
+An independent, static marketplace for discovering themes made for the native [Omarchy](https://github.com/basecamp/omarchy) theme system.
 
-<a href="https://omarchyplugins.com/develop.html"><img src="site/assets/img/readme-nav/develop.png" alt="Develop" width="104"></a> <a href="https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=submit-plugin.yml"><img src="site/assets/img/readme-nav/submit.png" alt="Submit a Plugin" width="176"></a> <a href="https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=verify-plugin.yml"><img src="site/assets/img/readme-nav/verify.png" alt="Request Automated Plugin Verification" width="340"></a>
+The project uses the Omarchy Plugin Marketplace as an implementation and visual reference, but the product, catalog, validation rules, and commands are theme-specific. It does not list plugins or website skins.
 
-</div>
+The current catalog combines:
 
----
+- themes shipped in the upstream Omarchy `themes/` directory;
+- curated community theme repositories such as [`dhh/omarchy-giants-theme`](https://github.com/dhh/omarchy-giants-theme).
 
-<p align="center">
-  <img src="preview.png" alt="Omarchy Plugin Marketplace" width="960">
-</p>
+The project currently lives under `yamz8/omarchy-theme-marketplace`. Once the implementation and publication workflow are ready, it can be proposed to the Omarchy maintainers as a companion marketplace alongside the existing plugin directory. This repository does not imply affiliation with or endorsement by Omarchy, 37signals, or the plugin marketplace maintainers.
 
-## Submit a Plugin
+## How themes work
 
-Submit one public GitHub repository containing the required manifest, README, and license through the [plugin submission form](https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=submit-plugin.yml). Choose a category and one to three tags, then review the [CLI and AI submission guide](SUBMISSION.md) and [security policy and baseline](SECURITY.md#automated-security-baseline). New listings require a fresh exact-commit scan and an explicit `approved-and-verified` maintainer decision before publication.
+A community theme is a public Git repository with a root `colors.toml`, one or more images in `backgrounds/`, and optional supported theme assets. Omarchy derives application colors from that palette.
 
-## Verify or Update a Listed Plugin
+Community themes install from their repository:
 
-Use the single [plugin verification form](https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=verify-plugin.yml) and choose whether to verify the currently listed snapshot or publish a newer upstream commit. A listed-snapshot request accepts only the exact recorded SHA. A newer-commit request keeps the current snapshot unchanged until the target SHA passes compatibility validation, the Automated Security Baseline, explicit maintainer approval, testing, and deployment. The [verification guide](VERIFICATION.md) explains both paths, display states, required values, and limits.
+```bash
+omarchy theme install https://github.com/owner/omarchy-example-theme
+```
 
-## Engagement Metrics
+Built-in themes are already present in Omarchy and are selected by slug:
 
-The marketplace shows anonymous aggregate detail views, successful command copies, and hearts. These are marketplace interactions—not downloads, installations, unique people, verified votes, rankings, or security signals.
+```bash
+omarchy theme set tokyo-night
+```
 
-Event bodies contain only the catalog plugin ID and fixed action type. The marketplace stores no accounts, cookies, IP addresses, user-agent strings, command text, or repository URLs in D1. Cloudflare processes normal request metadata and uses the request IP only as an ephemeral edge rate-limit key; browser guards and rate limits remain best-effort controls.
+For a repository named `omarchy-example-theme`, Omarchy installs the theme as `example` under `~/.config/omarchy/themes/example`. Built-in themes live under `/usr/share/omarchy/themes`.
 
-## Security Notice
+See [Develop a theme](site/develop.html) for the repository contract and [Submit a theme](SUBMISSION.md) for the proposed marketplace contract.
 
-> Community plugins are developed and maintained by independent third parties. They execute as unsandboxed code and may access or modify files,
-> settings, credentials, network resources, or other parts of your system according to their implementation and permissions.
+## Marketplace behavior
 
-> The Marketplace performs limited automated checks on the identified plugin commit and may conduct manual review. These checks are not a security
-> audit, certification, endorsement, or guarantee that a plugin is safe, secure, error-free, or suitable for a particular purpose. Upstream code may
-> change after review unless the installed version is explicitly pinned to the reviewed commit. Current Omarchy marketplace install and update commands clone mutable upstream HEAD and are not verification-bound.
+The catalog build reads theme files from an exact Git commit without executing repository code. It validates the palette and repository structure, records source metadata, and normalizes previews into card and detail WebP assets.
 
-> Before installation, review the plugin’s source code, requested capabilities, dependencies, and installation and removal instructions. Report
-> suspected malicious or compromised plugins immediately through the [private security report form](https://github.com/omacom/omarchy-plugin-marketplace/security/advisories/new). The Marketplace may suspend or remove listings while concerns are investigated.
+Catalog inspection is a compatibility check, not a security review. The normal community install command clones current mutable upstream, which may be newer than the exact commit shown by the marketplace. Review the repository and its current commit before installation.
 
-> Nothing in this notice excludes or limits liability where exclusion or limitation is prohibited by applicable law.
+The site has no application server, accounts, or frontend framework. The generated `site/` directory can be served as static files.
 
-## Credits
+## Local development
 
-Interface design inspired by [bjarneo](https://github.com/bjarneo)'s [ContextOwl developer documentation](https://developer.contextowl.co/docs/platform/cli).
+Requirements: Node.js 24 or newer and npm.
 
-Marketplace structure and submission workflow inspired by [limehawk's Omarchy Theme Website](https://github.com/limehawk/omarchy-theme-website).
+```bash
+npm ci
+npm test
+npm run dev
+```
 
-## License
+The local site is available at `http://127.0.0.1:4173`.
+
+Rebuild only the derived Explore data:
+
+```bash
+npm run build:explorer
+```
+
+Refresh the catalog from GitHub and then rebuild Explore data:
+
+```bash
+npm run build
+```
+
+The full build performs live GitHub requests and may update generated catalog and preview files when upstream repositories change.
+
+## Project status
+
+The theme catalog, browse page, detail page, and palette explorer are working. Theme-specific submission automation, publishing safeguards, and deployment workflows are the next implementation phase. Until those are complete, proposals should be opened as ordinary issues and must be reviewed manually.
+
+See [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection.
+
+## License and rights
 
 [MIT License](LICENSE) · [Marketplace and third-party rights notice](NOTICE.md)

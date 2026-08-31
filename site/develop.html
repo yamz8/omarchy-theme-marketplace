@@ -20,19 +20,34 @@
         <header class="doc-topbar"><div class="crumbs"><span>Omarchy / Themes / </span><b>Develop</b></div><div class="top-actions"><a class="square-action desktop-only" href="index.html">Browse</a><button class="square-action icon-only theme-toggle" type="button" aria-label="Toggle color theme"><svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg><svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg></button></div></header>
         <main class="page-content" id="content">
           <header class="page-header"><div class="page-eyebrow">Theme contract</div><h1>Develop a theme</h1><div class="page-meta"><span>Git repository</span><span>Static assets</span><span>No manifest</span></div></header>
-          <p class="intro">An Omarchy community theme is a public Git repository shaped for <code>omarchy theme install</code>. It is not a site skin and it does not use the plugin manifest format.</p>
+          <p class="intro">An Omarchy community theme is a public Git repository shaped for <code>omarchy theme install</code>. It uses the native theme repository format: a root palette, wallpapers, and optional supported assets.</p>
           <section class="docs-section" id="structure"><h2>Repository structure</h2><div class="code-block"><pre><code>omarchy-example-theme/
 ├── colors.toml       # required palette
 ├── preview.png       # recommended marketplace preview
 ├── backgrounds/      # one or more wallpapers
 ├── icons.theme       # optional icon theme name
+├── keyboard.rgb      # optional keyboard palette
+├── shell.lock.toml   # optional shell palette
 ├── README.md
-└── LICENSE</code></pre></div><p>Keep <code>colors.toml</code> at the repository root. Omarchy derives supported application colors from this palette and copies the theme's supported assets into its local theme directory.</p></section>
+└── LICENSE</code></pre></div><p>Keep <code>colors.toml</code> at the repository root and images directly inside <code>backgrounds/</code>. Omarchy derives supported application colors from the palette and copies supported assets into the installed theme directory.</p></section>
+          <section class="docs-section" id="palette"><h2>Define the palette</h2><div class="code-block"><pre><code>mode = "dark"
+
+accent = "#7aa2f7"
+background = "#1a1b26"
+foreground = "#a9b1d6"
+
+red = "#f7768e"
+yellow = "#e0af68"
+green = "#9ece6a"
+cyan = "#449dab"
+blue = "#7aa2f7"
+magenta = "#ad8ee6"</code></pre></div><p>Use six-digit hexadecimal colors and set <code>mode</code> to <code>dark</code> or <code>light</code>. Current built-in themes also define selection, muted, background variants, foreground variants, orange, brown, and bright ANSI colors for a complete result.</p></section>
           <section class="docs-section" id="slug"><h2>Repository naming</h2><p>Use <code>omarchy-&lt;name&gt;-theme</code>. Omarchy removes the <code>omarchy-</code> prefix and <code>-theme</code> suffix to create the installed slug. For example, <code>omarchy-giants-theme</code> becomes <code>giants</code>.</p></section>
-          <section class="docs-section" id="test"><h2>Test locally</h2><div class="command-panel"><div class="command-panel-head"><span>Install from GitHub</span></div><pre><span class="prompt">$</span> <code>omarchy theme install https://github.com/you/omarchy-example-theme</code></pre></div><p>Verify terminals, Hyprland, Waybar, notifications, editors, icons, backgrounds, dark/light mode, and readable contrast before publishing.</p></section>
+          <section class="docs-section" id="filtering"><h2>Remote install behavior</h2><p>Do not rely on root Lua files, symlinks, or pre-generated <code>alacritty.toml</code>, <code>foot.ini</code>, <code>ghostty.conf</code>, <code>kitty.conf</code>, or <code>vscode.json</code>. Remote theme installation filters those files; Omarchy generates supported application configuration from <code>colors.toml</code>.</p></section>
+          <section class="docs-section" id="test"><h2>Test the published repository</h2><div class="command-panel"><div class="command-panel-head"><span>Install from GitHub</span></div><pre><span class="prompt">$</span> <code>omarchy theme install https://github.com/you/omarchy-example-theme</code></pre></div><p>The example installs under <code>~/.config/<wbr>omarchy/<wbr>themes/<wbr>example</code>. Verify a clean second install, terminals, Hyprland, Waybar, notifications, editors, icons, wallpapers, dark/light mode, selections, muted states, and readable contrast before publishing.</p></section>
         </main>
       </div>
-      <aside class="right-aside"><div class="aside-block"><span class="aside-title">On this page</span><a class="aside-link active" href="#content">Overview</a><a class="aside-link" href="#structure">Structure</a><a class="aside-link" href="#slug">Naming</a><a class="aside-link" href="#test">Test</a></div></aside>
+      <aside class="right-aside"><div class="aside-block"><span class="aside-title">On this page</span><a class="aside-link active" href="#content">Overview</a><a class="aside-link" href="#structure">Structure</a><a class="aside-link" href="#palette">Palette</a><a class="aside-link" href="#slug">Naming</a><a class="aside-link" href="#filtering">Install filtering</a><a class="aside-link" href="#test">Test</a></div></aside>
     </div>
     <nav class="mobile-bottom" aria-label="Mobile navigation"><a href="index.html">Browse</a><a href="explore.html">Explore</a><a class="active" href="develop.html" aria-current="page">Develop</a><a href="publish.html">Publish</a></nav>
     <script type="module" src="assets/js/static-page.js?v=20260831-02"></script>

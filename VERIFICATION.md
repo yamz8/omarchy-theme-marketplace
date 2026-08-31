@@ -1,95 +1,65 @@
-# Plugin Verification
+# Theme Snapshot Inspection
 
-Plugin verification combines a deterministic, commit-bound source check with narrowly scoped maintainer-review paths for new submissions, existing community listings, and plugin updates.
+The marketplace performs deterministic compatibility inspection of theme repositories. It does not currently publish a `Verified` security status.
 
-**Verification is not a security audit, certification, warranty, endorsement, or guarantee that a plugin is safe.** Community plugins remain unsandboxed third-party code.
+## What `Compatibility passed` means
 
-## Statuses
+For a community theme, `Compatibility passed` means the catalog builder successfully inspected one exact Git commit and found:
 
-A community plugin has a verified snapshot only when the registry contains one of these exact-commit records:
+- a root `colors.toml` that resolves to a supported dark or light palette;
+- at least one supported wallpaper directly under `backgrounds/`;
+- a usable preview source, either a root preview or the first wallpaper;
+- a repository name that produces a valid Omarchy theme slug;
+- no structural condition that prevents the standard `omarchy theme install` flow.
 
-- a complete current-version Automated Security Baseline result with outcome `passed`, no findings or review capabilities, no scan error, the current enforcement mode, and the exact `listingValidatedCommit`; or
-- a canonical maintainer-review attestation for a complete baseline with a current selective `review-required` publication disposition and no scan error. Existing-snapshot `maintainer-verified` remains limited to capability-only `review-required` outcomes with no findings.
+For a built-in theme, it means the same core theme structure was found under the configured `themes/` directory of the exact Omarchy source snapshot.
 
-The maintainer attestation repeats and must exactly match the baseline repository, source plugin IDs, commit, policy version, enforcement mode, scan time, outcome, accepted finding set, and accepted capability set. It also records the authorized reviewer, exact label-event ID, label-request time, and review time.
+This status is not a security audit, quality score, rights review, endorsement, or promise that current upstream is unchanged.
 
-The public display distinguishes that snapshot from later upstream code:
+## Snapshot fields
 
-- `Snapshot verified` means the recorded marketplace snapshot has eligible exact-commit evidence and no different upstream commit was observed by the latest catalog check.
-- `Update unverified` means the current observed upstream commit differs from the verified snapshot. The newer code is not covered by the old evidence.
-- `Unverified` means no current automatic or maintainer-reviewed verification record is available for the exact marketplace snapshot.
+Each generated theme entry records:
 
-`Unverified` and `Update unverified` do not mean that a plugin is malicious. Verification is derived from immutable snapshot, baseline, and review facts. The registry does not store a manually editable `verified` flag.
+- `checkedCommit`: the exact 40-character commit inspected;
+- `checkedBranch`: the branch reported when the snapshot was built;
+- `checkedAt`: when the marketplace fetched the source;
+- `sourceUrl`: a link to the exact repository tree or built-in theme directory;
+- `compatibilityStatus`: the result of the theme-structure inspection.
 
-Catalog state schema 2 exposes `verificationSnapshotStatus` for the recorded evidence, `verificationCoverage` for the relationship to observed upstream code, and `verificationStatus` as the effective current catalog status. The Verified catalog filter includes only currently observed snapshots whose commit matches the verification record. A known newer upstream commit has `verificationCoverage: update-unverified` and is included under Unverified until it completes the update workflow.
+The detail page exposes this trace so users can compare the catalog snapshot with the repository they intend to install.
 
-## Verifying a new submission
+## Mutable install boundary
 
-Every new submission must be published through the explicit `approved-and-verified` label. `approved-for-listing` is retained only as a historical audit label and no longer triggers publication.
+Community installation uses:
 
-The workflow requires a current bot-authored baseline report to predate the label event, checks the actor's current write permission, verifies the exact issue and repository state, and performs a fresh static scan of the exact validated commit. A fresh `passed` result is stored as automatic verification. Under selective policy, a fresh `review-required` disposition for capabilities or non-selectively-blocking findings must match the complete report identity and evidence sets the maintainer accepted; the workflow then stores a canonical `maintainerVerificationReview`. Selectively blocking findings, incomplete scans, stale reports, changed commits, changed evidence sets, or event mismatches block initial publication.
+```bash
+omarchy theme install https://github.com/owner/omarchy-name-theme
+```
 
-Listing, canonical verification evidence, catalog projection, testing, publication, and Pages deployment are one guarded workflow. A successfully published new community plugin therefore starts with a verified snapshot. This remains an exact-commit statement, not a security audit or guarantee.
+Current Omarchy theme installation obtains mutable upstream and does not accept an exact marketplace SHA. The checked snapshot and installed commit can therefore differ. Inspect the current repository before running the command.
 
-## Promoting a plugin update
+Built-in selection uses:
 
-Use the [**Plugin verification** issue form](https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=verify-plugin.yml), select **Verify and publish a newer upstream commit**, and provide the existing plugin ID, repository root URL, and full 40-character SHA of the current repository HEAD. Multi-plugin repositories are updated source-wide and must retain the exact configured plugin ID set. Shell-suite listings are not supported by this workflow.
+```bash
+omarchy theme set theme-slug
+```
 
-Opening or editing the issue runs compatibility validation and the Automated Security Baseline against that exact update commit without executing community code. The existing marketplace snapshot remains unchanged while the update is pending or blocked.
+That selects the version shipped by the locally installed Omarchy package, which may differ from the upstream source snapshot displayed by this marketplace.
 
-A write-authorized maintainer may apply `approved-and-verified` only after the current bot-authored reports are available. The publication workflow binds the exact label event, reviewer permission, issue body, repository, plugin set, commit, policy, enforcement mode, scan result, and report identity. It then performs a fresh matching scan:
+## Refreshes and updates
 
-- `passed` produces automatic exact-commit verification;
-- selective `review-required` produces a canonical maintainer attestation for the exact accepted finding and capability sets; and
-- selectively blocking findings, scan failures, stale reports, changed commits, changed plugin sets, or evidence mismatches block promotion.
+`npm run build` resolves every configured source again. If upstream has changed, the generated catalog and preview assets can change with it. Review the exact diff before publication.
 
-An eligible update atomically replaces `listingValidatedCommit`, its canonical baseline and optional maintainer attestation, the source's generated catalog entries, previews, tested Pages artifact, and deployment. The superseded snapshot and its evidence are retained in `listingValidationHistory` for auditability. If publication or deployment fails, the previous marketplace snapshot remains authoritative unless the workflow explicitly reports that registry publication already succeeded.
+The marketplace does not yet have a separate theme-update approval workflow or durable historical verification record. Adding those controls is planned before automated community publication is enabled.
 
-## Requesting verification of the recorded snapshot
+## Display contract
 
-Use the [**Plugin verification** issue form](https://github.com/omacom/omarchy-plugin-marketplace/issues/new?template=verify-plugin.yml), select **Verify the currently listed snapshot**, and provide:
+Use these terms consistently:
 
-- the exact existing plugin ID,
-- the existing repository root URL, and
-- the full 40-character `listingValidatedCommit`; copy it from the target URL of the **Verified snapshot** or **Listing snapshot** GitHub commit link on the plugin detail page.
+- `Built in`: shipped in Omarchy and selected with `omarchy theme set`;
+- `Community`: installed from an independent repository with `omarchy theme install`;
+- `Compatibility passed`: the documented structure passed at the displayed exact snapshot;
+- `Catalog snapshot`: the exact source read by the builder;
+- `Current upstream`: the mutable source obtained by the normal community install command.
 
-This verification path accepts only the commit already recorded by the listing. For a different current HEAD commit, edit the request and select **Verify and publish a newer upstream commit**. Multi-plugin repositories are verified source-wide: one request scans every configured plugin manifest at the listed commit and updates every catalog entry from that source. Shell-suite listings are not eligible for this first plugin-source workflow.
-
-The workflow checks that the plugin ID, repository, and commit identify one existing registry source. It resolves every configured plugin ID directly in the exact listing snapshot and forces each declared entry point into the scan. Immutable registry manifest paths are used as hints when available; mutable refreshed catalog paths are never trusted as the authoritative snapshot location. It then reads the exact commit through the GitHub API and runs the Automated Security Baseline statically. Community repository files are treated only as data and are never imported, sourced, spawned, evaluated, or otherwise executed.
-
-If the result is `passed`, the workflow records the canonical commit-bound baseline facts and publishes the derived snapshot status automatically. Initial approval, update promotion, and later verification use the same stored-record converter.
-
-If the result is `review-required`, the bot report includes deterministic capability IDs, source evidence, reasons, and a machine-readable expectation. An authorized marketplace maintainer may inspect that evidence and apply the `maintainer-verified` label to the open verification issue. The workflow requires that exact bot report to predate the label, checks the actor's current write permission, rescans the exact listed commit, and publishes verification only if repository, plugin IDs, commit, policy, enforcement mode, outcome, empty findings, and capability IDs exactly match the report the maintainer saw. Any capability mismatch only publishes a new eligible report and requires a new decision; review that report, then remove and reapply the label. Findings, scan failures, and other ineligible results publish no review expectation. In those cases, edit the open issue or reopen it to run normal verification first, and only remove and reapply the label after the bot publishes a new eligible `review-required` report. The label remains on the issue as an audit trail. Workflow reruns cannot reuse its event. The resulting registry attestation and public catalog identify the verification method as `maintainer-reviewed`.
-
-If a `maintainer-verified` label was applied in error and later removed, the `unlabeled` workflow path authenticates the maintainer event, binds it to the closed or open verification issue and current exact source, and publishes an exact event-bound revocation. The original review evidence remains preserved. The affected snapshot is projected as `Unverified`; a later review requires a fresh eligible bot report and a new label event after the revocation. A revocation never silently deletes historical evidence.
-
-`needs-fixes`, findings, unavailable snapshots, invalid results, incomplete scans, and scan errors are never eligible for maintainer verification and remain fail closed.
-
-Editing the issue retries a failed or corrected request. A successful, maintainer-reviewed, or already-current request is closed automatically.
-
-## Publication safety
-
-The registry is the only persistent source of verification facts. One shared pure projection derives all catalog verification fields for regular builds, failed refreshes, verification publications, and update promotions. Browser display logic additionally compares the observed upstream commit with the verification commit so later code cannot inherit an unqualified verified presentation.
-
-Analysis runs with read-only marketplace permissions. An approval, review, or revocation request binds the latest applicable label transition to the exact event ID, actor, and timestamp, checks reviewer write permission, issue contents, the preceding bot report or current review, and the exact fresh scan result where applicable, and rechecks that mutable authorization before the publication push. Registry and catalog changes are produced and tested before entering a write-permission job. The write job does not install dependencies or execute marketplace or community repository code. It verifies the immutable publication artifact and refuses to publish if `main`, the issue, review label, reviewer permission, report identity, upstream commit, or expected listing changed after analysis.
-
-Verification and update workflows preserve the marketplace's single-build and immutable-artifact publication rules. Scan failures and GitHub API limit failures remain fail closed.
-
-## Installation boundary
-
-Marketplace verification and Omarchy installation are separate trust boundaries. The current Omarchy command clones the repository's mutable current HEAD and does not accept an exact marketplace commit. Therefore the marketplace labels the action as a current-upstream command and explicitly states that it is not verification-bound. It may install a commit different from the verified snapshot, even when the last catalog check observed both at the same commit.
-
-The marketplace can verify and promote exact update commits without Omarchy changes, but it cannot guarantee that `omarchy plugin add` or `omarchy plugin update` installs that commit. Users must inspect the installed commit before enabling it. Commit-bound installation remains unavailable until Omarchy provides an exact-SHA installation and update interface.
-
-The verification form also provides a guarded standard-installation action for one listed root plugin that currently has an explicit manual-installation override. It requires an exact listed commit, the standard-installation acknowledgment, a passing automated baseline, and an authenticated `standard-installation-approved` label event applied by a maintainer with write permission; a maintainer review cannot override this requirement. Publication removes only that plugin's manual override and atomically projects the normal mutable `omarchy plugin add ... --enable` command into the catalog. This changes installation presentation and availability, not the verification boundary or the mutable upstream behavior.
-
-## Display text
-
-The status explanation is available to pointer, keyboard, touch, and assistive-technology users:
-
-- automatic `Snapshot verified`: “Automated checks passed for this exact snapshot. The mutable upstream install command is not commit-bound. This is not a security audit.”
-- maintainer-reviewed `Snapshot verified`: “A marketplace maintainer reviewed the reported findings and capabilities for this exact snapshot. The mutable upstream install command is not commit-bound. This is not a security audit.”
-- `Update unverified`: “The current upstream commit differs from the verified snapshot. The update and mutable upstream install command are not covered by that verification.”
-- `Unverified`: “No current verification record is available for the listed snapshot. This does not mean the plugin is malicious.”
-
-Community plugin cards retain the existing single `Verified` or `Unverified` marker and use the effective current status, so an unverified upstream update appears as `Unverified` without adding a new card badge. The explanation remains available on hover, keyboard focus, and tap, and is included in the control's accessible name for screen readers. Detail pages alone distinguish `Snapshot verified` from `Update unverified`, identify the exact verified snapshot, separately show the last compatibility-checked upstream commit, and label installation as mutable current upstream.
+Do not use `Verified`, `safe`, `approved by Omarchy`, or equivalent claims unless a future documented system establishes that exact meaning.
