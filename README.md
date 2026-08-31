@@ -70,6 +70,7 @@ npm run build
 ```
 
 The full build performs live GitHub requests and may update generated catalog and preview files when upstream repositories change.
+The scheduled workflow pins community repositories to their already-published exact commits; only guarded approval, update, or repository-migration workflows can advance a community snapshot.
 
 ## Submit a theme
 
@@ -77,9 +78,9 @@ Use the [structured theme form](https://github.com/yamz8/omarchy-theme-marketpla
 
 Passing validation does not publish a theme. An authorized maintainer must apply `approved-theme`; the guarded publication job then performs a fresh inspection, builds the exact approved commit, runs tests, commits the registry and generated outputs together, and lets the normal Pages workflow deploy the committed static site.
 
-The theme catalog, browse page, detail page, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, scheduled refresh, and static Pages deployment are implemented. Theme update, repository migration, and delisting workflows remain manual until their separate identity rules are built.
+The theme catalog, browse page, detail page, palette explorer, optional theme-ID engagement contract, initial-submission workflow, guarded publication, pinned scheduled refresh, exact-snapshot updates, complete-source delisting, repository migration, and static Pages deployment are implemented.
 
-See [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection.
+See [OPERATIONS.md](OPERATIONS.md) for the architecture and release handoff, [PLAN.md](PLAN.md) for the current roadmap, [SECURITY.md](SECURITY.md) for the trust boundary, and [VERIFICATION.md](VERIFICATION.md) for the exact meaning of catalog inspection. A [maintainer proposal draft](MAINTAINER_PROPOSAL.md) is included for review but has not been submitted.
 
 ## License and rights
 

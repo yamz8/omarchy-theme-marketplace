@@ -9,6 +9,8 @@ const documentationPaths = [
   "SECURITY.md",
   "VERIFICATION.md",
   "SUBMISSION.md",
+  "OPERATIONS.md",
+  "MAINTAINER_PROPOSAL.md",
   "PLAN.md",
   "AGENTS.md",
   "NOTICE.md",

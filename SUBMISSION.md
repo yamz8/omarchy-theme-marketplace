@@ -136,4 +136,12 @@ The Pages workflow deploys the committed, tested static artifact without rebuild
 
 ## Update or remove a listing
 
-Open an issue identifying the theme ID, repository, requested action, and reason. Theme updates are observed during catalog refreshes; until a guarded update workflow exists, every generated source and preview change requires manual review. Rights or urgent safety concerns can result in temporary suspension or removal.
+Open an issue identifying the theme ID, repository, requested action, and reason. Do not include private vulnerability, identity, or rights evidence in a public issue.
+
+Maintainers use separate manual workflows for catalog maintenance:
+
+- **Update marketplace theme** validates a maintainer-supplied exact commit, records the prior snapshot, and rebuilds only that theme.
+- **Delist marketplace themes** removes complete community sources, permanently retires their installed IDs, and emits an immutable machine-readable report.
+- **Migrate theme repository** accepts a rename or transfer only when the old and new GitHub paths resolve simultaneously to the same immutable node and database IDs and still derive the same installed theme ID.
+
+Scheduled refreshes recheck community sources at their already-published commits. They do not advance community listings to mutable upstream HEAD. Rights or urgent safety concerns can result in removal through the guarded delisting workflow.

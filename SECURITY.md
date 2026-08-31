@@ -61,9 +61,11 @@ New submissions use a structured issue and deterministic static inspection. Vali
 7. refuses to publish if `main` changed after the tested build;
 8. commits only the registry, generated catalog, Explore data, and normalized theme previews.
 
-The Pages workflow tests and uploads the committed `site/` tree without rebuilding it. Scheduled refreshes are separately serialized and refuse to publish stale output.
+The Pages workflow tests and uploads the committed `site/` tree without rebuilding it. Scheduled refreshes are separately serialized, pin community themes to their already-published exact commits, and refuse to publish stale output.
 
-Theme update, repository migration, and delisting automation are not implemented yet. Those actions remain manual and require explicit review. Never represent compatibility validation or maintainer approval as security verification, and never execute submitted theme repository contents in CI.
+Existing-theme updates, complete-source delisting, and repository rename or transfer are separate manual maintainer workflows. They create and test a checksummed publication transaction in a read-only job, verify its exact registry/catalog/preview projection in another read-only job, and limit the write-token job to applying that immutable transaction from an unchanged `main` base. Delisting permanently retires IDs. Migration requires simultaneous old/new immutable GitHub identity evidence and does not rewrite historical snapshot evidence.
+
+Never represent compatibility validation or maintainer approval as security verification, and never execute submitted theme repository contents in CI.
 
 ## Supported versions
 

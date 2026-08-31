@@ -76,18 +76,19 @@ The project starts under `yamz8/omarchy-theme-marketplace`. After the implementa
 - Repository migrations require old and new paths to resolve simultaneously to one immutable GitHub node/database identity, preserve the installed theme ID and historical evidence, validate canonical HEAD, and rebuild only the migrated source.
 - Scheduled refreshes update built-in themes while pinning every community source to its already-published exact commit, so mutable upstream cannot bypass guarded updates.
 
+### Release preparation
+
+- The operations handoff documents architecture, trust boundaries, catalog workflows, release checks, transfer work, and known limitations.
+- The maintainer proposal is drafted without assuming an official hostname, repository transfer, endorsement, or integration decision.
+- Local release evidence covers a clean dependency install, live full and pinned catalog builds, automated accepted/rejected submission paths, the full test suite, whitespace, static serving, and the required responsive dark/light browser matrix.
+
 ## Next implementation goals
 
-### Production review and maintainer proposal
+### External release decisions
 
-Before approaching the Omarchy maintainers:
-
-- verify a clean `npm ci`, build, tests, and static Pages deployment;
-- test submission success and rejection paths;
-- document the exact trust and mutable-install boundaries;
-- demonstrate responsive behavior across the required width matrix;
-- provide a concise architecture and maintenance handoff;
-- propose placement alongside `plugins.omarchy.org` without assuming a particular hostname or organization transfer.
+- Push the reviewed commits and verify the first real GitHub Actions and Pages deployment.
+- Decide whether anonymous engagement remains disabled or receives a separately reviewed Worker deployment and exact production origins.
+- Review and, only when authorized, submit the maintainer proposal for possible placement alongside `plugins.omarchy.org`.
 
 Opening the proposal, transferring the repository, changing DNS, or pushing a production deployment requires separate maintainer approval.
 
