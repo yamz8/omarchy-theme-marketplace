@@ -41,9 +41,20 @@ test("browser code renders catalog values through escaping helpers", async () =>
   assert.match(detail, /Compatibility is not a security review/);
 });
 
+test("theme cards keep tags in a separate visible row above their actions", async () => {
+  const [app, styles] = await Promise.all([
+    read("site/assets/js/app.js"),
+    read("site/assets/css/style.css"),
+  ]);
+  assert.match(app, /<div class="theme-card-bottom">\s*<div class="theme-tags"[^>]*>.*?<div class="theme-card-actions">/s);
+  assert.match(styles, /\.theme-card-bottom\s*\{[^}]*display:\s*grid;/);
+  assert.match(styles, /\.theme-card-bottom \.theme-tags\s*\{[^}]*flex-wrap:\s*wrap;/);
+  assert.doesNotMatch(styles, /\.theme-card-bottom \.theme-tags\s*\{[^}]*(?:display:\s*none|overflow:\s*hidden)/);
+});
+
 test("every active page uses the same final asset versions", async () => {
   const pages = await Promise.all(["index", "theme", "explore", "develop", "publish"].map((name) => read(`site/${name}.html`)));
-  for (const page of pages) assert.match(page, /style\.css\?v=20260831-05/);
+  for (const page of pages) assert.match(page, /style\.css\?v=20260831-06/);
   assert.match(pages[0], /app\.js\?v=20260831-05/);
   assert.match(pages[1], /theme\.js\?v=20260831-04/);
   assert.match(pages[2], /explore\.css\?v=20260831-01/);

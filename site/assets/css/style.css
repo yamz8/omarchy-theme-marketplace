@@ -1129,13 +1129,15 @@ svg.social-glyph { display: block; width: 14px; height: 14px; flex: none; fill: 
   align-items: center; color: inherit; font: inherit; cursor: pointer;
 }
 .theme-author button:hover, .theme-author button:focus-visible { color: var(--accent); }
-.theme-card-bottom { display: flex; margin-top: auto; align-items: center; justify-content: space-between; gap: 10px; }
+.theme-card-bottom {
+  display: grid; margin-top: auto; align-items: start; grid-template-columns: minmax(0, 1fr); gap: 8px;
+}
 .card-status-line + .theme-card-bottom { margin-top: 0; }
-.theme-card-bottom .theme-tags { min-width: 0; height: 28px; overflow: hidden; flex-wrap: nowrap; }
+.theme-card-bottom .theme-tags { min-width: 0; min-height: 28px; flex-wrap: wrap; }
 .theme-card-bottom .tag { padding: 0 8px; text-transform: lowercase; }
 .theme-card-actions {
   position: relative; z-index: 3; display: flex; min-height: 25px; flex: none;
-  align-items: center; gap: 4px;
+  align-items: center; justify-content: flex-end; gap: 4px;
 }
 .theme-card-actions:has(.has-control-tooltip:hover),
 .theme-card-actions:has(.has-control-tooltip:focus-within) { z-index: 5; }
@@ -1437,8 +1439,6 @@ svg.social-glyph { display: block; width: 14px; height: 14px; flex: none; fill: 
   .source-trace > div { grid-template-columns: minmax(100px, .8fr) minmax(0, 1.2fr); gap: 10px; }
 }
 @media (max-width: 340px) {
-  .theme-card-bottom { justify-content: flex-end; }
-  .theme-card-bottom .theme-tags { display: none; }
   .theme-card-bottom .card-install [data-copy-label] { display: none; }
 }
 @keyframes heart-confirm {
