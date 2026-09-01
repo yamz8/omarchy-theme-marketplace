@@ -14,6 +14,11 @@ test("active marketplace pages use theme language and routes", async () => {
   assert.match(pages[0], /id="theme-grid"/);
   assert.match(pages[0], /id="community-feature"/);
   assert.match(pages[0], /data-wallpapers="deep"/);
+  assert.match(pages[0], /Community registry/);
+  assert.match(pages[0], /discover omarchy themes/);
+  assert.match(pages[0], /Browse built-in and community themes for/);
+  assert.match(pages[0], /Inspect the source, preview the wallpapers, copy the command/);
+  assert.match(pages[0], /Develop a theme/);
   assert.match(pages[1], /id="theme-detail"/);
   assert.match(pages[1], /id="aside-commit"/);
   assert.match(pages[1], /href="#wallpapers"/);
@@ -81,9 +86,15 @@ test("theme cards balance source, engagement, and commands around visible traits
   assert.doesNotMatch(styles, /\.theme-card-meta \.theme-tags\s*\{[^}]*(?:display:\s*none|overflow:\s*hidden)/);
 });
 
+test("hero actions keep labels and arrows together", async () => {
+  const styles = await read("site/assets/css/style.css");
+  assert.match(styles, /\.market-hero-actions\s*\{[^}]*flex-wrap:\s*wrap;/);
+  assert.match(styles, /\.market-hero-actions \.button\s*\{[^}]*white-space:\s*nowrap;/);
+});
+
 test("every active page uses the same final asset versions", async () => {
   const pages = await Promise.all(["index", "theme", "explore", "develop", "publish"].map((name) => read(`site/${name}.html`)));
-  for (const page of pages) assert.match(page, /style\.css\?v=20260831-09/);
+  for (const page of pages) assert.match(page, /style\.css\?v=20260901-01/);
   assert.match(pages[0], /app\.js\?v=20260831-07/);
   assert.match(pages[1], /theme\.js\?v=20260831-09/);
   assert.match(pages[2], /explore\.css\?v=20260831-01/);

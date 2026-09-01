@@ -1,45 +1,42 @@
-# Wallpaper gallery design QA
+# Plugin-aligned theme hero copy design QA
 
 ## Evidence
 
-- Source visual truth: `/tmp/theme-wallpaper-gallery-reference-normalized.png`, captured from the deployed detail page at commit `34b1fe2a` before the gallery existed.
-- Browser-rendered implementation: `/tmp/theme-wallpaper-gallery-implementation-1440.png`.
-- Focused gallery evidence: `/tmp/theme-wallpaper-gallery-implementation-focus.png`.
-- Mobile evidence: `/tmp/theme-wallpaper-gallery-mobile.png`.
-- Combined full-view comparison: `/tmp/theme-wallpaper-gallery-comparison.png`.
-- Full-view comparison size: 1440 x 900 CSS pixels per side, normalized to 1440 x 900 image pixels.
-- Mobile viewport and capture: 320 x 900 CSS and image pixels.
-- State: Catppuccin built-in theme, dark mode, first wallpaper selected; light mode was also checked across the responsive matrix.
+- Source visual truth: `/tmp/codex-clipboard-iwFtJo.png`, the supplied Omarchy Plugin Marketplace screenshot at 1890 × 1050 pixels.
+- Browser-rendered implementation: `/tmp/theme-hero-plugin-copy-1440-final.png` at a 1440 × 900 CSS-pixel viewport and 1440 × 900 image pixels.
+- Mobile implementation: `/tmp/theme-hero-plugin-copy-320-final.png` at a 320 × 900 CSS-pixel viewport and 320 × 900 image pixels.
+- Focused source crop: `/tmp/plugin-hero-copy-reference.png`.
+- Focused implementation crop: `/tmp/theme-hero-copy-implementation.png`.
+- Combined focused comparison: `/tmp/theme-hero-copy-comparison.png`, with each side normalized to 940 × 360 pixels.
+- State: homepage hero in dark mode; light mode and the full responsive matrix were also checked.
 
 ## Findings
 
-- No P0 or P1 issues found.
-- P2: Raw numeric ordering prefixes initially appeared in wallpaper names, such as `2 waves`. The display-name formatter now removes numeric filename prefixes while retaining deterministic source ordering.
-- P2: A normal live rebuild refreshed mutable repository metadata even though source commits were unchanged. The generator now supports a complete committed-snapshot rebuild for asset/schema migrations, and the final catalog contains no unrelated star, activity, commit, or checked-time drift.
-- The gallery intentionally extends the page below the existing desktop preview. The full-view comparison confirms that the established shell, typography, preview proportions, metadata, tags, borders, and spacing remain unchanged above it.
+- No remaining P0, P1, or P2 issues.
+- The adapted eyebrow, heading, paragraph rhythm, link emphasis, and three actions visibly match the supplied plugin-marketplace hierarchy while accurately describing built-in and community Omarchy themes.
+- The theme-specific hero illustration and catalog summary are intentional product differences and remain unchanged.
 
-## Interaction and responsive checks
+## Comparison history
+
+- Initial P2: `Develop a theme` caused action-label wrapping between 761 and 850 pixels. The action group now wraps whole controls when necessary, and each control keeps its label and arrow together with `white-space: nowrap`.
+- Post-fix evidence: all 20 dark/light responsive states passed without horizontal overflow, clipped hero content, or wrapped action labels.
+
+## Responsive and interaction checks
 
 - Rendered at 320, 375, 760, 761, 800, 850, 879, 880, 1024, and 1440 CSS pixels in dark and light modes.
-- No horizontal page overflow, clipped stage, clipped controls, or wrapped Previous/Next labels were detected.
-- Previous/Next controls update the image, accessible position output, filename, and selected thumbnail.
-- ArrowLeft and ArrowRight navigate from the main viewer; thumbnail navigation uses a roving tab stop and retains visible keyboard focus.
-- The selected thumbnail exposes `aria-pressed="true"`; the position output announces changes through `aria-live`.
-- Opening and closing the selected wallpaper lightbox works and preserves descriptive image alternative text.
-- Touch/pen horizontal swipe handling is present on the main stage while vertical page scrolling remains available.
-- JavaScript scrolling respects `prefers-reduced-motion`.
+- No horizontal page overflow, hero overflow, clipped copy, or detached arrows were detected.
+- The headline and wallpaper-focused sentence were present in every rendered state.
+- Existing hero links and theme-toggle behavior remain functional.
 - Browser console warnings and errors: none.
 
 ## Fidelity surfaces
 
-- Typography: existing sans-serif content hierarchy and monospace technical controls are preserved.
-- Spacing and layout: the gallery follows the existing detail-section rhythm, square controls, thin borders, and full-width media treatment.
-- Colors and tokens: only existing background, panel, line, text, muted, and orange accent tokens are used in dark and light modes.
-- Image quality: every wallpaper is generated from the exact inspected snapshot, metadata-stripped, bounded before decoding, and emitted as separate thumbnail and detail WebP assets without stretching.
-- Copy and content: wording distinguishes wallpapers from the desktop theme preview and names the exact inspected snapshot boundary.
+- Typography: the source's lowercase monospace display rhythm, compact uppercase eyebrow, and technical action labels are preserved.
+- Spacing and layout: the existing theme hero grid and restrained spacing remain intact; only whole action controls may wrap at constrained tablet widths.
+- Colors and tokens: existing neutral, orange-accent, dark, and light tokens are unchanged.
+- Image quality: no assets were changed; the existing native-theme palette sample remains sharp and undistorted.
+- Copy and content: plugin wording is faithfully adapted to native themes—built-in/community discovery, source inspection, wallpaper previews, command copying, and desktop customization.
 
-## Follow-up polish
-
-- P3: A future iteration could add lightbox-level Previous/Next controls; the current page viewer already supports complete keyboard, pointer, and touch navigation before opening the selected image.
+No focused region beyond the hero copy was needed because the requested change affects only that region and the combined normalized crop keeps all changed text legible.
 
 Final result: passed
