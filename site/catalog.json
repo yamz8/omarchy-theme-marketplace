@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T08:58:39.466Z",
+  "generatedAt": "2026-09-10T08:57:24.227Z",
   "schemaVersion": 1,
   "mode": "live",
   "themes": [
@@ -10,7 +10,7 @@
       "description": "A built-in Omarchy catppuccin theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/catppuccin",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/catppuccin",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -60,37 +60,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/catppuccin-2b091784ce-card.webp",
-        "detail": "assets/img/themes/catppuccin-2b091784ce-detail.webp"
+        "card": "assets/img/themes/catppuccin-0fa97df921-card.webp",
+        "detail": "assets/img/themes/catppuccin-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/catppuccin/backgrounds/1-totoro.webp",
-          "thumbnail": "assets/img/themes/catppuccin-wallpaper-34bb55673e-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-wallpaper-34bb55673e-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-fd5e26af78-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-fd5e26af78-detail.webp"
         },
         {
           "sourcePath": "themes/catppuccin/backgrounds/2-waves.webp",
-          "thumbnail": "assets/img/themes/catppuccin-wallpaper-4fef6db9ef-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-wallpaper-4fef6db9ef-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-c18284b625-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-c18284b625-detail.webp"
         },
         {
           "sourcePath": "themes/catppuccin/backgrounds/3-blue-eye.webp",
-          "thumbnail": "assets/img/themes/catppuccin-wallpaper-18a1f5f5df-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-wallpaper-18a1f5f5df-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-c3c588a825-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-c3c588a825-detail.webp"
         },
         {
           "sourcePath": "themes/catppuccin/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/catppuccin-wallpaper-b1969b940c-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-wallpaper-b1969b940c-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-wallpaper-f885985a38-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-wallpaper-f885985a38-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -102,7 +102,7 @@
       "description": "A built-in Omarchy catppuccin latte theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/catppuccin-latte",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/catppuccin-latte",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -152,27 +152,27 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/catppuccin-latte-2b091784ce-card.webp",
-        "detail": "assets/img/themes/catppuccin-latte-2b091784ce-detail.webp"
+        "card": "assets/img/themes/catppuccin-latte-0fa97df921-card.webp",
+        "detail": "assets/img/themes/catppuccin-latte-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/catppuccin-latte/backgrounds/1-color-fade.webp",
-          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-f21337dde6-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-latte-wallpaper-f21337dde6-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-56575db434-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-latte-wallpaper-56575db434-detail.webp"
         },
         {
           "sourcePath": "themes/catppuccin-latte/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-71c6df8936-thumbnail.webp",
-          "detail": "assets/img/themes/catppuccin-latte-wallpaper-71c6df8936-detail.webp"
+          "thumbnail": "assets/img/themes/catppuccin-latte-wallpaper-525df39004-thumbnail.webp",
+          "detail": "assets/img/themes/catppuccin-latte-wallpaper-525df39004-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -184,7 +184,7 @@
       "description": "A built-in Omarchy ethereal theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/ethereal",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/ethereal",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -231,32 +231,32 @@
       "backgroundCount": 3,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/ethereal-2b091784ce-card.webp",
-        "detail": "assets/img/themes/ethereal-2b091784ce-detail.webp"
+        "card": "assets/img/themes/ethereal-0fa97df921-card.webp",
+        "detail": "assets/img/themes/ethereal-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/ethereal/backgrounds/1-cosmic.webp",
-          "thumbnail": "assets/img/themes/ethereal-wallpaper-ab7a967c47-thumbnail.webp",
-          "detail": "assets/img/themes/ethereal-wallpaper-ab7a967c47-detail.webp"
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-89f6a73be8-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-89f6a73be8-detail.webp"
         },
         {
           "sourcePath": "themes/ethereal/backgrounds/2-meadow.webp",
-          "thumbnail": "assets/img/themes/ethereal-wallpaper-d941c50231-thumbnail.webp",
-          "detail": "assets/img/themes/ethereal-wallpaper-d941c50231-detail.webp"
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-3dbc8ae15a-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-3dbc8ae15a-detail.webp"
         },
         {
           "sourcePath": "themes/ethereal/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/ethereal-wallpaper-406f75f2ac-thumbnail.webp",
-          "detail": "assets/img/themes/ethereal-wallpaper-406f75f2ac-detail.webp"
+          "thumbnail": "assets/img/themes/ethereal-wallpaper-644b2e37f5-thumbnail.webp",
+          "detail": "assets/img/themes/ethereal-wallpaper-644b2e37f5-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -268,7 +268,7 @@
       "description": "A built-in Omarchy everforest theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/everforest",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/everforest",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -318,27 +318,27 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/everforest-2b091784ce-card.webp",
-        "detail": "assets/img/themes/everforest-2b091784ce-detail.webp"
+        "card": "assets/img/themes/everforest-0fa97df921-card.webp",
+        "detail": "assets/img/themes/everforest-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/everforest/backgrounds/1-tree-tops.webp",
-          "thumbnail": "assets/img/themes/everforest-wallpaper-102cecc440-thumbnail.webp",
-          "detail": "assets/img/themes/everforest-wallpaper-102cecc440-detail.webp"
+          "thumbnail": "assets/img/themes/everforest-wallpaper-941dc77324-thumbnail.webp",
+          "detail": "assets/img/themes/everforest-wallpaper-941dc77324-detail.webp"
         },
         {
           "sourcePath": "themes/everforest/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/everforest-wallpaper-3c5c2cd93f-thumbnail.webp",
-          "detail": "assets/img/themes/everforest-wallpaper-3c5c2cd93f-detail.webp"
+          "thumbnail": "assets/img/themes/everforest-wallpaper-97e3f4aabb-thumbnail.webp",
+          "detail": "assets/img/themes/everforest-wallpaper-97e3f4aabb-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -350,7 +350,7 @@
       "description": "A built-in Omarchy flexoki light theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/flexoki-light",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/flexoki-light",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -400,27 +400,27 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/flexoki-light-2b091784ce-card.webp",
-        "detail": "assets/img/themes/flexoki-light-2b091784ce-detail.webp"
+        "card": "assets/img/themes/flexoki-light-0fa97df921-card.webp",
+        "detail": "assets/img/themes/flexoki-light-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/flexoki-light/backgrounds/1-orb.webp",
-          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-dfccad66f0-thumbnail.webp",
-          "detail": "assets/img/themes/flexoki-light-wallpaper-dfccad66f0-detail.webp"
+          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-17a59597a9-thumbnail.webp",
+          "detail": "assets/img/themes/flexoki-light-wallpaper-17a59597a9-detail.webp"
         },
         {
           "sourcePath": "themes/flexoki-light/backgrounds/2-omarchy.webp",
-          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-f3cc6d7170-thumbnail.webp",
-          "detail": "assets/img/themes/flexoki-light-wallpaper-f3cc6d7170-detail.webp"
+          "thumbnail": "assets/img/themes/flexoki-light-wallpaper-8045ce9445-thumbnail.webp",
+          "detail": "assets/img/themes/flexoki-light-wallpaper-8045ce9445-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -485,7 +485,7 @@
       "addedAt": "2026-08-31",
       "checkedCommit": "0fe2e231e55895dd300937f510194d702b02af26",
       "checkedBranch": "main",
-      "checkedAt": "2026-09-09T08:58:37.874Z",
+      "checkedAt": "2026-09-10T08:57:22.688Z",
       "compatibilityStatus": "passed",
       "preview": {
         "card": "assets/img/themes/giants-a90f2b00a8-card.webp",
@@ -512,7 +512,7 @@
       "description": "A built-in Omarchy gruvbox theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/gruvbox",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/gruvbox",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -562,47 +562,47 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/gruvbox-2b091784ce-card.webp",
-        "detail": "assets/img/themes/gruvbox-2b091784ce-detail.webp"
+        "card": "assets/img/themes/gruvbox-0fa97df921-card.webp",
+        "detail": "assets/img/themes/gruvbox-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/gruvbox/backgrounds/1-the-backwater.jpg",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-9a24c7ccd6-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-9a24c7ccd6-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-56f234300b-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-56f234300b-detail.webp"
         },
         {
           "sourcePath": "themes/gruvbox/backgrounds/2-flower-basket.webp",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-5232a2bc20-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-5232a2bc20-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-4e9a6272a3-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-4e9a6272a3-detail.webp"
         },
         {
           "sourcePath": "themes/gruvbox/backgrounds/3-village-square.jpg",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-b2bc477ed7-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-b2bc477ed7-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-544393ba93-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-544393ba93-detail.webp"
         },
         {
           "sourcePath": "themes/gruvbox/backgrounds/4-idyllic-procession.jpg",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-9bbfb5f901-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-9bbfb5f901-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-afbdaa5398-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-afbdaa5398-detail.webp"
         },
         {
           "sourcePath": "themes/gruvbox/backgrounds/5-leaves.jpg",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-ea7367a9f0-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-ea7367a9f0-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-f263005c43-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-f263005c43-detail.webp"
         },
         {
           "sourcePath": "themes/gruvbox/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/gruvbox-wallpaper-45ad235e28-thumbnail.webp",
-          "detail": "assets/img/themes/gruvbox-wallpaper-45ad235e28-detail.webp"
+          "thumbnail": "assets/img/themes/gruvbox-wallpaper-8304cb8c4a-thumbnail.webp",
+          "detail": "assets/img/themes/gruvbox-wallpaper-8304cb8c4a-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -614,7 +614,7 @@
       "description": "A built-in Omarchy hackerman theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/hackerman",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/hackerman",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -664,32 +664,32 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/hackerman-2b091784ce-card.webp",
-        "detail": "assets/img/themes/hackerman-2b091784ce-detail.webp"
+        "card": "assets/img/themes/hackerman-0fa97df921-card.webp",
+        "detail": "assets/img/themes/hackerman-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/hackerman/backgrounds/1-synth-scape.jpg",
-          "thumbnail": "assets/img/themes/hackerman-wallpaper-e79d845291-thumbnail.webp",
-          "detail": "assets/img/themes/hackerman-wallpaper-e79d845291-detail.webp"
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-db1f9cecbd-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-db1f9cecbd-detail.webp"
         },
         {
           "sourcePath": "themes/hackerman/backgrounds/2-geometric.webp",
-          "thumbnail": "assets/img/themes/hackerman-wallpaper-dac6fb7176-thumbnail.webp",
-          "detail": "assets/img/themes/hackerman-wallpaper-dac6fb7176-detail.webp"
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-253ec52f2d-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-253ec52f2d-detail.webp"
         },
         {
           "sourcePath": "themes/hackerman/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/hackerman-wallpaper-4bd70f6bb1-thumbnail.webp",
-          "detail": "assets/img/themes/hackerman-wallpaper-4bd70f6bb1-detail.webp"
+          "thumbnail": "assets/img/themes/hackerman-wallpaper-9397976732-thumbnail.webp",
+          "detail": "assets/img/themes/hackerman-wallpaper-9397976732-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -701,7 +701,7 @@
       "description": "A built-in Omarchy kanagawa theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/kanagawa",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/kanagawa",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -752,27 +752,27 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/kanagawa-2b091784ce-card.webp",
-        "detail": "assets/img/themes/kanagawa-2b091784ce-detail.webp"
+        "card": "assets/img/themes/kanagawa-0fa97df921-card.webp",
+        "detail": "assets/img/themes/kanagawa-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/kanagawa/backgrounds/1-kanagawa.jpg",
-          "thumbnail": "assets/img/themes/kanagawa-wallpaper-a090ebf38f-thumbnail.webp",
-          "detail": "assets/img/themes/kanagawa-wallpaper-a090ebf38f-detail.webp"
+          "thumbnail": "assets/img/themes/kanagawa-wallpaper-8f4a0c5d76-thumbnail.webp",
+          "detail": "assets/img/themes/kanagawa-wallpaper-8f4a0c5d76-detail.webp"
         },
         {
           "sourcePath": "themes/kanagawa/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/kanagawa-wallpaper-cc34d3ece5-thumbnail.webp",
-          "detail": "assets/img/themes/kanagawa-wallpaper-cc34d3ece5-detail.webp"
+          "thumbnail": "assets/img/themes/kanagawa-wallpaper-3f4df3d944-thumbnail.webp",
+          "detail": "assets/img/themes/kanagawa-wallpaper-3f4df3d944-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -784,7 +784,7 @@
       "description": "A built-in Omarchy last horizon theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/last-horizon",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/last-horizon",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -834,37 +834,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/last-horizon-2b091784ce-card.webp",
-        "detail": "assets/img/themes/last-horizon-2b091784ce-detail.webp"
+        "card": "assets/img/themes/last-horizon-0fa97df921-card.webp",
+        "detail": "assets/img/themes/last-horizon-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/last-horizon/backgrounds/1-eyes-wide.webp",
-          "thumbnail": "assets/img/themes/last-horizon-wallpaper-21d4532e96-thumbnail.webp",
-          "detail": "assets/img/themes/last-horizon-wallpaper-21d4532e96-detail.webp"
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-3f5408ccd1-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-3f5408ccd1-detail.webp"
         },
         {
           "sourcePath": "themes/last-horizon/backgrounds/2-blink.webp",
-          "thumbnail": "assets/img/themes/last-horizon-wallpaper-19213493e2-thumbnail.webp",
-          "detail": "assets/img/themes/last-horizon-wallpaper-19213493e2-detail.webp"
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-963ad98f79-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-963ad98f79-detail.webp"
         },
         {
           "sourcePath": "themes/last-horizon/backgrounds/3-bokeh.webp",
-          "thumbnail": "assets/img/themes/last-horizon-wallpaper-9ac23d1d79-thumbnail.webp",
-          "detail": "assets/img/themes/last-horizon-wallpaper-9ac23d1d79-detail.webp"
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-c0ad8e6a67-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-c0ad8e6a67-detail.webp"
         },
         {
           "sourcePath": "themes/last-horizon/backgrounds/4-new-horizons.jpg",
-          "thumbnail": "assets/img/themes/last-horizon-wallpaper-f4240c6fbd-thumbnail.webp",
-          "detail": "assets/img/themes/last-horizon-wallpaper-f4240c6fbd-detail.webp"
+          "thumbnail": "assets/img/themes/last-horizon-wallpaper-e8427c5011-thumbnail.webp",
+          "detail": "assets/img/themes/last-horizon-wallpaper-e8427c5011-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -876,7 +876,7 @@
       "description": "A built-in Omarchy lumon theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/lumon",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/lumon",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -927,32 +927,32 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/lumon-2b091784ce-card.webp",
-        "detail": "assets/img/themes/lumon-2b091784ce-detail.webp"
+        "card": "assets/img/themes/lumon-0fa97df921-card.webp",
+        "detail": "assets/img/themes/lumon-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/lumon/backgrounds/01-united-in-severance.webp",
-          "thumbnail": "assets/img/themes/lumon-wallpaper-c838cce68c-thumbnail.webp",
-          "detail": "assets/img/themes/lumon-wallpaper-c838cce68c-detail.webp"
+          "thumbnail": "assets/img/themes/lumon-wallpaper-0d4d6927a1-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-0d4d6927a1-detail.webp"
         },
         {
           "sourcePath": "themes/lumon/backgrounds/02-opinions-equally.webp",
-          "thumbnail": "assets/img/themes/lumon-wallpaper-c0d3576de3-thumbnail.webp",
-          "detail": "assets/img/themes/lumon-wallpaper-c0d3576de3-detail.webp"
+          "thumbnail": "assets/img/themes/lumon-wallpaper-9010f53fd0-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-9010f53fd0-detail.webp"
         },
         {
           "sourcePath": "themes/lumon/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/lumon-wallpaper-f94af2bea2-thumbnail.webp",
-          "detail": "assets/img/themes/lumon-wallpaper-f94af2bea2-detail.webp"
+          "thumbnail": "assets/img/themes/lumon-wallpaper-ebe6bf176d-thumbnail.webp",
+          "detail": "assets/img/themes/lumon-wallpaper-ebe6bf176d-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -964,7 +964,7 @@
       "description": "A built-in Omarchy lupine theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/lupine",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/lupine",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -1011,47 +1011,47 @@
       "backgroundCount": 6,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/lupine-2b091784ce-card.webp",
-        "detail": "assets/img/themes/lupine-2b091784ce-detail.webp"
+        "card": "assets/img/themes/lupine-0fa97df921-card.webp",
+        "detail": "assets/img/themes/lupine-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/lupine/backgrounds/01-cherry-blossom-bokeh.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-eda1803fd9-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-eda1803fd9-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-78ecdd5bf7-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-78ecdd5bf7-detail.webp"
         },
         {
           "sourcePath": "themes/lupine/backgrounds/02-cherry-blossom-white.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-12e5ab53a1-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-12e5ab53a1-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-adb9318d9d-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-adb9318d9d-detail.webp"
         },
         {
           "sourcePath": "themes/lupine/backgrounds/03-pastel-clouds.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-83627435c0-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-83627435c0-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-43035bce0f-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-43035bce0f-detail.webp"
         },
         {
           "sourcePath": "themes/lupine/backgrounds/04-elegant-blue-wave.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-eeced0b444-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-eeced0b444-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-f5b9f20ddd-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-f5b9f20ddd-detail.webp"
         },
         {
           "sourcePath": "themes/lupine/backgrounds/05-abstract-wave.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-98a88d641c-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-98a88d641c-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-6e627e6c21-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-6e627e6c21-detail.webp"
         },
         {
           "sourcePath": "themes/lupine/backgrounds/06-omarchy.webp",
-          "thumbnail": "assets/img/themes/lupine-wallpaper-f8ccbd845f-thumbnail.webp",
-          "detail": "assets/img/themes/lupine-wallpaper-f8ccbd845f-detail.webp"
+          "thumbnail": "assets/img/themes/lupine-wallpaper-c2edf0b6f0-thumbnail.webp",
+          "detail": "assets/img/themes/lupine-wallpaper-c2edf0b6f0-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1063,7 +1063,7 @@
       "description": "A built-in Omarchy matte black theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/matte-black",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/matte-black",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1113,37 +1113,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/matte-black-2b091784ce-card.webp",
-        "detail": "assets/img/themes/matte-black-2b091784ce-detail.webp"
+        "card": "assets/img/themes/matte-black-0fa97df921-card.webp",
+        "detail": "assets/img/themes/matte-black-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/matte-black/backgrounds/0-ship-at-sea.jpg",
-          "thumbnail": "assets/img/themes/matte-black-wallpaper-0d82eaddeb-thumbnail.webp",
-          "detail": "assets/img/themes/matte-black-wallpaper-0d82eaddeb-detail.webp"
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-449ba89e18-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-449ba89e18-detail.webp"
         },
         {
           "sourcePath": "themes/matte-black/backgrounds/1-dark-waters.webp",
-          "thumbnail": "assets/img/themes/matte-black-wallpaper-a6c1e3673b-thumbnail.webp",
-          "detail": "assets/img/themes/matte-black-wallpaper-a6c1e3673b-detail.webp"
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-1791dc8d49-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-1791dc8d49-detail.webp"
         },
         {
           "sourcePath": "themes/matte-black/backgrounds/2-dot-hands.webp",
-          "thumbnail": "assets/img/themes/matte-black-wallpaper-233c9e52cc-thumbnail.webp",
-          "detail": "assets/img/themes/matte-black-wallpaper-233c9e52cc-detail.webp"
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-85aa6792ba-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-85aa6792ba-detail.webp"
         },
         {
           "sourcePath": "themes/matte-black/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/matte-black-wallpaper-27dd652b15-thumbnail.webp",
-          "detail": "assets/img/themes/matte-black-wallpaper-27dd652b15-detail.webp"
+          "thumbnail": "assets/img/themes/matte-black-wallpaper-20c387fda4-thumbnail.webp",
+          "detail": "assets/img/themes/matte-black-wallpaper-20c387fda4-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1155,7 +1155,7 @@
       "description": "A built-in Omarchy miasma theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/miasma",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/miasma",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1202,32 +1202,32 @@
       "backgroundCount": 3,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/miasma-2b091784ce-card.webp",
-        "detail": "assets/img/themes/miasma-2b091784ce-detail.webp"
+        "card": "assets/img/themes/miasma-0fa97df921-card.webp",
+        "detail": "assets/img/themes/miasma-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/miasma/backgrounds/01-nature-of-fear.webp",
-          "thumbnail": "assets/img/themes/miasma-wallpaper-a40824b05e-thumbnail.webp",
-          "detail": "assets/img/themes/miasma-wallpaper-a40824b05e-detail.webp"
+          "thumbnail": "assets/img/themes/miasma-wallpaper-bb07a53940-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-bb07a53940-detail.webp"
         },
         {
           "sourcePath": "themes/miasma/backgrounds/02-crowned.webp",
-          "thumbnail": "assets/img/themes/miasma-wallpaper-25aa041983-thumbnail.webp",
-          "detail": "assets/img/themes/miasma-wallpaper-25aa041983-detail.webp"
+          "thumbnail": "assets/img/themes/miasma-wallpaper-c7c04ed3a1-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-c7c04ed3a1-detail.webp"
         },
         {
           "sourcePath": "themes/miasma/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/miasma-wallpaper-1c6864ce92-thumbnail.webp",
-          "detail": "assets/img/themes/miasma-wallpaper-1c6864ce92-detail.webp"
+          "thumbnail": "assets/img/themes/miasma-wallpaper-7f423ab1ef-thumbnail.webp",
+          "detail": "assets/img/themes/miasma-wallpaper-7f423ab1ef-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1239,7 +1239,7 @@
       "description": "A built-in Omarchy nord theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/nord",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/nord",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1289,37 +1289,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/nord-2b091784ce-card.webp",
-        "detail": "assets/img/themes/nord-2b091784ce-detail.webp"
+        "card": "assets/img/themes/nord-0fa97df921-card.webp",
+        "detail": "assets/img/themes/nord-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/nord/backgrounds/0-black-moon.jpg",
-          "thumbnail": "assets/img/themes/nord-wallpaper-022d5237a8-thumbnail.webp",
-          "detail": "assets/img/themes/nord-wallpaper-022d5237a8-detail.webp"
+          "thumbnail": "assets/img/themes/nord-wallpaper-aa304c6ba4-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-aa304c6ba4-detail.webp"
         },
         {
           "sourcePath": "themes/nord/backgrounds/1-city-view.webp",
-          "thumbnail": "assets/img/themes/nord-wallpaper-6a1d50485a-thumbnail.webp",
-          "detail": "assets/img/themes/nord-wallpaper-6a1d50485a-detail.webp"
+          "thumbnail": "assets/img/themes/nord-wallpaper-89673f5227-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-89673f5227-detail.webp"
         },
         {
           "sourcePath": "themes/nord/backgrounds/2-night-hawks.webp",
-          "thumbnail": "assets/img/themes/nord-wallpaper-9e9e452220-thumbnail.webp",
-          "detail": "assets/img/themes/nord-wallpaper-9e9e452220-detail.webp"
+          "thumbnail": "assets/img/themes/nord-wallpaper-4849addb19-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-4849addb19-detail.webp"
         },
         {
           "sourcePath": "themes/nord/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/nord-wallpaper-dfe981dc2d-thumbnail.webp",
-          "detail": "assets/img/themes/nord-wallpaper-dfe981dc2d-detail.webp"
+          "thumbnail": "assets/img/themes/nord-wallpaper-4dde8040ab-thumbnail.webp",
+          "detail": "assets/img/themes/nord-wallpaper-4dde8040ab-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1331,7 +1331,7 @@
       "description": "A built-in Omarchy osaka jade theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/osaka-jade",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/osaka-jade",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1381,37 +1381,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/osaka-jade-2b091784ce-card.webp",
-        "detail": "assets/img/themes/osaka-jade-2b091784ce-detail.webp"
+        "card": "assets/img/themes/osaka-jade-0fa97df921-card.webp",
+        "detail": "assets/img/themes/osaka-jade-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/osaka-jade/backgrounds/1-glowing-city.webp",
-          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-af184b519b-thumbnail.webp",
-          "detail": "assets/img/themes/osaka-jade-wallpaper-af184b519b-detail.webp"
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-01410a2411-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-01410a2411-detail.webp"
         },
         {
           "sourcePath": "themes/osaka-jade/backgrounds/2-shaded-entrance.webp",
-          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-ed994f1a08-thumbnail.webp",
-          "detail": "assets/img/themes/osaka-jade-wallpaper-ed994f1a08-detail.webp"
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-1b9c4c9a87-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-1b9c4c9a87-detail.webp"
         },
         {
           "sourcePath": "themes/osaka-jade/backgrounds/3-mountain-moon.webp",
-          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-56d1b7fb05-thumbnail.webp",
-          "detail": "assets/img/themes/osaka-jade-wallpaper-56d1b7fb05-detail.webp"
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-07b02954c8-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-07b02954c8-detail.webp"
         },
         {
           "sourcePath": "themes/osaka-jade/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-9c99837ca4-thumbnail.webp",
-          "detail": "assets/img/themes/osaka-jade-wallpaper-9c99837ca4-detail.webp"
+          "thumbnail": "assets/img/themes/osaka-jade-wallpaper-17e2d3d512-thumbnail.webp",
+          "detail": "assets/img/themes/osaka-jade-wallpaper-17e2d3d512-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1423,7 +1423,7 @@
       "description": "A built-in Omarchy retro 82 theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/retro-82",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/retro-82",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1474,62 +1474,62 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/retro-82-2b091784ce-card.webp",
-        "detail": "assets/img/themes/retro-82-2b091784ce-detail.webp"
+        "card": "assets/img/themes/retro-82-0fa97df921-card.webp",
+        "detail": "assets/img/themes/retro-82-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/retro-82/backgrounds/1-in-the-groove.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-ad6925c6d8-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-ad6925c6d8-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-bebb567be6-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-bebb567be6-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/2-dusk-guardian.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-2b890273cd-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-2b890273cd-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-649fa5b298-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-649fa5b298-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/3-glassy-lines.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-a15d9b6a27-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-a15d9b6a27-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-3b0c7ac70a-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-3b0c7ac70a-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/4-gateway.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-5608fbe0e6-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-5608fbe0e6-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-3dc9ce0ea3-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-3dc9ce0ea3-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/5-zen-boat.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-cbb3f4d98d-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-cbb3f4d98d-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-2449931b8c-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-2449931b8c-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/6-abstract-pyramids.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-eb3e3d8566-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-eb3e3d8566-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-98b81832ee-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-98b81832ee-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/7-the-journey.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-b84016c493-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-b84016c493-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-307228e50b-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-307228e50b-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/8-glitter-glass.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-32eb69b86b-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-32eb69b86b-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-e2a9444949-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-e2a9444949-detail.webp"
         },
         {
           "sourcePath": "themes/retro-82/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/retro-82-wallpaper-cee87f5a4b-thumbnail.webp",
-          "detail": "assets/img/themes/retro-82-wallpaper-cee87f5a4b-detail.webp"
+          "thumbnail": "assets/img/themes/retro-82-wallpaper-d7ddcc1d66-thumbnail.webp",
+          "detail": "assets/img/themes/retro-82-wallpaper-d7ddcc1d66-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1541,7 +1541,7 @@
       "description": "A built-in Omarchy ristretto theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/ristretto",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/ristretto",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1588,42 +1588,42 @@
       "backgroundCount": 5,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/ristretto-2b091784ce-card.webp",
-        "detail": "assets/img/themes/ristretto-2b091784ce-detail.webp"
+        "card": "assets/img/themes/ristretto-0fa97df921-card.webp",
+        "detail": "assets/img/themes/ristretto-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/ristretto/backgrounds/0-launch.webp",
-          "thumbnail": "assets/img/themes/ristretto-wallpaper-72d89ee052-thumbnail.webp",
-          "detail": "assets/img/themes/ristretto-wallpaper-72d89ee052-detail.webp"
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-ab8f568f0f-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-ab8f568f0f-detail.webp"
         },
         {
           "sourcePath": "themes/ristretto/backgrounds/1-color-curves.webp",
-          "thumbnail": "assets/img/themes/ristretto-wallpaper-bd0fb8ff22-thumbnail.webp",
-          "detail": "assets/img/themes/ristretto-wallpaper-bd0fb8ff22-detail.webp"
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-3d250bf1f2-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-3d250bf1f2-detail.webp"
         },
         {
           "sourcePath": "themes/ristretto/backgrounds/2-coffee-beans.jpg",
-          "thumbnail": "assets/img/themes/ristretto-wallpaper-a96fbb137b-thumbnail.webp",
-          "detail": "assets/img/themes/ristretto-wallpaper-a96fbb137b-detail.webp"
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-9d7a0af67e-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-9d7a0af67e-detail.webp"
         },
         {
           "sourcePath": "themes/ristretto/backgrounds/3-industrial-moon.webp",
-          "thumbnail": "assets/img/themes/ristretto-wallpaper-50944aed45-thumbnail.webp",
-          "detail": "assets/img/themes/ristretto-wallpaper-50944aed45-detail.webp"
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-19ffd2f93b-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-19ffd2f93b-detail.webp"
         },
         {
           "sourcePath": "themes/ristretto/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/ristretto-wallpaper-8c37f18423-thumbnail.webp",
-          "detail": "assets/img/themes/ristretto-wallpaper-8c37f18423-detail.webp"
+          "thumbnail": "assets/img/themes/ristretto-wallpaper-e8425be644-thumbnail.webp",
+          "detail": "assets/img/themes/ristretto-wallpaper-e8425be644-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1635,7 +1635,7 @@
       "description": "A built-in Omarchy rose pine theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/rose-pine",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/rose-pine",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -1685,37 +1685,37 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/rose-pine-2b091784ce-card.webp",
-        "detail": "assets/img/themes/rose-pine-2b091784ce-detail.webp"
+        "card": "assets/img/themes/rose-pine-0fa97df921-card.webp",
+        "detail": "assets/img/themes/rose-pine-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/rose-pine/backgrounds/1-funky-shapes.webp",
-          "thumbnail": "assets/img/themes/rose-pine-wallpaper-ac0041c031-thumbnail.webp",
-          "detail": "assets/img/themes/rose-pine-wallpaper-ac0041c031-detail.webp"
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-eb9d35382d-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-eb9d35382d-detail.webp"
         },
         {
           "sourcePath": "themes/rose-pine/backgrounds/2-dot-map.webp",
-          "thumbnail": "assets/img/themes/rose-pine-wallpaper-f9ff0502ac-thumbnail.webp",
-          "detail": "assets/img/themes/rose-pine-wallpaper-f9ff0502ac-detail.webp"
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-a8c11aa697-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-a8c11aa697-detail.webp"
         },
         {
           "sourcePath": "themes/rose-pine/backgrounds/3-omarchy-plants.webp",
-          "thumbnail": "assets/img/themes/rose-pine-wallpaper-44ce117b59-thumbnail.webp",
-          "detail": "assets/img/themes/rose-pine-wallpaper-44ce117b59-detail.webp"
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-08ec06abe1-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-08ec06abe1-detail.webp"
         },
         {
           "sourcePath": "themes/rose-pine/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/rose-pine-wallpaper-8e53d6ccd8-thumbnail.webp",
-          "detail": "assets/img/themes/rose-pine-wallpaper-8e53d6ccd8-detail.webp"
+          "thumbnail": "assets/img/themes/rose-pine-wallpaper-03100b0138-thumbnail.webp",
+          "detail": "assets/img/themes/rose-pine-wallpaper-03100b0138-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1727,7 +1727,7 @@
       "description": "A built-in Omarchy solitude theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/solitude",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/solitude",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1778,42 +1778,42 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/solitude-2b091784ce-card.webp",
-        "detail": "assets/img/themes/solitude-2b091784ce-detail.webp"
+        "card": "assets/img/themes/solitude-0fa97df921-card.webp",
+        "detail": "assets/img/themes/solitude-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/solitude/backgrounds/1-on-pole.webp",
-          "thumbnail": "assets/img/themes/solitude-wallpaper-1798950e7c-thumbnail.webp",
-          "detail": "assets/img/themes/solitude-wallpaper-1798950e7c-detail.webp"
+          "thumbnail": "assets/img/themes/solitude-wallpaper-142ac44ebc-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-142ac44ebc-detail.webp"
         },
         {
           "sourcePath": "themes/solitude/backgrounds/2-wreakage.webp",
-          "thumbnail": "assets/img/themes/solitude-wallpaper-de5e1c4387-thumbnail.webp",
-          "detail": "assets/img/themes/solitude-wallpaper-de5e1c4387-detail.webp"
+          "thumbnail": "assets/img/themes/solitude-wallpaper-e52acaa408-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-e52acaa408-detail.webp"
         },
         {
           "sourcePath": "themes/solitude/backgrounds/3-climb.jpg",
-          "thumbnail": "assets/img/themes/solitude-wallpaper-2433bdecb8-thumbnail.webp",
-          "detail": "assets/img/themes/solitude-wallpaper-2433bdecb8-detail.webp"
+          "thumbnail": "assets/img/themes/solitude-wallpaper-01c611abe4-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-01c611abe4-detail.webp"
         },
         {
           "sourcePath": "themes/solitude/backgrounds/4-ether.webp",
-          "thumbnail": "assets/img/themes/solitude-wallpaper-c4d95003d2-thumbnail.webp",
-          "detail": "assets/img/themes/solitude-wallpaper-c4d95003d2-detail.webp"
+          "thumbnail": "assets/img/themes/solitude-wallpaper-31bb66791f-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-31bb66791f-detail.webp"
         },
         {
           "sourcePath": "themes/solitude/backgrounds/5-eyed.jpg",
-          "thumbnail": "assets/img/themes/solitude-wallpaper-9ecd0934b9-thumbnail.webp",
-          "detail": "assets/img/themes/solitude-wallpaper-9ecd0934b9-detail.webp"
+          "thumbnail": "assets/img/themes/solitude-wallpaper-19ce29975d-thumbnail.webp",
+          "detail": "assets/img/themes/solitude-wallpaper-19ce29975d-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1825,7 +1825,7 @@
       "description": "A built-in Omarchy tokyo night theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/tokyo-night",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/tokyo-night",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1875,57 +1875,57 @@
         "vscode.json"
       ],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/tokyo-night-2b091784ce-card.webp",
-        "detail": "assets/img/themes/tokyo-night-2b091784ce-detail.webp"
+        "card": "assets/img/themes/tokyo-night-0fa97df921-card.webp",
+        "detail": "assets/img/themes/tokyo-night-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/tokyo-night/backgrounds/0-winding-road.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-a9734c0793-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-a9734c0793-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-cd916bde40-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-cd916bde40-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/1-quattro.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-bfb886f0dc-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-bfb886f0dc-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-157f245cca-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-157f245cca-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/2-swirl-buck.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-2c7b51cf75-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-2c7b51cf75-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-4a79336966-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-4a79336966-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/3-sunset-lake.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-e31dbca46b-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-e31dbca46b-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-81760e4e18-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-81760e4e18-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/4-omakub.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-45a18cafe5-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-45a18cafe5-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-04e0f81b13-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-04e0f81b13-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/5-oma-cityscape.jpg",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-b54d897e9a-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-b54d897e9a-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-556498bb20-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-556498bb20-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/6-oma.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-61b03376dd-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-61b03376dd-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-588cd98f69-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-588cd98f69-detail.webp"
         },
         {
           "sourcePath": "themes/tokyo-night/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-0ad282aeba-thumbnail.webp",
-          "detail": "assets/img/themes/tokyo-night-wallpaper-0ad282aeba-detail.webp"
+          "thumbnail": "assets/img/themes/tokyo-night-wallpaper-b35ea76f18-thumbnail.webp",
+          "detail": "assets/img/themes/tokyo-night-wallpaper-b35ea76f18-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -1937,7 +1937,7 @@
       "description": "A built-in Omarchy vantablack theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/vantablack",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/vantablack",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "dark",
@@ -1984,42 +1984,42 @@
       "backgroundCount": 5,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/vantablack-2b091784ce-card.webp",
-        "detail": "assets/img/themes/vantablack-2b091784ce-detail.webp"
+        "card": "assets/img/themes/vantablack-0fa97df921-card.webp",
+        "detail": "assets/img/themes/vantablack-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/vantablack/backgrounds/0-dot-hands.webp",
-          "thumbnail": "assets/img/themes/vantablack-wallpaper-b2860322fc-thumbnail.webp",
-          "detail": "assets/img/themes/vantablack-wallpaper-b2860322fc-detail.webp"
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-95234142ee-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-95234142ee-detail.webp"
         },
         {
           "sourcePath": "themes/vantablack/backgrounds/1-twisted-stairs.webp",
-          "thumbnail": "assets/img/themes/vantablack-wallpaper-a9903efdff-thumbnail.webp",
-          "detail": "assets/img/themes/vantablack-wallpaper-a9903efdff-detail.webp"
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-9d96ae8b96-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-9d96ae8b96-detail.webp"
         },
         {
           "sourcePath": "themes/vantablack/backgrounds/2-layers-deep.webp",
-          "thumbnail": "assets/img/themes/vantablack-wallpaper-ccaea2ff86-thumbnail.webp",
-          "detail": "assets/img/themes/vantablack-wallpaper-ccaea2ff86-detail.webp"
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-7549bb24ea-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-7549bb24ea-detail.webp"
         },
         {
           "sourcePath": "themes/vantablack/backgrounds/3-layers-stacked.webp",
-          "thumbnail": "assets/img/themes/vantablack-wallpaper-74bdaa4eb3-thumbnail.webp",
-          "detail": "assets/img/themes/vantablack-wallpaper-74bdaa4eb3-detail.webp"
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-4146e86b86-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-4146e86b86-detail.webp"
         },
         {
           "sourcePath": "themes/vantablack/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/vantablack-wallpaper-bf1cc02f41-thumbnail.webp",
-          "detail": "assets/img/themes/vantablack-wallpaper-bf1cc02f41-detail.webp"
+          "thumbnail": "assets/img/themes/vantablack-wallpaper-49b3d4c736-thumbnail.webp",
+          "detail": "assets/img/themes/vantablack-wallpaper-49b3d4c736-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
@@ -2031,7 +2031,7 @@
       "description": "A built-in Omarchy white theme.",
       "author": "Omarchy",
       "repo": "https://github.com/omacom/omarchy",
-      "sourceUrl": "https://github.com/omacom/omarchy/tree/5b91db503c904bbfc5f34bdaaa9c708814958f3d/themes/white",
+      "sourceUrl": "https://github.com/omacom/omarchy/tree/8ea51516390320f8e768808b230098e67bdaa82c/themes/white",
       "sourceType": "builtin",
       "builtIn": true,
       "mode": "light",
@@ -2078,37 +2078,37 @@
       "backgroundCount": 4,
       "ignoredFiles": [],
       "license": "MIT",
-      "stars": 39547,
-      "repositoryUpdatedAt": "2026-09-09T08:20:16Z",
+      "stars": 39870,
+      "repositoryUpdatedAt": "2026-09-10T07:23:38Z",
       "addedAt": "",
-      "checkedCommit": "5b91db503c904bbfc5f34bdaaa9c708814958f3d",
+      "checkedCommit": "8ea51516390320f8e768808b230098e67bdaa82c",
       "checkedBranch": "quattro",
-      "checkedAt": "2026-09-09T08:57:38.001Z",
+      "checkedAt": "2026-09-10T08:56:24.088Z",
       "compatibilityStatus": "passed",
       "preview": {
-        "card": "assets/img/themes/white-2b091784ce-card.webp",
-        "detail": "assets/img/themes/white-2b091784ce-detail.webp"
+        "card": "assets/img/themes/white-0fa97df921-card.webp",
+        "detail": "assets/img/themes/white-0fa97df921-detail.webp"
       },
       "wallpapers": [
         {
           "sourcePath": "themes/white/backgrounds/1-white.webp",
-          "thumbnail": "assets/img/themes/white-wallpaper-ab6d430fc1-thumbnail.webp",
-          "detail": "assets/img/themes/white-wallpaper-ab6d430fc1-detail.webp"
+          "thumbnail": "assets/img/themes/white-wallpaper-bfae77177d-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-bfae77177d-detail.webp"
         },
         {
           "sourcePath": "themes/white/backgrounds/2-white.webp",
-          "thumbnail": "assets/img/themes/white-wallpaper-b57dd3f92c-thumbnail.webp",
-          "detail": "assets/img/themes/white-wallpaper-b57dd3f92c-detail.webp"
+          "thumbnail": "assets/img/themes/white-wallpaper-791ac913f0-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-791ac913f0-detail.webp"
         },
         {
           "sourcePath": "themes/white/backgrounds/3-white.webp",
-          "thumbnail": "assets/img/themes/white-wallpaper-7f84b32dce-thumbnail.webp",
-          "detail": "assets/img/themes/white-wallpaper-7f84b32dce-detail.webp"
+          "thumbnail": "assets/img/themes/white-wallpaper-ea58136b33-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-ea58136b33-detail.webp"
         },
         {
           "sourcePath": "themes/white/backgrounds/omarchy.webp",
-          "thumbnail": "assets/img/themes/white-wallpaper-e3428b5374-thumbnail.webp",
-          "detail": "assets/img/themes/white-wallpaper-e3428b5374-detail.webp"
+          "thumbnail": "assets/img/themes/white-wallpaper-9309aebb7d-thumbnail.webp",
+          "detail": "assets/img/themes/white-wallpaper-9309aebb7d-detail.webp"
         }
       ],
       "wallpaperGalleryTruncated": false
